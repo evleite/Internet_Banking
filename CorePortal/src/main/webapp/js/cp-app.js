@@ -1,26 +1,26 @@
 'use strict';
 
-var cpApp = angular.module('corePortalApp', ['ngResource', 'ngRoute', 'ui.bootstrap']);
+var cpApp = angular.module('corePortalApp', ['ngRoute']);
 
 cpApp.config(function($routeProvider){
 	$routeProvider
 	.when(
 			'/about',
 			{
-				template: 'views/cp-about.html'
+				templateUrl: 'views/cp-about.html'
 			}
 		)
 		.when(
 			'/login',
 			{
-				template: 'views/cp-login-form.html',
+				templateUrl: 'views/cp-login-form.html',
 				controller: 'cpLoginCtrl'
 			}
 		)
 		.when(
 			'/errorPage',
 			{
-				template: 'views/cp-error-page.html'
+				templateUrl: 'views/cp-error-page.html'
 			}
 		);
 
