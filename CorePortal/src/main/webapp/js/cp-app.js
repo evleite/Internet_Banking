@@ -1,6 +1,6 @@
 'use strict';
 
-var cpApp = angular.module('corePortalApp', ['ngRoute']);
+var cpApp = angular.module('corePortalApp', ['ngRoute','ngResource']);
 
 cpApp.config(function($routeProvider){
 	$routeProvider
@@ -14,15 +14,15 @@ cpApp.config(function($routeProvider){
 			'/login',
 			{
 				templateUrl: 'views/cp-login-form.html',
-				controller: 'cpLoginCtrl'
+				controller: 'CPLoginCtrl'
 			}
 		)
 		.when(
-			'/errorPage',
+			'/error',
 			{
 				templateUrl: 'views/cp-error-page.html'
 			}
 		);
 
-	$routeProvider.otherwise({redirectTo: '/errorPage'});
+	$routeProvider.otherwise({redirectTo: '/error'});
 });

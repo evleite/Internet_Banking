@@ -1,6 +1,6 @@
 'use strict';
 
-var hbApp = angular.module('homeBankApp', ['ngRoute']);
+var hbApp = angular.module('homeBankApp', ['ngRoute', 'ngResource']);
 
 hbApp.config(function($routeProvider){
 	$routeProvider
@@ -14,15 +14,15 @@ hbApp.config(function($routeProvider){
 		'/login',
 		{
 			templateUrl: 'views/hb-login-form.html',
-			controller: 'hbLoginCtrl'
+			controller: 'HBLoginCtrl'
 		}
 	)
 	.when(
-		'/errorPage',
+		'/error',
 		{
 			templateUrl: 'views/hb-error-page.html'
 		}
 	);
 
-	$routeProvider.otherwise({redirectTo: '/errorPage'});
+	$routeProvider.otherwise({redirectTo: '/error'});
 });

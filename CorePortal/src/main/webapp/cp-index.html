@@ -13,20 +13,22 @@
 <script src="js/bootstrap/bootstrap.js"></script>
 <script src="js/angular/angular.js"></script>
 <script src="js/angular/angular-route.js"></script>
+<script src="js/angular/angular-resource.js"></script>
 
 <script src="js/cp-app.js"></script>
+<script src="js/controllers/cp-login-controller.js"></script>
+<script src="js/services/cp-login-service.js"></script>
 </head>
 <body ng-app="corePortalApp">
 	<div class="container">
 		<div class="row">
 			<div class="jumbotron header">
 				<h1>Core Portal</h1>
+				<h2>Hello World from Core Portal!</h2>
 			</div>
 		</div>
 		<div class="row">
 			<div class="content">
-				<h2>Hello World from Core Portal!</h2>
-				<a ng-href="#/login">Login</a>| <a ng-href="#/about">About</a>
 				<div ng-view></div>
 			</div>
 		</div>
