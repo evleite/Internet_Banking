@@ -1,0 +1,10 @@
+package cp.utils.enums;
+
+public enum RatesType {
+	SAVING_ACC_LOCAL_CURR,
+	SAVING_ACC_EURO,
+	SAVING_ACC_USD,
+	CREDIT_CARD_LOCAL_CURR,
+	CREDIT_CARD_EURO,
+	CREDIT_CARD_USD
+}

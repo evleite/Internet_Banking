@@ -2,8 +2,8 @@ package cp.services;
 
 import javax.ejb.Singleton;
 
-import cp.common.UserRoles;
 import cp.models.User;
+import cp.utils.UserRoles;
 
 @Singleton
 public class UserService {

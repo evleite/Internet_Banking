@@ -1,6 +1,6 @@
 package cp.models;
 
-import cp.common.UserRoles;
+import cp.utils.UserRoles;
 
 public class User {
 	
