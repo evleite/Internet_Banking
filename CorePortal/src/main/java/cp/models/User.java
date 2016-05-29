@@ -1,29 +1,17 @@
 package cp.models;
 
-import cp.utils.UserRoles;
-
 public class User {
 	
-	private UserRoles userRole;
 	private String username;
 	private String password;
 	
 	
 	public User() {}
 	
-	public User(UserRoles userRole, String username, String password) {
+	public User(String username, String password) {
 		super();
-		this.userRole = userRole;
 		this.username = username;
 		this.password = password;
-	}
-
-	public UserRoles getUserRole() {
-		return userRole;
-	}
-
-	public void setUserRole(UserRoles userRole) {
-		this.userRole = userRole;
 	}
 
 	public String getUsername() {
@@ -44,6 +32,6 @@ public class User {
 	
 	@Override
 	public String toString() {
-		return username + ":" + password + ":" + userRole;
+		return username + ":" + password;
 	}
 }
