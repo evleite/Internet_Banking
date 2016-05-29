@@ -1,4 +1,4 @@
-package cp.models;
+package hb.models;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
-@Table(name="users_cp")
+@Table(name="users_hb")
 public class User extends AbstractModel implements Serializable{
 	
 	private static final long serialVersionUID = -7538073709867474311L;
@@ -32,6 +32,8 @@ public class User extends AbstractModel implements Serializable{
 	private String address;
 	@NotNull
 	private String telephone;
+	@NotNull
+	private String auth_type;
 		
 	public User() {
 		super();
@@ -43,10 +45,11 @@ public class User extends AbstractModel implements Serializable{
 		this.email = null;
 		this.address = null;
 		this.telephone = null;
+		this.auth_type = null;
 	}
 	
 	public User(String username, String password, String firstname, String lastname, String cNP, String email,
-			String address, String telephone) {
+			String address, String telephone, String auth_type) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -56,6 +59,7 @@ public class User extends AbstractModel implements Serializable{
 		this.email = email;
 		this.address = address;
 		this.telephone = telephone;
+		this.auth_type = auth_type;
 	}
 	
 	public String getUsername() {
@@ -106,12 +110,21 @@ public class User extends AbstractModel implements Serializable{
 	public void setTelephone(String telephone) {
 		this.telephone = telephone;
 	}
+	
+	public String getAuth_type() {
+		return auth_type;
+	}
+	public void setAuth_type(String auth_type) {
+		this.auth_type = auth_type;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((CNP == null) ? 0 : CNP.hashCode());
 		result = prime * result + ((address == null) ? 0 : address.hashCode());
+		result = prime * result + ((auth_type == null) ? 0 : auth_type.hashCode());
 		result = prime * result + ((email == null) ? 0 : email.hashCode());
 		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
 		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
@@ -120,6 +133,7 @@ public class User extends AbstractModel implements Serializable{
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -138,6 +152,11 @@ public class User extends AbstractModel implements Serializable{
 			if (other.address != null)
 				return false;
 		} else if (!address.equals(other.address))
+			return false;
+		if (auth_type == null) {
+			if (other.auth_type != null)
+				return false;
+		} else if (!auth_type.equals(other.auth_type))
 			return false;
 		if (email == null) {
 			if (other.email != null)

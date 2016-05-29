@@ -1,4 +1,4 @@
-package cp.utils.enums;
+package hb.utils.enums;
 
 public enum TokenType {
 	E_TOKEN,
