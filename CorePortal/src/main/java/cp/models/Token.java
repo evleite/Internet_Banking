@@ -3,6 +3,9 @@ package cp.models;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -15,6 +18,9 @@ public class Token extends AbstractModel implements Serializable {
 
 	private static final long serialVersionUID = -4822196739971621567L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	@NotNull
 	@Min(100000)
 	private Long serial;
@@ -32,6 +38,9 @@ public class Token extends AbstractModel implements Serializable {
 		this.token_type = token_type;
 	}
 	
+	public Long getId() {
+		return id;
+	}
 	public Long getSerial() {
 		return serial;
 	}
@@ -47,7 +56,7 @@ public class Token extends AbstractModel implements Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((serial == null) ? 0 : serial.hashCode());
 		result = prime * result + ((token_type == null) ? 0 : token_type.hashCode());
 		return result;
@@ -56,7 +65,7 @@ public class Token extends AbstractModel implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -66,10 +75,7 @@ public class Token extends AbstractModel implements Serializable {
 				return false;
 		} else if (!serial.equals(other.serial))
 			return false;
-		if (token_type == null) {
-			if (other.token_type != null)
-				return false;
-		} else if (!token_type.equals(other.token_type))
+		if (token_type != other.token_type)
 			return false;
 		return true;
 	}

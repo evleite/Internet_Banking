@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -20,6 +23,9 @@ public class Transaction extends AbstractModel implements Serializable {
 
 	private static final long serialVersionUID = 4102815835748372862L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	@NotNull
 	@Size(min = 24, max = 34)
 	private String payer_IBAN;
@@ -32,7 +38,7 @@ public class Transaction extends AbstractModel implements Serializable {
 	@Min(0)
 	private Double amount;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "id_comm", nullable = false)
 	private Commision trans_comm;
 	@NotNull
 	private String details;
@@ -71,6 +77,9 @@ public class Transaction extends AbstractModel implements Serializable {
 		this.status = status;
 	}
 	
+	public Long getId() {
+		return id;
+	}
 	public String getPayer_IBAN() {
 		return payer_IBAN;
 	}
@@ -116,20 +125,21 @@ public class Transaction extends AbstractModel implements Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((amount == null) ? 0 : amount.hashCode());
 		result = prime * result + ((beneficiary_IBAN == null) ? 0 : beneficiary_IBAN.hashCode());
-		result = prime * result + ((trans_comm == null) ? 0 : trans_comm.hashCode());
+		result = prime * result + ((details == null) ? 0 : details.hashCode());
 		result = prime * result + ((payer_IBAN == null) ? 0 : payer_IBAN.hashCode());
-		result = prime * result + ((trans_type == null) ? 0 : trans_type.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
+		result = prime * result + ((trans_comm == null) ? 0 : trans_comm.hashCode());
+		result = prime * result + ((trans_type == null) ? 0 : trans_type.hashCode());
 		return result;
 	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -144,25 +154,24 @@ public class Transaction extends AbstractModel implements Serializable {
 				return false;
 		} else if (!beneficiary_IBAN.equals(other.beneficiary_IBAN))
 			return false;
-		if (trans_comm == null) {
-			if (other.trans_comm != null)
+		if (details == null) {
+			if (other.details != null)
 				return false;
-		} else if (!trans_comm.equals(other.trans_comm))
+		} else if (!details.equals(other.details))
 			return false;
 		if (payer_IBAN == null) {
 			if (other.payer_IBAN != null)
 				return false;
 		} else if (!payer_IBAN.equals(other.payer_IBAN))
 			return false;
-		if (trans_type == null) {
-			if (other.trans_type != null)
-				return false;
-		} else if (!trans_type.equals(other.trans_type))
+		if (status != other.status)
 			return false;
-		if (status == null) {
-			if (other.status != null)
+		if (trans_comm == null) {
+			if (other.trans_comm != null)
 				return false;
-		} else if (!status.equals(other.status))
+		} else if (!trans_comm.equals(other.trans_comm))
+			return false;
+		if (trans_type != other.trans_type)
 			return false;
 		return true;
 	}

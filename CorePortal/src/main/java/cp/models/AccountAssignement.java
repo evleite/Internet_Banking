@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,8 +17,11 @@ public class AccountAssignement extends AbstractAssignement implements Serializa
 
 	private static final long serialVersionUID = 462842833438116887L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "id_account", nullable = false)
 	private Account account;
 
 	public AccountAssignement() {
@@ -27,6 +33,9 @@ public class AccountAssignement extends AbstractAssignement implements Serializa
 		this.account = account;
 	}
 	
+	public Long getId() {
+		return id;
+	}
 	public Account getAccount() {
 		return account;
 	}

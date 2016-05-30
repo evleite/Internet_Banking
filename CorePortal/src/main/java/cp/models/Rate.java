@@ -3,6 +3,9 @@ package cp.models;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -16,6 +19,9 @@ public class Rate extends AbstractModel implements Serializable {
 
 	private static final long serialVersionUID = 6023593720134642339L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	@NotNull
 	private RatesType rate_type;
 	@NotNull
@@ -43,6 +49,9 @@ public class Rate extends AbstractModel implements Serializable {
 		this.details = details;
 	}
 	
+	public Long getId() {
+		return id;
+	}
 	public RatesType getRate_type() {
 		return rate_type;
 	}
@@ -64,7 +73,8 @@ public class Rate extends AbstractModel implements Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
+		result = prime * result + ((details == null) ? 0 : details.hashCode());
 		result = prime * result + ((rate_type == null) ? 0 : rate_type.hashCode());
 		result = prime * result + ((year_percentage == null) ? 0 : year_percentage.hashCode());
 		return result;
@@ -73,15 +83,17 @@ public class Rate extends AbstractModel implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		Rate other = (Rate) obj;
-		if (rate_type == null) {
-			if (other.rate_type != null)
+		if (details == null) {
+			if (other.details != null)
 				return false;
-		} else if (!rate_type.equals(other.rate_type))
+		} else if (!details.equals(other.details))
+			return false;
+		if (rate_type != other.rate_type)
 			return false;
 		if (year_percentage == null) {
 			if (other.year_percentage != null)

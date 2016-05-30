@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
 public abstract class AbstractAssignement extends AbstractModel {
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "id_user", nullable = false)
 	private User user;
 
 	public User getUser() {
@@ -24,7 +24,7 @@ public abstract class AbstractAssignement extends AbstractModel {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
@@ -33,7 +33,7 @@ public abstract class AbstractAssignement extends AbstractModel {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -45,4 +45,6 @@ public abstract class AbstractAssignement extends AbstractModel {
 			return false;
 		return true;
 	}
+
+	
 }

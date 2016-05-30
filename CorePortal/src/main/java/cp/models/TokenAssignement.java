@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,8 +17,11 @@ public class TokenAssignement extends AbstractAssignement implements Serializabl
 
 	private static final long serialVersionUID = -7732711772401797179L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "id_token", nullable = false)
 	private Token token;
 
 	public TokenAssignement() {
@@ -26,20 +32,22 @@ public class TokenAssignement extends AbstractAssignement implements Serializabl
 		super();
 		this.token = token;
 	}
+	
+	public Long getId() {
+		return id;
+	}
+	public Token getToken() {
+		return token;
+	}
+	public void setToken(Token token) {
+		this.token = token;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((token == null) ? 0 : token.hashCode());
 		return result;
-	}
-	
-	
-	public Token getToken() {
-		return token;
-	}
-	public void setToken(Token token) {
-		this.token = token;
 	}
 	@Override
 	public boolean equals(Object obj) {

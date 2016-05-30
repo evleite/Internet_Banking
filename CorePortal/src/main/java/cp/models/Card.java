@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -20,6 +23,9 @@ public class Card extends AbstractModel implements Serializable {
 
 	private static final long serialVersionUID = 4607711123515271882L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	@NotNull
 	@Size(min = 16, max = 16)
 	private String card_no;
@@ -28,7 +34,7 @@ public class Card extends AbstractModel implements Serializable {
 	@NotNull
 	private CardValidityDate validity;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "id_rate", nullable = false)
 	private Rate rate;
 	@NotNull
 	private Double daily_limit;
@@ -57,6 +63,9 @@ public class Card extends AbstractModel implements Serializable {
 		this.daily_limit = daily_limit;
 	}
 	
+	public Long getId() {
+		return id;
+	}
 	public String getCard_no() {
 		return card_no;
 	}
@@ -90,7 +99,7 @@ public class Card extends AbstractModel implements Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((card_no == null) ? 0 : card_no.hashCode());
 		return result;
 	}
@@ -98,7 +107,7 @@ public class Card extends AbstractModel implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;

@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -12,6 +15,7 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import cp.utils.enums.AccountType;
+import cp.utils.enums.Currencies;
 import cp.utils.enums.RatesType;
 
 @Entity
@@ -20,18 +24,21 @@ public class Account extends AbstractModel implements Serializable {
 
 	private static final long serialVersionUID = 3944846479256785516L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;	
 	@NotNull
 	@Size(min = 24, max = 34)
 	private String IBAN;
 	@NotNull
 	private AccountType acc_type;
 	@NotNull
-	private String currency;
+	private Currencies currency;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "id_comm", nullable = false)
 	private Commision comm_admin;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "id_rate", nullable = false)
 	private Rate rate;
 	@NotNull
 	private Double balance;
@@ -44,7 +51,7 @@ public class Account extends AbstractModel implements Serializable {
 		this.comm_admin = null;
 		this.rate = null;
 	}
-	public Account(String iBAN, AccountType acc_type, String currency, Commision comm_admin, Double balance) {
+	public Account(String iBAN, AccountType acc_type, Currencies currency, Commision comm_admin, Double balance) {
 		super();
 		IBAN = iBAN;
 		this.acc_type = acc_type;
@@ -53,7 +60,7 @@ public class Account extends AbstractModel implements Serializable {
 		this.rate = new Rate(RatesType.N_A, 0.0);
 		this.balance = balance;
 	}
-	public Account(String iBAN, AccountType acc_type, String currency, Commision comm_admin, Rate rate, Double balance) {
+	public Account(String iBAN, AccountType acc_type, Currencies currency, Commision comm_admin, Rate rate, Double balance) {
 		super();
 		IBAN = iBAN;
 		this.acc_type = acc_type;
@@ -63,6 +70,9 @@ public class Account extends AbstractModel implements Serializable {
 		this.balance = balance;
 	}
 	
+	public Long getId() {
+		return id;
+	}
 	public String getIBAN() {
 		return IBAN;
 	}
@@ -75,10 +85,10 @@ public class Account extends AbstractModel implements Serializable {
 	public void setAcc_type(AccountType acc_type) {
 		this.acc_type = acc_type;
 	}
-	public String getCurrency() {
+	public Currencies getCurrency() {
 		return currency;
 	}
-	public void setCurrency(String currency) {
+	public void setCurrency(Currencies currency) {
 		this.currency = currency;
 	}
 	public Commision getId_comm_admin() {
@@ -102,7 +112,7 @@ public class Account extends AbstractModel implements Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((IBAN == null) ? 0 : IBAN.hashCode());
 		return result;
 	}
@@ -110,7 +120,7 @@ public class Account extends AbstractModel implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -121,5 +131,5 @@ public class Account extends AbstractModel implements Serializable {
 		} else if (!IBAN.equals(other.IBAN))
 			return false;
 		return true;
-	}
+	}	
 }

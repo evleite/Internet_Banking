@@ -3,6 +3,9 @@ package hb.models;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -15,6 +18,9 @@ public class ExchangeRates extends AbstractModel implements Serializable {
 
 	private static final long serialVersionUID = 1328749313174938239L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	@NotNull
 	private Currencies currency;
 	@NotNull
@@ -37,6 +43,9 @@ public class ExchangeRates extends AbstractModel implements Serializable {
 		this.buy = buy;
 	}
 	
+	public Long getId() {
+		return id;
+	}
 	public Currencies getCurrency() {
 		return currency;
 	}
@@ -58,7 +67,7 @@ public class ExchangeRates extends AbstractModel implements Serializable {
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((buy == null) ? 0 : buy.hashCode());
 		result = prime * result + ((currency == null) ? 0 : currency.hashCode());
 		result = prime * result + ((sell == null) ? 0 : sell.hashCode());
@@ -68,7 +77,7 @@ public class ExchangeRates extends AbstractModel implements Serializable {
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -78,10 +87,7 @@ public class ExchangeRates extends AbstractModel implements Serializable {
 				return false;
 		} else if (!buy.equals(other.buy))
 			return false;
-		if (currency == null) {
-			if (other.currency != null)
-				return false;
-		} else if (!currency.equals(other.currency))
+		if (currency != other.currency)
 			return false;
 		if (sell == null) {
 			if (other.sell != null)

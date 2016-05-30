@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -14,11 +17,14 @@ public class CardAssignement extends AbstractAssignement implements Serializable
 
 	private static final long serialVersionUID = 8192026615077332652L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "id_card", nullable = false)
 	private Card card;
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id", nullable = false)
+	@JoinColumn(name = "id_account", nullable = false)
 	private Account account;
 	
 	public CardAssignement() {
@@ -32,6 +38,9 @@ public class CardAssignement extends AbstractAssignement implements Serializable
 		this.account = account;
 	}
 	
+	public Long getId() {
+		return id;
+	}
 	public Card getCard() {
 		return card;
 	}

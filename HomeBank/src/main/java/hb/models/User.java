@@ -3,6 +3,9 @@ package hb.models;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -15,6 +18,9 @@ public class User extends AbstractModel implements Serializable{
 	
 	private static final long serialVersionUID = -7538073709867474311L;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	private Long id;
 	@NotNull
 	@Size(min = 4, max = 30)
 	private String username;
@@ -64,6 +70,9 @@ public class User extends AbstractModel implements Serializable{
 		this.auth_type = auth_type;
 	}
 	
+	public Long getId() {
+		return id;
+	}
 	public String getUsername() {
 		return username;
 	}
@@ -123,15 +132,7 @@ public class User extends AbstractModel implements Serializable{
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
-		result = prime * result + ((CNP == null) ? 0 : CNP.hashCode());
-		result = prime * result + ((address == null) ? 0 : address.hashCode());
-		result = prime * result + ((auth_type == null) ? 0 : auth_type.hashCode());
-		result = prime * result + ((email == null) ? 0 : email.hashCode());
-		result = prime * result + ((firstname == null) ? 0 : firstname.hashCode());
-		result = prime * result + ((lastname == null) ? 0 : lastname.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
-		result = prime * result + ((telephone == null) ? 0 : telephone.hashCode());
+		int result = 1;
 		result = prime * result + ((username == null) ? 0 : username.hashCode());
 		return result;
 	}
@@ -140,51 +141,11 @@ public class User extends AbstractModel implements Serializable{
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
 		User other = (User) obj;
-		if (CNP == null) {
-			if (other.CNP != null)
-				return false;
-		} else if (!CNP.equals(other.CNP))
-			return false;
-		if (address == null) {
-			if (other.address != null)
-				return false;
-		} else if (!address.equals(other.address))
-			return false;
-		if (auth_type == null) {
-			if (other.auth_type != null)
-				return false;
-		} else if (!auth_type.equals(other.auth_type))
-			return false;
-		if (email == null) {
-			if (other.email != null)
-				return false;
-		} else if (!email.equals(other.email))
-			return false;
-		if (firstname == null) {
-			if (other.firstname != null)
-				return false;
-		} else if (!firstname.equals(other.firstname))
-			return false;
-		if (lastname == null) {
-			if (other.lastname != null)
-				return false;
-		} else if (!lastname.equals(other.lastname))
-			return false;
-		if (password == null) {
-			if (other.password != null)
-				return false;
-		} else if (!password.equals(other.password))
-			return false;
-		if (telephone == null) {
-			if (other.telephone != null)
-				return false;
-		} else if (!telephone.equals(other.telephone))
-			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
