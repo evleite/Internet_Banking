@@ -1,4 +1,4 @@
-package hb.utils.enums;
+package cp.utils.enums;
 
 public enum RatesType {
 	SAVING_ACC_LOCAL_CURR,

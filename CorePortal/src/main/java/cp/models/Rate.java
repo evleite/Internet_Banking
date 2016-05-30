@@ -8,6 +8,8 @@ import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import cp.utils.enums.RatesType;
+
 @Entity
 @Table(name="rates")
 public class Rate extends AbstractModel implements Serializable {
@@ -15,7 +17,7 @@ public class Rate extends AbstractModel implements Serializable {
 	private static final long serialVersionUID = 6023593720134642339L;
 	
 	@NotNull
-	private String rate_type;
+	private RatesType rate_type;
 	@NotNull
 	@Min(0)
 	@Max(100)
@@ -28,23 +30,23 @@ public class Rate extends AbstractModel implements Serializable {
 		this.rate_type = null;
 		this.year_percentage = null;
 	}
-	public Rate(String rate_type, Double year_percentage) {
+	public Rate(RatesType rate_type, Double year_percentage) {
 		super();
 		this.rate_type = rate_type;
 		this.year_percentage = year_percentage;
 		this.details = "N/A";
 	}
-	public Rate(String rate_type, Double year_percentage, String details) {
+	public Rate(RatesType rate_type, Double year_percentage, String details) {
 		super();
 		this.rate_type = rate_type;
 		this.year_percentage = year_percentage;
 		this.details = details;
 	}
 	
-	public String getRate_type() {
+	public RatesType getRate_type() {
 		return rate_type;
 	}
-	public void setRate_type(String rate_type) {
+	public void setRate_type(RatesType rate_type) {
 		this.rate_type = rate_type;
 	}
 	public Double getYear_percentage() {

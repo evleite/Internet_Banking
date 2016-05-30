@@ -7,6 +7,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import hb.utils.enums.AuthenticationType;
+
 @Entity
 @Table(name="users_hb")
 public class User extends AbstractModel implements Serializable{
@@ -33,7 +35,7 @@ public class User extends AbstractModel implements Serializable{
 	@NotNull
 	private String telephone;
 	@NotNull
-	private String auth_type;
+	private AuthenticationType auth_type;
 		
 	public User() {
 		super();
@@ -49,7 +51,7 @@ public class User extends AbstractModel implements Serializable{
 	}
 	
 	public User(String username, String password, String firstname, String lastname, String cNP, String email,
-			String address, String telephone, String auth_type) {
+			String address, String telephone, AuthenticationType auth_type) {
 		super();
 		this.username = username;
 		this.password = password;
@@ -111,10 +113,10 @@ public class User extends AbstractModel implements Serializable{
 		this.telephone = telephone;
 	}
 	
-	public String getAuth_type() {
+	public AuthenticationType getAuth_type() {
 		return auth_type;
 	}
-	public void setAuth_type(String auth_type) {
+	public void setAuth_type(AuthenticationType auth_type) {
 		this.auth_type = auth_type;
 	}
 

@@ -11,6 +11,8 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import cp.utils.CardValidityDate;
+import cp.utils.enums.CardType;
+import cp.utils.enums.RatesType;
 
 @Entity
 @Table(name="cards")
@@ -22,12 +24,14 @@ public class Card extends AbstractModel implements Serializable {
 	@Size(min = 16, max = 16)
 	private String card_no;
 	@NotNull
-	private String card_type;
+	private CardType card_type;
 	@NotNull
 	private CardValidityDate validity;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id", nullable = false)
 	private Rate rate;
+	@NotNull
+	private Double daily_limit;
 	
 	public Card() {
 		super();
@@ -36,19 +40,21 @@ public class Card extends AbstractModel implements Serializable {
 		this.validity = null;
 		this.rate = null;
 	}
-	public Card(String card_no, String card_type, CardValidityDate validity) {
+	public Card(String card_no, CardType card_type, CardValidityDate validity, Double daily_limit) {
 		super();
 		this.card_no = card_no;
 		this.card_type = card_type;
 		this.validity = validity;
-		this.rate = new Rate("N/A", 0.0);
+		this.rate = new Rate(RatesType.N_A, 0.0);
+		this.daily_limit = daily_limit;
 	}
-	public Card(String card_no, String card_type, CardValidityDate validity, Rate rate) {
+	public Card(String card_no, CardType card_type, CardValidityDate validity, Rate rate, Double daily_limit) {
 		super();
 		this.card_no = card_no;
 		this.card_type = card_type;
 		this.validity = validity;
 		this.rate = rate;
+		this.daily_limit = daily_limit;
 	}
 	
 	public String getCard_no() {
@@ -57,10 +63,10 @@ public class Card extends AbstractModel implements Serializable {
 	public void setCard_no(String card_no) {
 		this.card_no = card_no;
 	}
-	public String getCard_type() {
+	public CardType getCard_type() {
 		return card_type;
 	}
-	public void setCard_type(String card_type) {
+	public void setCard_type(CardType card_type) {
 		this.card_type = card_type;
 	}
 	public CardValidityDate getValidity() {
@@ -75,14 +81,17 @@ public class Card extends AbstractModel implements Serializable {
 	public void setId_rate(Rate rate) {
 		this.rate = rate;
 	}
+	public Double getDaily_limit() {
+		return daily_limit;
+	}
+	public void setDaily_limit(Double daily_limit) {
+		this.daily_limit = daily_limit;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = super.hashCode();
 		result = prime * result + ((card_no == null) ? 0 : card_no.hashCode());
-		result = prime * result + ((card_type == null) ? 0 : card_type.hashCode());
-		result = prime * result + ((rate == null) ? 0 : rate.hashCode());
-		result = prime * result + ((validity == null) ? 0 : validity.hashCode());
 		return result;
 	}
 	@Override
@@ -98,21 +107,6 @@ public class Card extends AbstractModel implements Serializable {
 			if (other.card_no != null)
 				return false;
 		} else if (!card_no.equals(other.card_no))
-			return false;
-		if (card_type == null) {
-			if (other.card_type != null)
-				return false;
-		} else if (!card_type.equals(other.card_type))
-			return false;
-		if (rate == null) {
-			if (other.rate != null)
-				return false;
-		} else if (!rate.equals(other.rate))
-			return false;
-		if (validity == null) {
-			if (other.validity != null)
-				return false;
-		} else if (!validity.equals(other.validity))
 			return false;
 		return true;
 	}	

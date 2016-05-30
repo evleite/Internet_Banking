@@ -7,6 +7,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import hb.utils.enums.TokenType;
+
 @Entity
 @Table(name="tokens")
 public class Token extends AbstractModel implements Serializable {
@@ -17,14 +19,14 @@ public class Token extends AbstractModel implements Serializable {
 	@Min(100000)
 	private Long serial;
 	@NotNull
-	private String token_type;
+	private TokenType token_type;
 	
 	public Token() {
 		super();
 		this.serial = null;
 		this.token_type = null;
 	}
-	public Token(Long serial, String token_type) {
+	public Token(Long serial, TokenType token_type) {
 		super();
 		this.serial = serial;
 		this.token_type = token_type;
@@ -36,10 +38,10 @@ public class Token extends AbstractModel implements Serializable {
 	public void setSerial(Long serial) {
 		this.serial = serial;
 	}
-	public String getToken_type() {
+	public TokenType getToken_type() {
 		return token_type;
 	}
-	public void setToken_type(String token_type) {
+	public void setToken_type(TokenType token_type) {
 		this.token_type = token_type;
 	}
 	@Override

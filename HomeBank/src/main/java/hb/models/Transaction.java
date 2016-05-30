@@ -11,6 +11,9 @@ import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import hb.utils.enums.TransactionStatus;
+import hb.utils.enums.TransactionType;
+
 @Entity
 @Table(name="transactions")
 public class Transaction extends AbstractModel implements Serializable {
@@ -24,7 +27,7 @@ public class Transaction extends AbstractModel implements Serializable {
 	@Size(min = 24, max = 34)
 	private String beneficiary_IBAN;
 	@NotNull
-	private String trans_type;
+	private TransactionType trans_type;
 	@NotNull
 	@Min(0)
 	private Double amount;
@@ -33,6 +36,8 @@ public class Transaction extends AbstractModel implements Serializable {
 	private Commision trans_comm;
 	@NotNull
 	private String details;
+	@NotNull
+	private TransactionStatus status;
 	
 	public Transaction() {
 		super();
@@ -43,8 +48,8 @@ public class Transaction extends AbstractModel implements Serializable {
 		this.trans_comm = null;
 		this.details = null;
 	}
-	public Transaction(String payer_IBAN, String beneficiary_IBAN, String trans_type, Double amount,
-			Commision trans_comm) {
+	public Transaction(String payer_IBAN, String beneficiary_IBAN, TransactionType trans_type, Double amount,
+			Commision trans_comm, TransactionStatus status) {
 		super();
 		this.payer_IBAN = payer_IBAN;
 		this.beneficiary_IBAN = beneficiary_IBAN;
@@ -52,9 +57,10 @@ public class Transaction extends AbstractModel implements Serializable {
 		this.amount = amount;
 		this.trans_comm = trans_comm;
 		this.details = "N/A";
+		this.status = status;
 	}
-	public Transaction(String payer_IBAN, String beneficiary_IBAN, String trans_type, Double amount,
-			Commision trans_comm, String details) {
+	public Transaction(String payer_IBAN, String beneficiary_IBAN, TransactionType trans_type, Double amount,
+			Commision trans_comm, String details, TransactionStatus status) {
 		super();
 		this.payer_IBAN = payer_IBAN;
 		this.beneficiary_IBAN = beneficiary_IBAN;
@@ -62,6 +68,7 @@ public class Transaction extends AbstractModel implements Serializable {
 		this.amount = amount;
 		this.trans_comm = trans_comm;
 		this.details = details;
+		this.status = status;
 	}
 	
 	public String getPayer_IBAN() {
@@ -76,10 +83,10 @@ public class Transaction extends AbstractModel implements Serializable {
 	public void setBeneficiary_IBAN(String beneficiary_IBAN) {
 		this.beneficiary_IBAN = beneficiary_IBAN;
 	}
-	public String getTrans_type() {
+	public TransactionType getTrans_type() {
 		return trans_type;
 	}
-	public void setTrans_type(String trans_type) {
+	public void setTrans_type(TransactionType trans_type) {
 		this.trans_type = trans_type;
 	}
 	public Double getAmount() {
@@ -100,6 +107,12 @@ public class Transaction extends AbstractModel implements Serializable {
 	public void setDetails(String details) {
 		this.details = details;
 	}
+	public TransactionStatus getStatus() {
+		return status;
+	}
+	public void setStatus(TransactionStatus status) {
+		this.status = status;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -109,6 +122,7 @@ public class Transaction extends AbstractModel implements Serializable {
 		result = prime * result + ((trans_comm == null) ? 0 : trans_comm.hashCode());
 		result = prime * result + ((payer_IBAN == null) ? 0 : payer_IBAN.hashCode());
 		result = prime * result + ((trans_type == null) ? 0 : trans_type.hashCode());
+		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
 	@Override
@@ -144,6 +158,11 @@ public class Transaction extends AbstractModel implements Serializable {
 			if (other.trans_type != null)
 				return false;
 		} else if (!trans_type.equals(other.trans_type))
+			return false;
+		if (status == null) {
+			if (other.status != null)
+				return false;
+		} else if (!status.equals(other.status))
 			return false;
 		return true;
 	}

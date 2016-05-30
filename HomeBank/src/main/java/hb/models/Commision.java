@@ -7,6 +7,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import hb.utils.enums.CommisionType;
+
 @Entity
 @Table(name="commisions")
 public class Commision extends AbstractModel implements Serializable {
@@ -14,7 +16,7 @@ public class Commision extends AbstractModel implements Serializable {
 	private static final long serialVersionUID = -1670483841565764140L;
 	
 	@NotNull
-	private String comm_type;
+	private CommisionType comm_type;
 	@NotNull
 	@Min(0)
 	private Double amount;
@@ -26,23 +28,23 @@ public class Commision extends AbstractModel implements Serializable {
 		this.comm_type = null;
 		this.amount = null;
 	}
-	public Commision(String comm_type, Double amount) {
+	public Commision(CommisionType comm_type, Double amount) {
 		super();
 		this.comm_type = comm_type;
 		this.amount = amount;
 		this.details = "N/A";
 	}
-	public Commision(String comm_type, Double amount, String details) {
+	public Commision(CommisionType comm_type, Double amount, String details) {
 		super();
 		this.comm_type = comm_type;
 		this.amount = amount;
 		this.details = details;
 	}
 	
-	public String getComm_type() {
+	public CommisionType getComm_type() {
 		return comm_type;
 	}
-	public void setComm_type(String comm_type) {
+	public void setComm_type(CommisionType comm_type) {
 		this.comm_type = comm_type;
 	}
 	public Double getAmount() {

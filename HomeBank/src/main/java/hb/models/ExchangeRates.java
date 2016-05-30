@@ -7,6 +7,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
+import hb.utils.enums.Currencies;
+
 @Entity
 @Table(name="exchange_rates")
 public class ExchangeRates extends AbstractModel implements Serializable {
@@ -14,7 +16,7 @@ public class ExchangeRates extends AbstractModel implements Serializable {
 	private static final long serialVersionUID = 1328749313174938239L;
 	
 	@NotNull
-	private String currency;
+	private Currencies currency;
 	@NotNull
 	@Min(0)
 	private Double sell;
@@ -28,17 +30,17 @@ public class ExchangeRates extends AbstractModel implements Serializable {
 		this.sell = null;
 		this.buy = null;
 	}
-	public ExchangeRates(String currency, Double sell, Double buy) {
+	public ExchangeRates(Currencies currency, Double sell, Double buy) {
 		super();
 		this.currency = currency;
 		this.sell = sell;
 		this.buy = buy;
 	}
 	
-	public String getCurrency() {
+	public Currencies getCurrency() {
 		return currency;
 	}
-	public void setCurrency(String currency) {
+	public void setCurrency(Currencies currency) {
 		this.currency = currency;
 	}
 	public Double getSell() {

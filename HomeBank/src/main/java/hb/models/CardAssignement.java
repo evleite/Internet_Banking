@@ -26,11 +26,6 @@ public class CardAssignement extends AbstractAssignement implements Serializable
 		this.card = null;
 		this.account = null;
 	}
-	public CardAssignement(Card card) {
-		super();
-		this.card = card;
-		this.account = new Account("N/A000000000000000000000", "N/A", "N/A", new Commision("N/A", 0.0));
-	}
 	public CardAssignement(Card card, Account account) {
 		super();
 		this.card = card;
