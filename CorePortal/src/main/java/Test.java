@@ -1,7 +1,9 @@
 import cp.models.Account;
 import cp.models.Commision;
 import cp.models.Rate;
+import cp.models.User;
 import cp.utils.DataBase;
+import cp.utils.TrippleDes;
 import cp.utils.enums.AccountType;
 import cp.utils.enums.CommisionType;
 import cp.utils.enums.Currencies;
@@ -9,8 +11,8 @@ import cp.utils.enums.RatesType;
 
 public class Test {
 
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
+	public static void main(String[] args) throws Exception {
+		/*// TODO Auto-generated method stub
 		Commision comm1 = new Commision(CommisionType.CURRENT_ACOUNT, 5.0, "Comm for admin curr acc");
 		Commision comm2 = new Commision(CommisionType.SAVING_ACCOUNT, 1.0, "Comm for admin saving acc");
 		
@@ -36,7 +38,17 @@ public class Test {
 				comm2, rate2, 0.0);
 		
 		DataBase.persistAccount(acc1);
-		DataBase.persistAccount(acc2);
+		DataBase.persistAccount(acc2);*/
+		
+		
+		/*TrippleDes td = new TrippleDes();
+		
+		User admin = new User("admin", td.encrypt("admin"), "N/A", "N/A", "N/A0000000000", "domentiimaxim@yahoo.com", "N/A", "N/A");
+		DataBase.persistUser(admin);*/
+		
+		/*System.out.println(DataBase.getUserByUserName("admin").getPassword());*/
+		
+		
 		
 	}
 

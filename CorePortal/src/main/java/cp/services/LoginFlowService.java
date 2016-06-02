@@ -1,22 +1,33 @@
 package cp.services;
 
-import javax.ejb.Singleton;
+import java.util.HashMap;
+import java.util.Map;
 
+import javax.jws.WebService;
 import cp.models.User;
+import cp.utils.DataBase;
+import cp.utils.ResponseUtils;
+import cp.utils.TrippleDes;
 
-@Singleton
-public class UserService {
-	private User logedInUser = new User();
+@WebService
+public class LoginFlowService {
 	
-	public boolean logIn(String user, String pass){
-		// TODO: Check in database if exist
-		// TODO: If exist get userRole (and other data which should first complete fields in User class)
-		logedInUser.setUsername(user);
-		logedInUser.setPassword(pass);
-		return true;
-		// TODO: If doesn't exist return false
+	public Map<String, Object> logIn(String username, String pass) throws Exception{
+		Map<String, Object> response = new HashMap<>();
+		TrippleDes td = new TrippleDes();
 		
-		// (For HB return user data to return it on service response to populate session with user data)
+		User logedInUser =	DataBase.getUserByUserName(username);
+		
+		if (logedInUser != null){
+			if (td.decrypt(logedInUser.getPassword()).equals(pass)){
+				response.put("user", logedInUser);
+				return ResponseUtils.respondWithSucces(response);
+			} else {
+				return ResponseUtils.respondWithError("Invalid password");
+			}
+		} else {
+			return ResponseUtils.respondWithError("Invalid user");
+		}
 	}
 
 }

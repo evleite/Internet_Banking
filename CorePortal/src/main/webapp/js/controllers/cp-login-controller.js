@@ -2,17 +2,18 @@
 
 angular.module('corePortalApp').controller(
     'CPLoginCtrl',
-    function ($scope, CPLoginService, $location) {
+    function ($scope, CPLoginService, $location, $httpParamSerializer) {
 
         $scope.login = function () {
         	CPLoginService.login(
-                {username: $scope.username, password: $scope.password},
-                function success() {
-                    console.log('Login succeeded.');
+        		$httpParamSerializer({username: $scope.username, password: $scope.password}),
+                function success(data) {
+                    console.log('Login succeeded.', data);
                     $location.path("/main");
                 },
-                function err() {
-                    alert('Username or password incorect. Login faild!');
+                function err(data) {
+                	console.log('Login failed!', data);
+                    alert('Username or password incorect. Login failed!');
                 });
         };
     });

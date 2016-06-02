@@ -1,13 +1,17 @@
 package cp.utils;
 
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
+import javax.persistence.NamedNativeQuery;
 import javax.persistence.Persistence;
+import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.TypedQuery;
 
 import cp.models.Account;
 import cp.models.AccountAssignement;
@@ -476,7 +480,7 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<User> getTUsersFromDB() {
+	public static List<User> getUsersFromDB() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
@@ -516,6 +520,22 @@ public class DataBase {
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
+	}
+	public static User getUserByUserName(String username) {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from users_cp where username= :username", User.class)
+				.setParameter("username", username);
+		@SuppressWarnings("unchecked")
+		List<User> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList.get(0);
+		} else {
+			return null;
+		}
 	}
 
 }

@@ -6,17 +6,34 @@
 	version="1.0">
 
 	<persistence-unit name="persistenceUnit" transaction-type="RESOURCE_LOCAL">
+	<!-- <persistence-unit name="persistenceUnit" transaction-type="JTA"> -->
 		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<!-- <exclude-unlisted-classes>false</exclude-unlisted-classes> -->
+		<!-- <jar-file>classes</jar-file> -->
+		<class>cp.models.Account</class>
+		<class>cp.models.AccountAssignement</class>
+		<class>cp.models.Card</class>
+		<class>cp.models.CardAssignement</class>
+		<class>cp.models.Commision</class>
+		<class>cp.models.ExchangeRates</class>
+		<class>cp.models.Rate</class>
+		<class>cp.models.Token</class>
+		<class>cp.models.TokenAssignement</class>
+		<class>cp.models.Transaction</class>
+		<class>cp.models.User</class>
 		
 		<properties>
+			<!-- Scan for annotated classes and Hibernate mapping XML files -->
+    		<property name="hibernate.archive.autodetection" value="class, hbm"/>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-    		<property name="hibernate.connection.url" value="jdbc:mysql://localhost/eBank" />
+    		<property name="hibernate.connection.url" value="jdbc:mysql://localhost/eBank2" />
     		<property name="hibernate.connection.username" value="root" />
     		<property name="hibernate.connection.password" value="M2xim_29" />
     		<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
     		<property name="hibernate.show_sql" value="true" />
 			<property name="hibernate.format_sql" value="true" />
-			<property name="hibernate.hbm2ddl.auto" value="create" />
+			<!-- <property name="hibernate.hbm2ddl.auto" value="create" /> -->
+			<!-- <property name="hibernate.hbm2ddl.auto" value="validate" /> -->
     		
 			<property name="hibernate.c3p0.min_size" value="5" />
 			<property name="hibernate.c3p0.max_size" value="20" />

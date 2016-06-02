@@ -2,6 +2,7 @@ package cp.models;
 
 import java.io.Serializable;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -21,16 +22,17 @@ public class User extends AbstractModel implements Serializable{
 	private Long id;
 	@NotNull
 	@Size(min = 4, max = 30)
+	@Column(unique = true)
 	private String username;
 	@NotNull
-	@Size(min = 4, max = 30)
 	private String password;
 	@NotNull
 	private String firstname;
 	@NotNull
 	private String lastname;
 	@NotNull
-	@Size(min = 13, max = 13)
+	@Column(unique = true)
+	@Size(max = 13, min = 13)
 	private String CNP;
 	@NotNull
 	private String email;

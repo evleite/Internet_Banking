@@ -3,13 +3,12 @@
 angular.module('corePortalApp').service('CPLoginService',
     function ItemService($resource) {
         return $resource(
-            'rest/login/:loginId',
-            {loginId: '@id'},
+            'rest/login',
+            {},
             {
                 login: {
                     method: 'POST',
-                    isArray: true,
-                    data: {name: 'default name', flag: false}
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 }
             });
     });
