@@ -4,7 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import javax.jws.WebService;
-import cp.models.User;
+import cp.models.CPUser;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;
 import cp.utils.TrippleDes;
@@ -16,7 +16,7 @@ public class LoginFlowService {
 		Map<String, Object> response = new HashMap<>();
 		TrippleDes td = new TrippleDes();
 		
-		User logedInUser =	DataBase.getUserByUserName(username);
+		CPUser logedInUser =	DataBase.getUserByUserName(username);
 		
 		if (logedInUser != null){
 			if (td.decrypt(logedInUser.getPassword()).equals(pass)){

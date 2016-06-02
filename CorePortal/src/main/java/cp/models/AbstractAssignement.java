@@ -11,13 +11,13 @@ public abstract class AbstractAssignement extends AbstractModel {
 
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_user", nullable = false)
-	private User user;
+	private CPUser user;
 
-	public User getUser() {
+	public CPUser getUser() {
 		return user;
 	}
 
-	public void setUser(User user) {
+	public void setUser(CPUser user) {
 		this.user = user;
 	}
 

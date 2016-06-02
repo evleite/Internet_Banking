@@ -19,7 +19,7 @@ import hb.models.Rate;
 import hb.models.Token;
 import hb.models.TokenAssignement;
 import hb.models.Transaction;
-import hb.models.User;
+import hb.models.HBUser;
 import hb.utils.enums.TransactionStatus;
 
 public class DataBase {
@@ -488,7 +488,7 @@ public class DataBase {
 
 		transaction.commit();
 	}*/
-	public static List<User> getTUsersFromDB() {
+	public static List<HBUser> getTUsersFromDB() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
@@ -497,15 +497,15 @@ public class DataBase {
 		
 		transaction.commit();
 		
-		List<User> result = new ArrayList<User>();
+		List<HBUser> result = new ArrayList<HBUser>();
 		for (int i = 0; i < qList.size(); i++) {
-			result.add((User) qList.get(i));
+			result.add((HBUser) qList.get(i));
 		}
 		
 		return result;
 	}
-	public static void updateUser(Long id, User newObj) {
-		User oldObj = entity.find(User.class, id);
+	public static void updateUser(Long id, HBUser newObj) {
+		HBUser oldObj = entity.find(HBUser.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();

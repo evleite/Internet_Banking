@@ -20,7 +20,7 @@
 		<class>hb.models.Token</class>
 		<class>hb.models.TokenAssignement</class>
 		<class>hb.models.Transaction</class>
-		<class>hb.models.User</class>
+		<class>hb.models.HBUser</class>
 		
 		<properties>
 			<!-- Scan for annotated classes and Hibernate mapping XML files -->

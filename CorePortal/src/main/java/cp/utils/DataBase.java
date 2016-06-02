@@ -22,7 +22,7 @@ import cp.models.ExchangeRates;
 import cp.models.Rate;
 import cp.models.Token;
 import cp.models.TokenAssignement;
-import cp.models.User;
+import cp.models.CPUser;
 import cp.utils.enums.TransactionStatus;
 import cp.models.Transaction;
 
@@ -472,7 +472,7 @@ public class DataBase {
 	}
 	
 	/* User model */
-	public static void persistUser(User user){
+	public static void persistUser(CPUser user){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -480,7 +480,7 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<User> getUsersFromDB() {
+	public static List<CPUser> getUsersFromDB() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
@@ -489,15 +489,15 @@ public class DataBase {
 		
 		transaction.commit();
 		
-		List<User> result = new ArrayList<User>();
+		List<CPUser> result = new ArrayList<CPUser>();
 		for (int i = 0; i < qList.size(); i++) {
-			result.add((User) qList.get(i));
+			result.add((CPUser) qList.get(i));
 		}
 		
 		return result;
 	}
-	public static void updateUser(Long id, User newObj) {
-		User oldObj = entity.find(User.class, id);
+	public static void updateUser(Long id, CPUser newObj) {
+		CPUser oldObj = entity.find(CPUser.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
@@ -514,21 +514,21 @@ public class DataBase {
 		transaction.commit();
 	}
 	public static void deleteUser(Long id){
-		User obj = entity.find(User.class, id);
+		CPUser obj = entity.find(CPUser.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
 	}
-	public static User getUserByUserName(String username) {
+	public static CPUser getUserByUserName(String username) {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
-		Query queryResult = entity.createNativeQuery("select * from users_cp where username= :username", User.class)
+		Query queryResult = entity.createNativeQuery("select * from users_cp where username= :username", CPUser.class)
 				.setParameter("username", username);
 		@SuppressWarnings("unchecked")
-		List<User> qList = queryResult.getResultList();
+		List<CPUser> qList = queryResult.getResultList();
 		transaction.commit();
 		
 		if (qList.size() > 0){

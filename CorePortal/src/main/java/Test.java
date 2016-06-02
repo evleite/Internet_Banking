@@ -1,7 +1,7 @@
 import cp.models.Account;
 import cp.models.Commision;
 import cp.models.Rate;
-import cp.models.User;
+import cp.models.CPUser;
 import cp.utils.DataBase;
 import cp.utils.TrippleDes;
 import cp.utils.enums.AccountType;

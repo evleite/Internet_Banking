@@ -1,6 +1,7 @@
 package cp.resources;
 
 import java.util.Map;
+import java.util.Random;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -13,7 +14,8 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import cp.models.User;
+import antlr.StringUtils;
+import cp.models.CPUser;
 import cp.services.LoginFlowService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
@@ -39,19 +41,22 @@ public class LoginFlowResource {
 		TrippleDes td = new TrippleDes();
 		Map<String, Object> response = loginFlowService.logIn(user, pass);
 		
-		if ((boolean) response.get("succes") == true){
-			User logedInUser = (User) response.get("user");
+		if ((boolean) response.get("success") == true){
+			CPUser logedInUser = (CPUser) response.get("user");
+			
+			Random rand = new Random();
+			String token = Long.toString(rand.nextLong());
 			
 			httpSession.setAttribute("user", logedInUser);
+			httpSession.setAttribute("token", token);
 			
 			response.put("username", logedInUser.getUsername());
 			response.remove("user");
-			response.put("token", td.encrypt(logedInUser.getCNP()));
+			response.put("token", token);
 			
 			return Response.status(200).entity(JsonUtils.mapToJson(response)).build();
 		}
 		else {
-			//httpSession.removeAttribute("user");
 			httpSession.invalidate();
 			return Response.serverError()
 					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Invalid Credentials. Login failed!")))

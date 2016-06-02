@@ -20,7 +20,8 @@
 		<class>cp.models.Token</class>
 		<class>cp.models.TokenAssignement</class>
 		<class>cp.models.Transaction</class>
-		<class>cp.models.User</class>
+		<class>cp.models.CPUser</class>
+		<class>cp.models.HBUser</class>
 		
 		<properties>
 			<!-- Scan for annotated classes and Hibernate mapping XML files -->

@@ -1,8 +1,31 @@
 <div class="login-form">
-	<form>
-		<input type="text" ng-model="username" /><br>
-		<input type="password" ng-model="password" /><br>
-		<a><button type="button" ng-click="login()">Login</button></a>
+	<!-- novalidate prevents HTML5 validation since we will be validating ourselves -->
+	<form name="loginForm" ng-submit="login()" novalidate> 
+		<!-- Username -->
+		<div class="form-group" ng-class="{ 'has-error' : loginForm.username.$invalid && !userForm.username.$pristine }">
+	    	<label>Username</label>
+	    	<input type="text" name="username" value="" placeholder="Username" class="form-control" ng-model="username" ng-minlength="4" ng-maxlength="30" required autocapitalize="false">
+	    	<p ng-show="loginForm.username.$error.minlength" class="help-block">Username is too short!</p>
+	    	<p ng-show="loginForm.username.$error.maxlength" class="help-block">Username is too long!</p>
+	    	<p ng-show="loginForm.username.$error.required" class="help-block">Username is required!</p>
+		</div>
+	        
+	    <!-- PASSWORD -->
+	    <div class="form-group" ng-class="{ 'has-error' : loginForm.password.$invalid && !userForm.password.$pristine }">
+	        <label>Password</label>
+	        <input type="password" name="password" value="" placeholder="Password" class="form-control" ng-model="password" ng-minlength="4" ng-maxlength="30" required autocapitalize="false" autocorrect="false">
+	        <p ng-show="loginForm.password.$error.minlength" class="help-block">Password is too short!</p>
+			<p ng-show="loginForm.password.$error.maxlength" class="help-block">Password is too long!</p>
+			<p ng-show="loginForm.password.$error.required" class="help-block">Password is required!</p>
+	    </div>
+	    
+	    <!-- SUBMIT BUTTON -->
+	    <button type="submit" class="btn btn-primary" ng-disabled="loginForm.$invalid">Log in</button>
+	    
+	    <div ng-show="loginFailed" class="form-group has-error">
+	    	<p class="help-block">{{ loginError }}</p>
+	    </div>
+	    
 	</form>
 </div>
 

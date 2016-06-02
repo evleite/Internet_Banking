@@ -18,22 +18,34 @@
 <script src="js/cp-app.js"></script>
 <script src="js/controllers/cp-login-controller.js"></script>
 <script src="js/services/cp-login-service.js"></script>
+<script src="js/controllers/cp-main-controller.js"></script>
+<script src="js/services/cp-main-service.js"></script>
 </head>
 <body ng-app="corePortalApp">
+	<header class="fixed-header">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-9">
+					<div class="logo">
+						<h3>Core Portal</h3>
+					</div>
+				</div>
+				<div class="col-md-3">
+					<div class="loged-in-user">
+						<h3>{{ seesion.username }}</h3>
+					</div>
+				</div>
+			</div>
+		</div>
+	</header>
 	<div class="container">
-		<div class="row">
-			<div class="jumbotron header">
-				<h1>Core Portal</h1>
-				<h2>Hello World from Core Portal!</h2>
-			</div>
-		</div>
-		<div class="row">
-			<div class="content">
+		<div class="content">
 				<div ng-view></div>
-			</div>
 		</div>
-		<div class="row">
-			<div class="jumbotron footer">
+	</div>
+	<footer class="footer">
+		<div class="container">
+			<div class="row">
 				<div class="col-md-4">
 					<h3>Contact</h3>
 				</div>
@@ -45,6 +57,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
+	</footer>
 </body>
 </html>

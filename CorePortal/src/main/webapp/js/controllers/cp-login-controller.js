@@ -2,18 +2,42 @@
 
 angular.module('corePortalApp').controller(
     'CPLoginCtrl',
-    function ($scope, CPLoginService, $location, $httpParamSerializer) {
+    function ($rootScope, $scope, CPLoginService, $location, $httpParamSerializer) {
 
         $scope.login = function () {
+        	$(".header").removeClass("hidden");
+        	
+        	$scope.user = $scope.username;
+        	$scope.pass = $scope.password;
+        	$scope.username = "";
+        	$scope.password = "";
+        	$scope.loginFailed = false;
+            $scope.errorMessage = "";
+            $rootScope.session = {}
         	CPLoginService.login(
-        		$httpParamSerializer({username: $scope.username, password: $scope.password}),
+        		$httpParamSerializer({username: $scope.user, password: $scope.pass}),
                 function success(data) {
-                    console.log('Login succeeded.', data);
+                    console.log('Login succeeded:', data);
+                    
+                    $rootScope.session.login = data.success;
+                    $rootScope.session.username = data.username;
+                    $rootScope.session.token = data.token;
+                    
+                    console.log('Seesion:', $rootScope.session);
+                    
+                    $(".header").addClass("hidden");
+                    
                     $location.path("/main");
                 },
-                function err(data) {
-                	console.log('Login failed!', data);
-                    alert('Username or password incorect. Login failed!');
+                function err(err) {
+                	console.log('Login failed:', err.data.error);
+                    
+                	$rootScope.seesion.login = data.success;
+                	
+                	console.log('Seesion:', $rootScope.session);
+                	
+                	$scope.loginFailed = true;
+                    $scope.loginError = err.data.error;
                 });
         };
     });

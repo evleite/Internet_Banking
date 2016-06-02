@@ -1,4 +1,4 @@
-package hb.models;
+package cp.models;
 
 import java.io.Serializable;
 
@@ -11,11 +11,11 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import hb.utils.enums.AuthenticationType;
+import cp.utils.enums.AuthenticationType;
 
 @Entity
 @Table(name="users_hb")
-public class User extends AbstractModel implements Serializable{
+public class HBUser extends AbstractModel implements Serializable{
 	
 	private static final long serialVersionUID = -7538073709867474311L;
 	
@@ -45,7 +45,7 @@ public class User extends AbstractModel implements Serializable{
 	@NotNull
 	private AuthenticationType auth_type;
 		
-	public User() {
+	public HBUser() {
 		super();
 		this.username = null;
 		this.password = null;
@@ -58,7 +58,7 @@ public class User extends AbstractModel implements Serializable{
 		this.auth_type = null;
 	}
 	
-	public User(String username, String password, String firstname, String lastname, String cNP, String email,
+	public HBUser(String username, String password, String firstname, String lastname, String cNP, String email,
 			String address, String telephone, AuthenticationType auth_type) {
 		super();
 		this.username = username;
@@ -147,7 +147,7 @@ public class User extends AbstractModel implements Serializable{
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		User other = (User) obj;
+		HBUser other = (HBUser) obj;
 		if (username == null) {
 			if (other.username != null)
 				return false;

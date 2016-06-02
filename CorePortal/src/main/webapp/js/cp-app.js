@@ -4,7 +4,7 @@ var cpApp = angular.module('corePortalApp', ['ngRoute','ngResource']);
 
 cpApp.config(function($routeProvider){
 	$routeProvider
-	.when(
+		.when(
 			'/about',
 			{
 				templateUrl: 'views/cp-about.html'
@@ -15,6 +15,13 @@ cpApp.config(function($routeProvider){
 			{
 				templateUrl: 'views/cp-login-form.html',
 				controller: 'CPLoginCtrl'
+			}
+		)
+		.when(
+			'/main',
+			{
+				templateUrl: 'views/cp-main.html',
+				controller: 'CPMainCtrl'
 			}
 		)
 		.when(
