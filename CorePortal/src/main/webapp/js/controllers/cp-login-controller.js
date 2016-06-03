@@ -3,10 +3,10 @@
 angular.module('corePortalApp').controller(
     'CPLoginCtrl',
     function ($rootScope, $scope, CPLoginService, $location, $httpParamSerializer) {
-
+    	window.sessionStorage.clear();
+    	$(".loged-in-user > h3").html("");
+    	
         $scope.login = function () {
-        	$(".header").removeClass("hidden");
-        	
         	$scope.user = $scope.username;
         	$scope.pass = $scope.password;
         	$scope.username = "";
@@ -19,20 +19,18 @@ angular.module('corePortalApp').controller(
                 function success(data) {
                     console.log('Login succeeded:', data);
                     
-                    $rootScope.session.login = data.success;
-                    $rootScope.session.username = data.username;
-                    $rootScope.session.token = data.token;
+                    window.sessionStorage.login = data.success;
+                    window.sessionStorage.username = data.username;
+                    window.sessionStorage.token = data.token;
                     
-                    console.log('Seesion:', $rootScope.session);
-                    
-                    $(".header").addClass("hidden");
+                    console.log('Seesion:', window.sessionStorage);
                     
                     $location.path("/main");
                 },
                 function err(err) {
                 	console.log('Login failed:', err.data.error);
                     
-                	$rootScope.seesion.login = data.success;
+                	window.sessionStorage.login = data.success;
                 	
                 	console.log('Seesion:', $rootScope.session);
                 	

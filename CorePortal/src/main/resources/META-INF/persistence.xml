@@ -27,7 +27,7 @@
 			<!-- Scan for annotated classes and Hibernate mapping XML files -->
     		<property name="hibernate.archive.autodetection" value="class, hbm"/>
 			<property name="hibernate.connection.driver_class" value="com.mysql.jdbc.Driver" />
-    		<property name="hibernate.connection.url" value="jdbc:mysql://localhost/eBank2" />
+    		<property name="hibernate.connection.url" value="jdbc:mysql://localhost/eBank3" />
     		<property name="hibernate.connection.username" value="root" />
     		<property name="hibernate.connection.password" value="M2xim_29" />
     		<property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />

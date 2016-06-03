@@ -39,23 +39,22 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<Account> getAccountsFromDB() {
+	public static List<Account> getAccountList() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
-		Query queryResult = entity.createQuery("from accounts");
-		List qList = queryResult.getResultList();
-		
+		Query queryResult = entity.createNativeQuery("select * from accounts", Account.class);
+		@SuppressWarnings("unchecked")
+		List<Account> qList = queryResult.getResultList();
 		transaction.commit();
 		
-		List<Account> result = new ArrayList<Account>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((Account) qList.get(i));
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
 		}
-		
-		return result;
 	}
-	public static void updateAccount(Long id, Account newObj) {
+	/*public static void updateAccount(Long id, Account newObj) {
 		Account oldObj = entity.find(Account.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
@@ -77,10 +76,10 @@ public class DataBase {
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}
+	}*/
 	
 	/* AccountAssignement model */
-	public static void persistAccountAssignement(AccountAssignement accAsig){
+	/*public static void persistAccountAssignement(AccountAssignement accAsig){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -103,7 +102,7 @@ public class DataBase {
 		}
 		
 		return result;
-	}
+	}*/
 	/*public static void updateAccountAssignement(Long id, AccountAssignement newObj) {
 		AccountAssignement oldObj = entity.find(AccountAssignement.class, id);
 		EntityTransaction transaction = entity.getTransaction();
@@ -115,17 +114,17 @@ public class DataBase {
 		
 		transaction.commit();
 	}*/
-	public static void deleteAccountAssignement(Long id){
+	/*public static void deleteAccountAssignement(Long id){
 		AccountAssignement obj = entity.find(AccountAssignement.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}
+	}*/
 	
 	/* Card model */
-	public static void persistCard(Card card){
+	/*public static void persistCard(Card card){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -170,10 +169,10 @@ public class DataBase {
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}
+	}*/
 	
 	/* CardAssignement model */
-	public static void persistCardAssignement(CardAssignement cardAsig){
+	/*public static void persistCardAssignement(CardAssignement cardAsig){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -196,7 +195,7 @@ public class DataBase {
 		}
 		
 		return result;
-	}
+	}*/
 	/*public static void updateCardAssignement(Long id, CardAssignement newObj) {
 		CardAssignement oldObj = entity.find(CardAssignement.class, id);
 		EntityTransaction transaction = entity.getTransaction();
@@ -209,14 +208,14 @@ public class DataBase {
 		
 		transaction.commit();
 	}*/
-	public static void deleteCardAssignement(Long id){
+	/*public static void deleteCardAssignement(Long id){
 		CardAssignement obj = entity.find(CardAssignement.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}
+	}*/
 	
 	/* Commision model*/
 	public static void persistCommision(Commision comm){
@@ -227,7 +226,7 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<Commision> getCommisionsFromDB() {
+	/*public static List<Commision> getCommisionsFromDB() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
@@ -262,10 +261,10 @@ public class DataBase {
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}
+	}*/
 	
 	/* ExchangeRates model */
-	public static void persistExchangeRate(ExchangeRates exgRate){
+	/*public static void persistExchangeRate(ExchangeRates exgRate){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -308,7 +307,7 @@ public class DataBase {
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}
+	}*/
 	
 	/* Rate model */
 	public static void persistRate(Rate rate){
@@ -319,7 +318,7 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<Rate> getRatesFromDB() {
+	/*public static List<Rate> getRatesFromDB() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
@@ -354,10 +353,10 @@ public class DataBase {
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}
+	}*/
 	
 	/* Token model */
-	public static void persistToken(Token token){
+	/*public static void persistToken(Token token){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -380,7 +379,7 @@ public class DataBase {
 		}
 		
 		return result;
-	}
+	}*/
 	/*public static void updateToken(Long id, Token newObj) {
 		Token oldObj = entity.find(Token.class, id);
 		EntityTransaction transaction = entity.getTransaction();
@@ -392,17 +391,17 @@ public class DataBase {
 		
 		transaction.commit();
 	}*/
-	public static void deleteToken(Long id){
+	/*public static void deleteToken(Long id){
 		Token obj = entity.find(Token.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}
+	}*/
 	
 	/* TokenAssignement model */
-	public static void persistTokenAssignement(TokenAssignement tokenAsig){
+	/*public static void persistTokenAssignement(TokenAssignement tokenAsig){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -425,7 +424,7 @@ public class DataBase {
 		}
 		
 		return result;
-	}
+	}*/
 	/*public static void updateTokenAssignement(Long id, TokenAssignement newObj) {
 		TokenAssignement oldObj = entity.find(TokenAssignement.class, id);
 		EntityTransaction transaction = entity.getTransaction();
@@ -437,17 +436,17 @@ public class DataBase {
 		
 		transaction.commit();
 	}*/
-	public static void deleteTokenAssignement(Long id){
+	/*public static void deleteTokenAssignement(Long id){
 		TokenAssignement obj = entity.find(TokenAssignement.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}
+	}*/
 	
 	/* Transaction model */
-	public static void proccesTransactions() {
+	/*public static void proccesTransactions() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
@@ -469,7 +468,7 @@ public class DataBase {
 			
 			transaction.commit();
 		}
-	}
+	}*/
 	
 	/* User model */
 	public static void persistUser(CPUser user){
@@ -480,7 +479,7 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<CPUser> getUsersFromDB() {
+	/*public static List<CPUser> getUsersFromDB() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
@@ -520,7 +519,7 @@ public class DataBase {
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}
+	}*/
 	public static CPUser getUserByUserName(String username) {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();

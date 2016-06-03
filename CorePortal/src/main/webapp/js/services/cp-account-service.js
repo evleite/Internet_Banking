@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('corePortalApp').service('CPMainService',
+angular.module('corePortalApp').service('CPAccountService',
     function ItemService($resource) {
         return $resource(
-            'rest/login',
-            {},
+            'rest/acounts/:id',
+            { id: '@_id' },
             {
-                login: {
+                getAccountList: {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 }

@@ -2,8 +2,13 @@
 
 angular.module('corePortalApp').controller(
     'CPMainCtrl',
-    function ($rootScope, $scope, CPMainService, $location, $httpParamSerializer) {
-    	$(".loged-in-user > h3").html($rootScope.session.username);
+    function ($rootScope, $scope, CPAccountService, $location, $httpParamSerializer) {
+    	if (window.sessionStorage.login == "true"){
+    		$(".loged-in-user > h3").html(window.sessionStorage.username);
+    	} else {
+    		window.sessionStorage.clear();
+    		$location.path("/login");
+    	}
     	
     	$scope.adminNav = [];
     	$scope.adminNav.push.apply($scope.adminNav, [
@@ -21,11 +26,40 @@ angular.module('corePortalApp').controller(
     	]);
     	
     	$scope.selectedNode = "account";
-
+    	
+    	$scope.hideAdminLists = function (){
+    		$scope.showAccountList = false;
+    		$scope.showAccountAssignementList = false;
+    		$scope.showCardList = false;
+    		$scope.showCardAssignementList = false;
+    		$scope.showCommisionList = false;
+    		$scope.showExchangeRateList = false;
+    		$scope.showRateList = false;
+    		$scope.showTokenList = false;
+    		$scope.showTokenAssignementList = false;
+    		$scope.showUserCPList = false;
+    		$scope.showUserHBList = false;
+    	}
+    	
         $scope.main = function (item) {
         	switch (item) {
             	case "account":
             		$scope.selectedNode = item;
+            		
+            		CPAccountService.getAccountList(
+                    		$httpParamSerializer({token: window.sessionStorage.token}),
+                            function success(data) {
+                                console.log('Account list:', data);
+                                
+                                $scope.accountList = data.accountList;
+                                
+                                $scope.hideAdminLists();
+                                $scope.showAccountList = true;
+                            },
+                            function err(err) {
+                            	console.log('Get accountlist failed:', err);
+                            });
+            		
                 	break;
             	case "accountAssignement":
             		$scope.selectedNode = item;
@@ -59,38 +93,5 @@ angular.module('corePortalApp').controller(
                 	break;
             	default:
         	}
-        	
-        	$scope.user = $scope.username;
-        	$scope.pass = $scope.password;
-        	$scope.username = "";
-        	$scope.password = "";
-        	$scope.loginFailed = false;
-            $scope.errorMessage = "";
-            $rootScope.session = {}
-        	CPLoginService.login(
-        		$httpParamSerializer({username: $scope.user, password: $scope.pass}),
-                function success(data) {
-                    console.log('Login succeeded:', data);
-                    
-                    $rootScope.session.login = data.success;
-                    $rootScope.session.username = data.username;
-                    $rootScope.session.token = data.token;
-                    
-                    console.log('Seesion:', $rootScope.session);
-                    
-                    $(".header").addClass("hidden");
-                    
-                    $location.path("/main");
-                },
-                function err(err) {
-                	console.log('Login failed:', err.data.error);
-                    
-                	$rootScope.seesion.login = data.success;
-                	
-                	console.log('Seesion:', $rootScope.session);
-                	
-                	$scope.loginFailed = true;
-                    $scope.loginError = err.data.error;
-                });
         };
     });
