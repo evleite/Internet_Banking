@@ -21,9 +21,31 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="account-item" ng-repeat="item in accountList">
+						<tr class="item account-item" ng-repeat="item in accountList">
 							<td>{{ item.id }}</td>
 							<td>{{ item.IBAN }}</td>
+							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="item-list rate-list" ng-show="showRateList">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>RATE TYPE</th>
+							<th>PERCENTAGE PER YEAR</th>
+							<th>EDIT</th>
+							<th>DELETE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="item rate-item" ng-repeat="item in rateList">
+							<td>{{ item.id }}</td>
+							<td>{{ item.type }}</td>
+							<td>{{ item.year_percentage }}</td>
 							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
 							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
 						</tr>

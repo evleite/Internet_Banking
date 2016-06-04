@@ -1,17 +1,12 @@
 package cp.utils;
 
-import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.EntityTransaction;
-import javax.persistence.NamedNativeQuery;
 import javax.persistence.Persistence;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
 
 import cp.models.Account;
 import cp.models.AccountAssignement;
@@ -318,23 +313,22 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	/*public static List<Rate> getRatesFromDB() {
+	public static List<Rate> getRateList() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
-		Query queryResult = entity.createQuery("from rates");
-		List qList = queryResult.getResultList();
-		
+		Query queryResult = entity.createNativeQuery("select * from rates", Rate.class);
+		@SuppressWarnings("unchecked")
+		List<Rate> qList = queryResult.getResultList();
 		transaction.commit();
 		
-		List<Rate> result = new ArrayList<Rate>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((Rate) qList.get(i));
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
 		}
-		
-		return result;
 	}
-	public static void updateRate(Long id, Rate newObj) {
+	/*public static void updateRate(Long id, Rate newObj) {
 		Rate oldObj = entity.find(Rate.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		

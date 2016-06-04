@@ -14,12 +14,10 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
-import antlr.StringUtils;
 import cp.models.CPUser;
 import cp.services.LoginFlowService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
-import cp.utils.TrippleDes;
 
 
 @Path("/login")
@@ -38,7 +36,6 @@ public class LoginFlowResource {
 			@FormParam("username") String user,
             @FormParam("password") String pass) throws Exception {
 		
-		TrippleDes td = new TrippleDes();
 		Map<String, Object> response = loginFlowService.logIn(user, pass);
 		
 		if ((boolean) response.get("success") == true){

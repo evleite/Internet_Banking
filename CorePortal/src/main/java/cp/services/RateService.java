@@ -7,21 +7,25 @@ import java.util.Map;
 import javax.jws.WebService;
 
 import cp.models.Account;
+import cp.models.Rate;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;
 
 @WebService
-public class AccountService {
+public class RateService {
 	
-	public Map<String, Object> getAccountList() throws Exception{
+	public Map<String, Object> getRateList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
-		List<Account> accountList =	DataBase.getAccountList();
-		if(accountList != null){
-			response.put("accountList", accountList);
+		List<Rate> rateList =	DataBase.getRateList();
+		
+		if(rateList != null){
+			response.put("rateList", rateList);
 			return ResponseUtils.respondWithSucces(response);
 		} else {
 			return ResponseUtils.respondWithError("Can't get accounts from database.");
 		}
+		
 	}
+
 }

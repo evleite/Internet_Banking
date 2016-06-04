@@ -2,7 +2,7 @@
 
 angular.module('corePortalApp').controller(
     'CPMainCtrl',
-    function ($rootScope, $scope, CPAccountService, $location, $httpParamSerializer) {
+    function ($rootScope, $scope, CPAccountService, CPRateService, $location, $httpParamSerializer) {
     	if (window.sessionStorage.login == "true"){
     		$(".loged-in-user > h3").html(window.sessionStorage.username);
     	} else {
@@ -78,6 +78,21 @@ angular.module('corePortalApp').controller(
                 	break;
             	case "rate":
             		$scope.selectedNode = item;
+            		
+            		CPRateService.getRateList(
+                    		$httpParamSerializer({token: window.sessionStorage.token}),
+                            function success(data) {
+                                console.log('Rate list:', data);
+                                
+                                $scope.rateList = data.rateList;
+                                
+                                $scope.hideAdminLists();
+                                $scope.showRateList = true;
+                            },
+                            function err(err) {
+                            	console.log('Get ratelist failed:', err);
+                            });
+            		
                 	break;
             	case "token":
             		$scope.selectedNode = item;

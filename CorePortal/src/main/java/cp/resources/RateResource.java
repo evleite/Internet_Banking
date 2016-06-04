@@ -16,17 +16,19 @@ import javax.ws.rs.core.Response;
 import org.json.simple.JSONObject;
 
 import cp.models.Account;
+import cp.models.Rate;
 import cp.services.AccountService;
+import cp.services.RateService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
 
 
-@Path("/acounts")
+@Path("/rates")
 @RequestScoped
-public class AccountResource {
+public class RateResource {
 
 	@Inject
-	private AccountService accountService;
+	private RateService rateService;
 	@Inject
 	private HttpSession httpSession;
 	
@@ -45,27 +47,27 @@ public class AccountResource {
 		
 		Map<String, Object> response = null;
 		
-		if (httpSession.getAttribute("accountList") == null) {
-			response = accountService.getAccountList();
+		if (httpSession.getAttribute("rateList") == null) {
+			response = rateService.getRateList();
 			if ((boolean) response.get("success") == true) {
-				List<Account> accountList = (List<Account>) response.get("accountList");
+				List<Rate> rateList = (List<Rate>) response.get("rateList");
 				
-				httpSession.setAttribute("accountList", accountList);
+				httpSession.setAttribute("rateList", rateList);
 				
 				JSONObject responseJson = new JSONObject();
 				responseJson.put("success", true);
-				responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
+				responseJson.put("rateList", JsonUtils.rateListToJson(rateList));
 				
 				return Response.status(200).entity(responseJson).build();
 			} else {
 				return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
 			}
 		} else {
-			List<Account> accountList = (List<Account>) httpSession.getAttribute("accountList");
+			List<Rate> rateList = (List<Rate>) httpSession.getAttribute("rateList");
 			
 			JSONObject responseJson = new JSONObject();
 			responseJson.put("success", true);
-			responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
+			responseJson.put("rateList", JsonUtils.rateListToJson(rateList));
 			
 			return Response.status(200).entity(responseJson).build();
 		}

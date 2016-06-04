@@ -47,6 +47,15 @@ public class JsonUtils {
 	}
 	
 	@SuppressWarnings("unchecked")
+	public static JSONArray accountListToJson(List<Account> list){
+		JSONArray json = new JSONArray();
+		for (Account obj : list){
+			json.add(accountToJson(obj));
+		}
+		return json;
+	}
+	
+	@SuppressWarnings("unchecked")
 	public static JSONObject commisionToJson(Commision comm){
 		JSONObject json = new JSONObject();
 		
@@ -71,11 +80,12 @@ public class JsonUtils {
 	}
 	
 	@SuppressWarnings("unchecked")
-	public static JSONArray accountListToJson(List<Account> list){
+	public static JSONArray rateListToJson(List<Rate> list){
 		JSONArray json = new JSONArray();
-		for (Account obj : list){
-			json.add(accountToJson(obj));
+		for (Rate obj : list){
+			json.add(rateToJson(obj));
 		}
 		return json;
 	}
+	
 }
