@@ -14,6 +14,16 @@ public class ResponseUtils {
 		return response;
 	}
 	
+	public static Map<String, Object> respondWithError(String error, int errorCode){
+		Map<String, Object> response = new HashMap<>();
+		
+		response.put("success", false);
+		response.put("error", error);
+		response.put("errorCode", errorCode);
+		
+		return response;
+	}
+	
 	public static Map<String, Object> respondWithSucces(Map<String, Object> model){
 		model.put("success", true);
 		return model;

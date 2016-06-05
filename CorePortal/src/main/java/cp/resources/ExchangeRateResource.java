@@ -15,18 +15,20 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
-import cp.models.Account;
-import cp.services.AccountService;
+import cp.models.ExchangeRates;
+import cp.models.Rate;
+import cp.services.ExchangeRateService;
+import cp.services.RateService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
 
 
-@Path("/acounts")
+@Path("/exchangeRates")
 @RequestScoped
-public class AccountResource {
+public class ExchangeRateResource {
 
 	@Inject
-	private AccountService accountService;
+	private ExchangeRateService exchangeRateService;
 	@Inject
 	private HttpSession httpSession;
 	
@@ -45,27 +47,27 @@ public class AccountResource {
 		
 		Map<String, Object> response = null;
 		
-		if (httpSession.getAttribute("accountList") == null) {
-			response = accountService.getAccountList();
+		if (httpSession.getAttribute("exchangeRateList") == null) {
+			response = exchangeRateService.getExchangeRateList();
 			if ((boolean) response.get("success") == true) {
-				List<Account> accountList = (List<Account>) response.get("accountList");
+				List<ExchangeRates> exchangeRateList = (List<ExchangeRates>) response.get("exchangeRateList");
 				
-				httpSession.setAttribute("accountList", accountList);
+				httpSession.setAttribute("exchangeRateList", exchangeRateList);
 				
 				JSONObject responseJson = new JSONObject();
 				responseJson.put("success", true);
-				responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
+				responseJson.put("exchangeRateList", JsonUtils.exchangeRateListToJson(exchangeRateList));
 				
 				return Response.status(200).entity(responseJson).build();
 			} else {
 				return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
 			}
 		} else {
-			List<Account> accountList = (List<Account>) httpSession.getAttribute("accountList");
+			List<ExchangeRates> exchangeRateList = (List<ExchangeRates>) httpSession.getAttribute("exchangeRateList");
 			
 			JSONObject responseJson = new JSONObject();
 			responseJson.put("success", true);
-			responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
+			responseJson.put("exchangeRateList", JsonUtils.exchangeRateListToJson(exchangeRateList));
 			
 			return Response.status(200).entity(responseJson).build();
 		}

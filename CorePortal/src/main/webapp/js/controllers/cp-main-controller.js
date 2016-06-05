@@ -2,7 +2,10 @@
 
 angular.module('corePortalApp').controller(
     'CPMainCtrl',
-    function ($rootScope, $scope, CPAccountService, CPRateService, $location, $httpParamSerializer) {
+    function ($rootScope, $scope, 
+    		CPAccountService, CPRateService, CPCommisionService, CPUserCPService, CPAccountAssignementService, CPCardService,
+    		CPCardAssignementService, CPExchangeRateService, CPUserHBService,
+    		$location, $httpParamSerializer) {
     	if (window.sessionStorage.login == "true"){
     		$(".loged-in-user > h3").html(window.sessionStorage.username);
     	} else {
@@ -58,23 +61,158 @@ angular.module('corePortalApp').controller(
                             },
                             function err(err) {
                             	console.log('Get accountlist failed:', err);
+                            	
+                            	$scope.hideAdminLists();
+                            	
+                            	if (err.data.errorCode == 666){
+                            		window.sessionStorage.clear();
+                            		alert("Your session has expired. Please login again.");
+                            		$location.path("/login");
+                            	}
+                            	
+                            	alert("Backend error");
                             });
             		
                 	break;
             	case "accountAssignement":
             		$scope.selectedNode = item;
+            		
+            		CPAccountAssignementService.getAccountAssignementList(
+                    		$httpParamSerializer({token: window.sessionStorage.token}),
+                            function success(data) {
+                                console.log('AccountAssignement list:', data);
+                                
+                                $scope.accountAssignementList = data.accountAssignementList;
+                                
+                                $scope.hideAdminLists();
+                                $scope.showAccountAssignementList = true;
+                            },
+                            function err(err) {
+                            	console.log('Get accountassignementlist failed:', err);
+                            	
+                            	$scope.hideAdminLists();
+                            	
+                            	if (err.data.errorCode == 666){
+                            		window.sessionStorage.clear();
+                            		alert("Your session has expired. Please login again.");
+                            		$location.path("/login");
+                            	}
+                            	
+                            	alert("Backend error");
+                            });
+            		
             		break;
             	case "card":
             		$scope.selectedNode = item;
+            		
+            		CPCardService.getCardList(
+                    		$httpParamSerializer({token: window.sessionStorage.token}),
+                            function success(data) {
+                                console.log('Card list:', data);
+                                
+                                $scope.cardList = data.cardList;
+                                
+                                $scope.hideAdminLists();
+                                $scope.showCardList = true;
+                            },
+                            function err(err) {
+                            	console.log('Get cardList failed:', err);
+                            	
+                            	$scope.hideAdminLists();
+                            	
+                            	if (err.data.errorCode == 666){
+                            		window.sessionStorage.clear();
+                            		alert("Your session has expired. Please login again.");
+                            		$location.path("/login");
+                            	}
+                            	
+                            	alert("Backend error");
+                            });
+            		
                 	break;
             	case "cardAssignement":
             		$scope.selectedNode = item;
+            		
+            		CPCardAssignementService.getCardAssignementList(
+                    		$httpParamSerializer({token: window.sessionStorage.token}),
+                            function success(data) {
+                                console.log('CardAssignement list:', data);
+                                
+                                $scope.cardAssignementList = data.cardAssignementList;
+                                
+                                $scope.hideAdminLists();
+                                $scope.showCardAssignementList = true;
+                            },
+                            function err(err) {
+                            	console.log('Get cardAssignementList failed:', err);
+                            	
+                            	$scope.hideAdminLists();
+                            	
+                            	if (err.data.errorCode == 666){
+                            		window.sessionStorage.clear();
+                            		alert("Your session has expired. Please login again.");
+                            		$location.path("/login");
+                            	}
+                            	
+                            	alert("Backend error");
+                            });
+            		
                 	break;
             	case "commision":
             		$scope.selectedNode = item;
+            		
+            		CPCommisionService.getCommisionList(
+                    		$httpParamSerializer({token: window.sessionStorage.token}),
+                            function success(data) {
+                                console.log('Commision list:', data);
+                                
+                                $scope.commisionList = data.commisionList;
+                                
+                                $scope.hideAdminLists();
+                                $scope.showCommisionList = true;
+                            },
+                            function err(err) {
+                            	console.log('Get commisionlist failed:', err);
+                            	
+                            	$scope.hideAdminLists();
+                            	
+                            	if (err.data.errorCode == 666){
+                            		window.sessionStorage.clear();
+                            		alert("Your session has expired. Please login again.");
+                            		$location.path("/login");
+                            	}
+                            	
+                            	alert("Backend error");
+                            });
+            		
                 	break;
             	case "exchangeRate":
             		$scope.selectedNode = item;
+            		
+            		CPExchangeRateService.getExchangeRateList(
+                    		$httpParamSerializer({token: window.sessionStorage.token}),
+                            function success(data) {
+                                console.log('ExchangeRate list:', data);
+                                
+                                $scope.exchangeRateList = data.exchangeRateList;
+                                
+                                $scope.hideAdminLists();
+                                $scope.showExchangeRateList = true;
+                            },
+                            function err(err) {
+                            	console.log('Get exchangeratelist failed:', err);
+                            	
+                            	$scope.hideAdminLists();
+                            	
+                            	if (err.data.errorCode == 666){
+                            		window.sessionStorage.clear();
+                            		alert("Your session has expired. Please login again.");
+                            		$location.path("/login");
+                            	}
+                            	
+                            	alert("Backend error");
+                            });
+            		
                 	break;
             	case "rate":
             		$scope.selectedNode = item;
@@ -91,6 +229,16 @@ angular.module('corePortalApp').controller(
                             },
                             function err(err) {
                             	console.log('Get ratelist failed:', err);
+                            	
+                            	$scope.hideAdminLists();
+                            	
+                            	if (err.data.errorCode == 666){
+                            		window.sessionStorage.clear();
+                            		alert("Your session has expired. Please login again.");
+                            		$location.path("/login");
+                            	}
+                            	
+                            	alert("Backend error");
                             });
             		
                 	break;
@@ -102,11 +250,63 @@ angular.module('corePortalApp').controller(
                 	break;
             	case "userCP":
             		$scope.selectedNode = item;
+            		
+            		CPUserCPService.getUserList(
+                    		$httpParamSerializer({token: window.sessionStorage.token}),
+                            function success(data) {
+                                console.log('CP user list:', data);
+                                
+                                $scope.userCPList = data.userCPList;
+                                
+                                $scope.hideAdminLists();
+                                $scope.showUserCPList = true;
+                            },
+                            function err(err) {
+                            	console.log('Get CP userlist failed:', err);
+                            	
+                            	$scope.hideAdminLists();
+                            	
+                            	if (err.data.errorCode == 666){
+                            		window.sessionStorage.clear();
+                            		alert("Your session has expired. Please login again.");
+                            		$location.path("/login");
+                            	}
+                            	
+                            	alert("Backend error");
+                            });
+            		
                 	break;
             	case "userHB":
             		$scope.selectedNode = item;
+            		
+            		CPUserHBService.getUserList(
+                    		$httpParamSerializer({token: window.sessionStorage.token}),
+                            function success(data) {
+                                console.log('HB user list:', data);
+                                
+                                $scope.userHBList = data.userHBList;
+                                
+                                $scope.hideAdminLists();
+                                $scope.showUserHBList = true;
+                            },
+                            function err(err) {
+                            	console.log('Get HB userlist failed:', err);
+                            	
+                            	$scope.hideAdminLists();
+                            	
+                            	if (err.data.errorCode == 666){
+                            		window.sessionStorage.clear();
+                            		alert("Your session has expired. Please login again.");
+                            		$location.path("/login");
+                            	}
+                            	
+                            	alert("Backend error");
+                            });
+            		
                 	break;
             	default:
         	}
         };
+        
+        $scope.main("account");
     });

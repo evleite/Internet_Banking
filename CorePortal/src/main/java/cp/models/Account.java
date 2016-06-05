@@ -13,6 +13,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import cp.utils.DataBase;
 import cp.utils.enums.AccountType;
 import cp.utils.enums.Currencies;
 import cp.utils.enums.RatesType;
@@ -56,7 +57,7 @@ public class Account extends AbstractModel implements Serializable {
 		this.acc_type = acc_type;
 		this.currency = currency;
 		this.comm_admin = comm_admin;
-		this.rate = new Rate(RatesType.N_A, 0.0);
+		this.rate = DataBase.getFalseRate();
 		this.balance = balance;
 	}
 	public Account(String iBAN, AccountType acc_type, Currencies currency, Commision comm_admin, Rate rate, Double balance) {

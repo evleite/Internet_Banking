@@ -16,17 +16,21 @@ import javax.ws.rs.core.Response;
 import org.json.simple.JSONObject;
 
 import cp.models.Account;
+import cp.models.CPUser;
+import cp.models.Rate;
 import cp.services.AccountService;
+import cp.services.RateService;
+import cp.services.UserCPService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
 
 
-@Path("/acounts")
+@Path("/usersCP")
 @RequestScoped
-public class AccountResource {
+public class UserCPResource {
 
 	@Inject
-	private AccountService accountService;
+	private UserCPService userCPService;
 	@Inject
 	private HttpSession httpSession;
 	
@@ -45,27 +49,27 @@ public class AccountResource {
 		
 		Map<String, Object> response = null;
 		
-		if (httpSession.getAttribute("accountList") == null) {
-			response = accountService.getAccountList();
+		if (httpSession.getAttribute("userCPList") == null) {
+			response = userCPService.getCPUserList();
 			if ((boolean) response.get("success") == true) {
-				List<Account> accountList = (List<Account>) response.get("accountList");
+				List<CPUser> userCPList = (List<CPUser>) response.get("userCPList");
 				
-				httpSession.setAttribute("accountList", accountList);
+				httpSession.setAttribute("userCPList", userCPList);
 				
 				JSONObject responseJson = new JSONObject();
 				responseJson.put("success", true);
-				responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
+				responseJson.put("userCPList", JsonUtils.userCPListToJson(userCPList));
 				
 				return Response.status(200).entity(responseJson).build();
 			} else {
 				return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
 			}
 		} else {
-			List<Account> accountList = (List<Account>) httpSession.getAttribute("accountList");
+			List<CPUser> userCPList = (List<CPUser>) httpSession.getAttribute("userCPList");
 			
 			JSONObject responseJson = new JSONObject();
 			responseJson.put("success", true);
-			responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
+			responseJson.put("userCPList", JsonUtils.userCPListToJson(userCPList));
 			
 			return Response.status(200).entity(responseJson).build();
 		}

@@ -6,20 +6,21 @@ import java.util.Map;
 
 import javax.jws.WebService;
 
+import cp.models.ExchangeRates;
 import cp.models.Rate;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;
 
 @WebService
-public class RateService {
+public class ExchangeRateService {
 	
-	public Map<String, Object> getRateList() throws Exception{
+	public Map<String, Object> getExchangeRateList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
-		List<Rate> rateList =	DataBase.getRateList();
+		List<ExchangeRates> exchangeRateList =	DataBase.getExchangeRateList();
 		
-		if(rateList != null){
-			response.put("rateList", rateList);
+		if(exchangeRateList != null){
+			response.put("exchangeRateList", exchangeRateList);
 			return ResponseUtils.respondWithSucces(response);
 		} else {
 			return ResponseUtils.respondWithError("Can't get accounts from database.");

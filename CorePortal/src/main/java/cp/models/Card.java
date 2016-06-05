@@ -3,19 +3,14 @@ package cp.models;
 import java.io.Serializable;
 
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import cp.utils.CardValidityDate;
 import cp.utils.enums.CardType;
-import cp.utils.enums.RatesType;
 
 @Entity
 @Table(name="cards")
@@ -32,10 +27,7 @@ public class Card extends AbstractModel implements Serializable {
 	@NotNull
 	private CardType card_type;
 	@NotNull
-	private CardValidityDate validity;
-	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "id_rate", nullable = false)
-	private Rate rate;
+	private String validity;
 	@NotNull
 	private Double daily_limit;
 	
@@ -44,22 +36,13 @@ public class Card extends AbstractModel implements Serializable {
 		this.card_no = null;
 		this.card_type = null;
 		this.validity = null;
-		this.rate = null;
+		this.daily_limit = null;
 	}
-	public Card(String card_no, CardType card_type, CardValidityDate validity, Double daily_limit) {
+	public Card(String card_no, CardType card_type, String validity, Double daily_limit) {
 		super();
 		this.card_no = card_no;
 		this.card_type = card_type;
 		this.validity = validity;
-		this.rate = new Rate(RatesType.N_A, 0.0);
-		this.daily_limit = daily_limit;
-	}
-	public Card(String card_no, CardType card_type, CardValidityDate validity, Rate rate, Double daily_limit) {
-		super();
-		this.card_no = card_no;
-		this.card_type = card_type;
-		this.validity = validity;
-		this.rate = rate;
 		this.daily_limit = daily_limit;
 	}
 	
@@ -78,17 +61,11 @@ public class Card extends AbstractModel implements Serializable {
 	public void setCard_type(CardType card_type) {
 		this.card_type = card_type;
 	}
-	public CardValidityDate getValidity() {
+	public String getValidity() {
 		return validity;
 	}
-	public void setValidity(CardValidityDate validity) {
+	public void setValidity(String validity) {
 		this.validity = validity;
-	}
-	public Rate getId_rate() {
-		return rate;
-	}
-	public void setId_rate(Rate rate) {
-		this.rate = rate;
 	}
 	public Double getDaily_limit() {
 		return daily_limit;

@@ -15,9 +15,7 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
-import cp.models.Account;
 import cp.models.Rate;
-import cp.services.AccountService;
 import cp.services.RateService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
@@ -38,10 +36,10 @@ public class RateResource {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response getList(@FormParam("token") String token) throws Exception {
 		
-		if (!token.equals(httpSession.getAttribute("token"))){
+		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
 			httpSession.invalidate();
 			return Response.serverError()
-					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Integrity violation!")))
+					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Integrity violation!", 666)))
 					.build();
 		}
 		

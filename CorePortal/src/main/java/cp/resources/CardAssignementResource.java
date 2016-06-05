@@ -15,18 +15,18 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
-import cp.models.Account;
-import cp.services.AccountService;
+import cp.models.CardAssignement;
+import cp.services.CardAssignementService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
 
 
-@Path("/acounts")
+@Path("/cardAssignements")
 @RequestScoped
-public class AccountResource {
+public class CardAssignementResource {
 
 	@Inject
-	private AccountService accountService;
+	private CardAssignementService cardAssignementService;
 	@Inject
 	private HttpSession httpSession;
 	
@@ -45,27 +45,27 @@ public class AccountResource {
 		
 		Map<String, Object> response = null;
 		
-		if (httpSession.getAttribute("accountList") == null) {
-			response = accountService.getAccountList();
+		if (httpSession.getAttribute("cardAssignementList") == null) {
+			response = cardAssignementService.getCardAssignementList();
 			if ((boolean) response.get("success") == true) {
-				List<Account> accountList = (List<Account>) response.get("accountList");
+				List<CardAssignement> cardAssignementList = (List<CardAssignement>) response.get("cardAssignementList");
 				
-				httpSession.setAttribute("accountList", accountList);
+				httpSession.setAttribute("cardAssignementList", cardAssignementList);
 				
 				JSONObject responseJson = new JSONObject();
 				responseJson.put("success", true);
-				responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
+				responseJson.put("cardAssignementList", JsonUtils.cardAssignementListToJson(cardAssignementList));
 				
 				return Response.status(200).entity(responseJson).build();
 			} else {
 				return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
 			}
 		} else {
-			List<Account> accountList = (List<Account>) httpSession.getAttribute("accountList");
+			List<CardAssignement> cardAssignementList = (List<CardAssignement>) httpSession.getAttribute("cardAssignementList");
 			
 			JSONObject responseJson = new JSONObject();
 			responseJson.put("success", true);
-			responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
+			responseJson.put("cardAssignementList", JsonUtils.cardAssignementListToJson(cardAssignementList));
 			
 			return Response.status(200).entity(responseJson).build();
 		}

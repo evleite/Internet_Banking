@@ -6,23 +6,23 @@ import java.util.Map;
 
 import javax.jws.WebService;
 
-import cp.models.Rate;
+import cp.models.HBUser;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;
 
 @WebService
-public class RateService {
+public class UserHBService {
 	
-	public Map<String, Object> getRateList() throws Exception{
+	public Map<String, Object> getHBUserList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
-		List<Rate> rateList =	DataBase.getRateList();
+		List<HBUser> userHBList =	DataBase.getHBUserList();
 		
-		if(rateList != null){
-			response.put("rateList", rateList);
+		if(userHBList != null){
+			response.put("userHBList", userHBList);
 			return ResponseUtils.respondWithSucces(response);
 		} else {
-			return ResponseUtils.respondWithError("Can't get accounts from database.");
+			return ResponseUtils.respondWithError("Can't get CP users from database.");
 		}
 		
 	}

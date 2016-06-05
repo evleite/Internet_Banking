@@ -14,10 +14,12 @@ import cp.models.Card;
 import cp.models.CardAssignement;
 import cp.models.Commision;
 import cp.models.ExchangeRates;
+import cp.models.HBUser;
 import cp.models.Rate;
 import cp.models.Token;
 import cp.models.TokenAssignement;
 import cp.models.CPUser;
+import cp.utils.enums.RatesType;
 import cp.utils.enums.TransactionStatus;
 import cp.models.Transaction;
 
@@ -74,7 +76,7 @@ public class DataBase {
 	}*/
 	
 	/* AccountAssignement model */
-	/*public static void persistAccountAssignement(AccountAssignement accAsig){
+	public static void persistAccountAssignement(AccountAssignement accAsig){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -82,22 +84,21 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<AccountAssignement> getAccountAssignementsFromDB() {
+	public static List<AccountAssignement> getAccountAssignementList() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
-		Query queryResult = entity.createQuery("from acc_assignements");
-		List qList = queryResult.getResultList();
-		
+		Query queryResult = entity.createNativeQuery("select * from acc_assignements", AccountAssignement.class);
+		@SuppressWarnings("unchecked")
+		List<AccountAssignement> qList = queryResult.getResultList();
 		transaction.commit();
 		
-		List<AccountAssignement> result = new ArrayList<AccountAssignement>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((AccountAssignement) qList.get(i));
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
 		}
-		
-		return result;
-	}*/
+	}
 	/*public static void updateAccountAssignement(Long id, AccountAssignement newObj) {
 		AccountAssignement oldObj = entity.find(AccountAssignement.class, id);
 		EntityTransaction transaction = entity.getTransaction();
@@ -119,7 +120,7 @@ public class DataBase {
 	}*/
 	
 	/* Card model */
-	/*public static void persistCard(Card card){
+	public static void persistCard(Card card){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -127,23 +128,22 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<Card> getCardsFromDB() {
+	public static List<Card> getCardList() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
-		Query queryResult = entity.createQuery("from cards");
-		List qList = queryResult.getResultList();
-		
+		Query queryResult = entity.createNativeQuery("select * from cards", Card.class);
+		@SuppressWarnings("unchecked")
+		List<Card> qList = queryResult.getResultList();
 		transaction.commit();
 		
-		List<Card> result = new ArrayList<Card>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((Card) qList.get(i));
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
 		}
-		
-		return result;
 	}
-	public static void updateCard(Long id, Card newObj) {
+	/*public static void updateCard(Long id, Card newObj) {
 		Card oldObj = entity.find(Card.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
@@ -167,7 +167,7 @@ public class DataBase {
 	}*/
 	
 	/* CardAssignement model */
-	/*public static void persistCardAssignement(CardAssignement cardAsig){
+	public static void persistCardAssignement(CardAssignement cardAsig){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -175,22 +175,21 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<CardAssignement> getCardAssignementsFromDB() {
+	public static List<CardAssignement> getCardAssignementList() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
-		Query queryResult = entity.createQuery("from card_assignements");
-		List qList = queryResult.getResultList();
-		
+		Query queryResult = entity.createNativeQuery("select * from card_assignements", CardAssignement.class);
+		@SuppressWarnings("unchecked")
+		List<CardAssignement> qList = queryResult.getResultList();
 		transaction.commit();
 		
-		List<CardAssignement> result = new ArrayList<CardAssignement>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((CardAssignement) qList.get(i));
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
 		}
-		
-		return result;
-	}*/
+	}
 	/*public static void updateCardAssignement(Long id, CardAssignement newObj) {
 		CardAssignement oldObj = entity.find(CardAssignement.class, id);
 		EntityTransaction transaction = entity.getTransaction();
@@ -221,23 +220,22 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	/*public static List<Commision> getCommisionsFromDB() {
+	public static List<Commision> getCommisionList() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
-		Query queryResult = entity.createQuery("from commisions");
-		List qList = queryResult.getResultList();
-		
+		Query queryResult = entity.createNativeQuery("select * from commisions", Commision.class);
+		@SuppressWarnings("unchecked")
+		List<Commision> qList = queryResult.getResultList();
 		transaction.commit();
 		
-		List<Commision> result = new ArrayList<Commision>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((Commision) qList.get(i));
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
 		}
-		
-		return result;
 	}
-	public static void updateCommision(Long id, Commision newObj) {
+	/*public static void updateCommision(Long id, Commision newObj) {
 		Commision oldObj = entity.find(Commision.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
@@ -259,7 +257,7 @@ public class DataBase {
 	}*/
 	
 	/* ExchangeRates model */
-	/*public static void persistExchangeRate(ExchangeRates exgRate){
+	public static void persistExchangeRate(ExchangeRates exgRate){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 
@@ -267,7 +265,22 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<ExchangeRates> getExchangeRatesFromDB() {
+	public static List<ExchangeRates> getExchangeRateList() {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from exchange_rates", ExchangeRates.class);
+		@SuppressWarnings("unchecked")
+		List<ExchangeRates> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
+		}
+	}
+	/*public static List<ExchangeRates> getExchangeRatesFromDB() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
@@ -328,6 +341,22 @@ public class DataBase {
 			return null;
 		}
 	}
+	public static Rate getFalseRate() {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from rates where rate_type= :rate_type", Rate.class)
+				.setParameter("rate_type", 6);
+		@SuppressWarnings("unchecked")
+		List<Rate> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList.get(0);
+		} else {
+			return null;
+		}
+	}
 	/*public static void updateRate(Long id, Rate newObj) {
 		Rate oldObj = entity.find(Rate.class, id);
 		EntityTransaction transaction = entity.getTransaction();
@@ -358,21 +387,20 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<Token> getTokensFromDB() {
+	public static List<Token> getTokenList() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
-		Query queryResult = entity.createQuery("from tokens");
-		List qList = queryResult.getResultList();
-		
+		Query queryResult = entity.createNativeQuery("select * from tokens", Token.class);
+		@SuppressWarnings("unchecked")
+		List<Token> qList = queryResult.getResultList();
 		transaction.commit();
 		
-		List<Token> result = new ArrayList<Token>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((Token) qList.get(i));
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
 		}
-		
-		return result;
 	}*/
 	/*public static void updateToken(Long id, Token newObj) {
 		Token oldObj = entity.find(Token.class, id);
@@ -403,21 +431,20 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	public static List<TokenAssignement> getTokenAssignementsFromDB() {
+	public static List<TokenAssignement> getTokenAssignementList() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
-		Query queryResult = entity.createQuery("from token_assignements");
-		List qList = queryResult.getResultList();
-		
+		Query queryResult = entity.createNativeQuery("select * from tokens_assignements", TokenAssignement.class);
+		@SuppressWarnings("unchecked")
+		List<TokenAssignement> qList = queryResult.getResultList();
 		transaction.commit();
 		
-		List<TokenAssignement> result = new ArrayList<TokenAssignement>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((TokenAssignement) qList.get(i));
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
 		}
-		
-		return result;
 	}*/
 	/*public static void updateTokenAssignement(Long id, TokenAssignement newObj) {
 		TokenAssignement oldObj = entity.find(TokenAssignement.class, id);
@@ -464,7 +491,7 @@ public class DataBase {
 		}
 	}*/
 	
-	/* User model */
+	/* CPUser model */
 	public static void persistUser(CPUser user){
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
@@ -473,23 +500,22 @@ public class DataBase {
 
 		transaction.commit();
 	}
-	/*public static List<CPUser> getUsersFromDB() {
+	public static List<CPUser> getCPUserList() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
-		Query queryResult = entity.createQuery("from users_cp");
-		List qList = queryResult.getResultList();
-		
+		Query queryResult = entity.createNativeQuery("select * from users_cp", CPUser.class);
+		@SuppressWarnings("unchecked")
+		List<CPUser> qList = queryResult.getResultList();
 		transaction.commit();
 		
-		List<CPUser> result = new ArrayList<CPUser>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((CPUser) qList.get(i));
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
 		}
-		
-		return result;
 	}
-	public static void updateUser(Long id, CPUser newObj) {
+	/*public static void updateUser(Long id, CPUser newObj) {
 		CPUser oldObj = entity.find(CPUser.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
@@ -530,5 +556,71 @@ public class DataBase {
 			return null;
 		}
 	}
+	
+	/* HBUser model */
+	public static void persistUser(HBUser user){
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+
+		entity.persist(user);
+
+		transaction.commit();
+	}
+	public static List<HBUser> getHBUserList() {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from users_hb", HBUser.class);
+		@SuppressWarnings("unchecked")
+		List<HBUser> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return null;
+		}
+	}
+	/*public static void updateUser(Long id, CPUser newObj) {
+		CPUser oldObj = entity.find(CPUser.class, id);
+		EntityTransaction transaction = entity.getTransaction();
+		
+		transaction.begin();
+		
+		oldObj.setAddress(newObj.getAddress());
+		oldObj.setCNP(newObj.getCNP());
+		oldObj.setEmail(newObj.getEmail());
+		oldObj.setFirstname(newObj.getFirstname());
+		oldObj.setLastname(newObj.getLastname());
+		oldObj.setPassword(newObj.getPassword());
+		oldObj.setTelephone(newObj.getTelephone());
+		oldObj.setUsername(newObj.getUsername());
+		
+		transaction.commit();
+	}
+	public static void deleteUser(Long id){
+		CPUser obj = entity.find(CPUser.class, id);
+		EntityTransaction transaction = entity.getTransaction();
+		
+		transaction.begin();
+		entity.remove(obj);
+		transaction.commit();
+	}*/
+	/*public static HBUser getUserByUserName(String username) {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from users_hb where username= :username", HBUser.class)
+				.setParameter("username", username);
+		@SuppressWarnings("unchecked")
+		List<HBUser> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList.get(0);
+		} else {
+			return null;
+		}
+	}*/
 
 }

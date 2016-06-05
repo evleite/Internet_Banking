@@ -15,18 +15,18 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
-import cp.models.Account;
-import cp.services.AccountService;
+import cp.models.Card;
+import cp.services.CardService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
 
 
-@Path("/acounts")
+@Path("/cards")
 @RequestScoped
-public class AccountResource {
+public class CardResource {
 
 	@Inject
-	private AccountService accountService;
+	private CardService cardService;
 	@Inject
 	private HttpSession httpSession;
 	
@@ -45,27 +45,27 @@ public class AccountResource {
 		
 		Map<String, Object> response = null;
 		
-		if (httpSession.getAttribute("accountList") == null) {
-			response = accountService.getAccountList();
+		if (httpSession.getAttribute("cardList") == null) {
+			response = cardService.getCardList();
 			if ((boolean) response.get("success") == true) {
-				List<Account> accountList = (List<Account>) response.get("accountList");
+				List<Card> cardList = (List<Card>) response.get("cardList");
 				
-				httpSession.setAttribute("accountList", accountList);
+				httpSession.setAttribute("cardList", cardList);
 				
 				JSONObject responseJson = new JSONObject();
 				responseJson.put("success", true);
-				responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
+				responseJson.put("cardList", JsonUtils.cardListToJson(cardList));
 				
 				return Response.status(200).entity(responseJson).build();
 			} else {
 				return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
 			}
 		} else {
-			List<Account> accountList = (List<Account>) httpSession.getAttribute("accountList");
+			List<Card> cardList = (List<Card>) httpSession.getAttribute("cardList");
 			
 			JSONObject responseJson = new JSONObject();
 			responseJson.put("success", true);
-			responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
+			responseJson.put("cardList", JsonUtils.cardListToJson(cardList));
 			
 			return Response.status(200).entity(responseJson).build();
 		}

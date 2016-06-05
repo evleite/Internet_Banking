@@ -1,5 +1,5 @@
 <div class="row">
-	<div class="col-md-4">
+	<div class="col-md-3">
 		<div class="administration">
 			<ul class="admin-nav">
 				<li class="admin-nav-item" ng-repeat="item in adminNav" ng-click=main(item.key) ng-class="{selected: selectedNode == item.key}">
@@ -8,14 +8,16 @@
 			</ul>
 		</div>
 	</div>
-	<div class="col-md-8">
+	<div class="col-md-9">
 		<div class="main-content">
 			<div class="item-list account-list" ng-show="showAccountList">
 				<table class="table table-hover table-striped">
 					<thead>
 						<tr>
 							<th>ID</th>
-							<th>IBAN</th>
+							<th>ACCOUNT</th>
+							<th>TYPE</th>
+							<th>CURRENCY</th>
 							<th>EDIT</th>
 							<th>DELETE</th>
 						</tr>
@@ -24,6 +26,108 @@
 						<tr class="item account-item" ng-repeat="item in accountList">
 							<td>{{ item.id }}</td>
 							<td>{{ item.IBAN }}</td>
+							<td>{{ item.acc_type }}</td>
+							<td>{{ item.currency }}</td>
+							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="item-list account-assignement-list" ng-show="showAccountAssignementList">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>ACCOUNT</th>
+							<th>ACCOUNT TYPE</th>
+							<th>CURRENCY</th>
+							<th>USARNAME</th>
+							<th>EDIT</th>
+							<th>DELETE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="item account-assignement-item" ng-repeat="item in accountAssignementList">
+							<td>{{ item.id }}</td>
+							<td>{{ item.account.IBAN }}</td>
+							<td>{{ item.account.acc_type }}</td>
+							<td>{{ item.account.currency }}</td>
+							<td>{{ item.user.username }}</td>
+							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="item-list card-list" ng-show="showCardList">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>CARD NUMBER</th>
+							<th>TYPE</th>
+							<th>EDIT</th>
+							<th>DELETE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="item card-item" ng-repeat="item in cardList">
+							<td>{{ item.id }}</td>
+							<td>{{ item.card_no }}</td>
+							<td>{{ item.type }}</td>
+							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="item-list card-assignement-list" ng-show="showCardAssignementList">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>ACCOUNT</th>
+							<th>ACCOUNT TYPE</th>
+							<th>CURRENCY</th>
+							<th>CARD NUMBER</th>
+							<th>USARNAME</th>
+							<th>EDIT</th>
+							<th>DELETE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="item card-assignement-item" ng-repeat="item in cardAssignementList">
+							<td>{{ item.id }}</td>
+							<td>{{ item.account.IBAN }}</td>
+							<td>{{ item.account.acc_type }}</td>
+							<td>{{ item.account.currency }}</td>
+							<td>{{ item.card.card_no }}</td>
+							<td>{{ item.user.username }}</td>
+							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="item-list exchange-rate-list" ng-show="showExchangeRateList">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>CURRENCY</th>
+							<th>BUY</th>
+							<th>SELL</th>
+							<th>EDIT</th>
+							<th>DELETE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="item exchange-rate-item" ng-repeat="item in exchangeRateList">
+							<td>{{ item.id }}</td>
+							<td>{{ item.currency }}</td>
+							<td>{{ item.buy }}</td>
+							<td>{{ item.sell }}</td>
 							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
 							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
 						</tr>
@@ -46,6 +150,78 @@
 							<td>{{ item.id }}</td>
 							<td>{{ item.type }}</td>
 							<td>{{ item.year_percentage }}</td>
+							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="item-list commision-list" ng-show="showCommisionList">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>COMMISION TYPE</th>
+							<th>TYPE</th>
+							<th>EDIT</th>
+							<th>DELETE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="item commision-item" ng-repeat="item in commisionList">
+							<td>{{ item.id }}</td>
+							<td>{{ item.type }}</td>
+							<td>{{ item.amount }}</td>
+							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="item-list user-cp-list" ng-show="showUserCPList">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>USERNAME</th>
+							<th>FIRSTNAME</th>
+							<th>LASTNAME</th>
+							<th>EDIT</th>
+							<th>DELETE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="item user-cp-item" ng-repeat="item in userCPList">
+							<td>{{ item.id }}</td>
+							<td>{{ item.username }}</td>
+							<td>{{ item.firstname }}</td>
+							<td>{{ item.lastname }}</td>
+							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+			<div class="item-list user-hb-list" ng-show="showUserHBList">
+				<table class="table table-hover table-striped">
+					<thead>
+						<tr>
+							<th>ID</th>
+							<th>USERNAME</th>
+							<th>FIRSTNAME</th>
+							<th>LASTNAME</th>
+							<th>AUTH TYPE</th>
+							<th>EDIT</th>
+							<th>DELETE</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr class="item user-cp-item" ng-repeat="item in userHBList">
+							<td>{{ item.id }}</td>
+							<td>{{ item.username }}</td>
+							<td>{{ item.firstname }}</td>
+							<td>{{ item.lastname }}</td>
+							<td>{{ item.auth_type }}</td>
 							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
 							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
 						</tr>
