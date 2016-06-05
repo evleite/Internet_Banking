@@ -1,0 +1,30 @@
+<div class="add-account-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new account</h3>
+	</div>
+	<div class="modal-body">
+		<form name="addAccountForm" ng-submit="login()" novalidate>
+			<!-- Account type -->
+			<div class="form-group" ng-class="{ 'has-error' : addAccountForm.type.$invalid && !addAccountForm.type.$pristine }">
+				<label>Account type</label> 
+				<select name="type" class="form-control" ng-model="type" required >
+					<option disabled selected value> -- select an option -- </option>
+					<option ng-repeat="item in accountTypeList" value="{{ item }}">{{ item }}</option>
+				</select>
+				<p ng-show="addAccountForm.type.$error.required" class="help-block">Account type is required!</p>
+			</div>
+
+			<!-- Initial balance -->
+			<div class="form-group" ng-class="{ 'has-error' : addAccountForm.balance.$invalid && !addAccountForm.balance.$pristine }">
+				<label>Initial balance</label> 
+				<input type="number" name="balance" value="" class="form-control" ng-model="balance" min="0" required >
+				<p ng-show="addAccountForm.balance.$error.min" class="help-block">Balance has to be positive!</p>
+				<p ng-show="addAccountForm.balance.$error.required" class="help-block">Balance is required!</p>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="addAccountForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

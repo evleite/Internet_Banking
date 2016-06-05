@@ -3,8 +3,9 @@
 angular.module('corePortalApp').controller(
     'CPMainCtrl',
     function ($rootScope, $scope, 
-    		CPAccountService, CPRateService, CPCommisionService, CPUserCPService, CPAccountAssignementService, CPCardService,
-    		CPCardAssignementService, CPExchangeRateService, CPUserHBService,
+    		CPAccountService, CPRateService, CPCommisionService, CPUserCPService, CPAccountAssignementService,
+    		CPCardService, CPCardAssignementService, CPExchangeRateService, CPUserHBService,
+    		CPModalFactory,
     		$location, $httpParamSerializer) {
     	if (window.sessionStorage.login == "true"){
     		$(".loged-in-user > h3").html(window.sessionStorage.username);
@@ -55,6 +56,7 @@ angular.module('corePortalApp').controller(
                                 console.log('Account list:', data);
                                 
                                 $scope.accountList = data.accountList;
+                                $scope.accountTypeList = data.accountTypeList;
                                 
                                 $scope.hideAdminLists();
                                 $scope.showAccountList = true;
@@ -66,11 +68,11 @@ angular.module('corePortalApp').controller(
                             	
                             	if (err.data.errorCode == 666){
                             		window.sessionStorage.clear();
-                            		alert("Your session has expired. Please login again.");
+                            		CPModalFactory.errorModal("Your session has expired. Please login again.");
                             		$location.path("/login");
+                            	} else {                            	
+                            		CPModalFactory.errorModal("Backend error");
                             	}
-                            	
-                            	alert("Backend error");
                             });
             		
                 	break;
@@ -94,11 +96,11 @@ angular.module('corePortalApp').controller(
                             	
                             	if (err.data.errorCode == 666){
                             		window.sessionStorage.clear();
-                            		alert("Your session has expired. Please login again.");
+                            		CPModalFactory.errorModal("Your session has expired. Please login again.");
                             		$location.path("/login");
+                            	} else {                            	
+                            		CPModalFactory.errorModal("Backend error");
                             	}
-                            	
-                            	alert("Backend error");
                             });
             		
             		break;
@@ -122,11 +124,11 @@ angular.module('corePortalApp').controller(
                             	
                             	if (err.data.errorCode == 666){
                             		window.sessionStorage.clear();
-                            		alert("Your session has expired. Please login again.");
+                            		CPModalFactory.errorModal("Your session has expired. Please login again.");
                             		$location.path("/login");
+                            	} else {                            	
+                            		CPModalFactory.errorModal("Backend error");
                             	}
-                            	
-                            	alert("Backend error");
                             });
             		
                 	break;
@@ -150,11 +152,11 @@ angular.module('corePortalApp').controller(
                             	
                             	if (err.data.errorCode == 666){
                             		window.sessionStorage.clear();
-                            		alert("Your session has expired. Please login again.");
+                            		CPModalFactory.errorModal("Your session has expired. Please login again.");
                             		$location.path("/login");
+                            	} else {                            	
+                            		CPModalFactory.errorModal("Backend error");
                             	}
-                            	
-                            	alert("Backend error");
                             });
             		
                 	break;
@@ -178,11 +180,11 @@ angular.module('corePortalApp').controller(
                             	
                             	if (err.data.errorCode == 666){
                             		window.sessionStorage.clear();
-                            		alert("Your session has expired. Please login again.");
+                            		CPModalFactory.errorModal("Your session has expired. Please login again.");
                             		$location.path("/login");
+                            	} else {                            	
+                            		CPModalFactory.errorModal("Backend error");
                             	}
-                            	
-                            	alert("Backend error");
                             });
             		
                 	break;
@@ -206,11 +208,11 @@ angular.module('corePortalApp').controller(
                             	
                             	if (err.data.errorCode == 666){
                             		window.sessionStorage.clear();
-                            		alert("Your session has expired. Please login again.");
+                            		CPModalFactory.errorModal("Your session has expired. Please login again.");
                             		$location.path("/login");
+                            	} else {                            	
+                            		CPModalFactory.errorModal("Backend error");
                             	}
-                            	
-                            	alert("Backend error");
                             });
             		
                 	break;
@@ -234,11 +236,11 @@ angular.module('corePortalApp').controller(
                             	
                             	if (err.data.errorCode == 666){
                             		window.sessionStorage.clear();
-                            		alert("Your session has expired. Please login again.");
+                            		CPModalFactory.errorModal("Your session has expired. Please login again.");
                             		$location.path("/login");
+                            	} else {                            	
+                            		CPModalFactory.errorModal("Backend error");
                             	}
-                            	
-                            	alert("Backend error");
                             });
             		
                 	break;
@@ -268,11 +270,11 @@ angular.module('corePortalApp').controller(
                             	
                             	if (err.data.errorCode == 666){
                             		window.sessionStorage.clear();
-                            		alert("Your session has expired. Please login again.");
+                            		CPModalFactory.errorModal("Your session has expired. Please login again.");
                             		$location.path("/login");
+                            	} else {                            	
+                            		CPModalFactory.errorModal("Backend error");
                             	}
-                            	
-                            	alert("Backend error");
                             });
             		
                 	break;
@@ -296,17 +298,21 @@ angular.module('corePortalApp').controller(
                             	
                             	if (err.data.errorCode == 666){
                             		window.sessionStorage.clear();
-                            		alert("Your session has expired. Please login again.");
+                            		CPModalFactory.errorModal("Your session has expired. Please login again.");
                             		$location.path("/login");
+                            	} else {                            	
+                            		CPModalFactory.errorModal("Backend error");
                             	}
-                            	
-                            	alert("Backend error");
                             });
             		
                 	break;
             	default:
         	}
         };
+        
+        $scope.addAccount = function (){
+        	CPModalFactory.addAccount($scope.accountTypeList);
+        }
         
         $scope.main("account");
     });

@@ -1,5 +1,6 @@
 package cp.resources;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.RequestScoped;
@@ -19,6 +20,7 @@ import cp.models.Account;
 import cp.services.AccountService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
+import cp.utils.enums.AccountType;
 
 
 @Path("/acounts")
@@ -56,6 +58,12 @@ public class AccountResource {
 				responseJson.put("success", true);
 				responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
 				
+				List<String> accountTypeList = new ArrayList<>();
+				accountTypeList.add(AccountType.CREDIT_ACCOUNT.toString());
+				accountTypeList.add(AccountType.CURRENT_ACOUNT.toString());
+				accountTypeList.add(AccountType.SAVING_ACCOUNT.toString());
+				responseJson.put("accountTypeList", JsonUtils.listOfPrimitivesToJsonAray(accountTypeList));
+				
 				return Response.status(200).entity(responseJson).build();
 			} else {
 				return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
@@ -67,7 +75,42 @@ public class AccountResource {
 			responseJson.put("success", true);
 			responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
 			
+			List<String> accountTypeList = new ArrayList<>();
+			accountTypeList.add(AccountType.CREDIT_ACCOUNT.toString());
+			accountTypeList.add(AccountType.CURRENT_ACOUNT.toString());
+			accountTypeList.add(AccountType.SAVING_ACCOUNT.toString());
+			responseJson.put("accountTypeList", JsonUtils.listOfPrimitivesToJsonAray(accountTypeList));
+			
 			return Response.status(200).entity(responseJson).build();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/new")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response addAccount(@FormParam("token") String token,
+							   @FormParam("type") String type,
+							   @FormParam("balance") String balance) throws Exception {
+		
+		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
+			httpSession.invalidate();
+			return Response.serverError()
+					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Integrity violation!", 666)))
+					.build();
+		}
+		
+		Map<String, Object> response = null;
+		
+		response = accountService.addAccount(type, balance);
+		if ((boolean) response.get("success") == true) {
+			JSONObject responseJson = new JSONObject();
+			responseJson.put("success", true);
+				
+			return Response.status(200).entity(responseJson).build();
+		} else {
+			return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
 		}
 	}
 }

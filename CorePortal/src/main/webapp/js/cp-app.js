@@ -1,6 +1,6 @@
 'use strict';
 
-var cpApp = angular.module('corePortalApp', ['ngRoute','ngResource']);
+var cpApp = angular.module('corePortalApp', ['ngRoute','ngResource', 'ui.bootstrap']);
 
 cpApp.config(function($routeProvider){
 	$routeProvider
@@ -33,3 +33,4 @@ cpApp.config(function($routeProvider){
 
 	$routeProvider.otherwise({redirectTo: '/error'});
 });
+
