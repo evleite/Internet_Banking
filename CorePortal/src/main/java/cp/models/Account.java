@@ -51,15 +51,6 @@ public class Account extends AbstractModel implements Serializable {
 		this.comm_admin = null;
 		this.rate = null;
 	}
-	public Account(String iBAN, AccountType acc_type, Currencies currency, Commision comm_admin, Double balance) {
-		super();
-		IBAN = iBAN;
-		this.acc_type = acc_type;
-		this.currency = currency;
-		this.comm_admin = comm_admin;
-		this.rate = DataBase.getFalseRate();
-		this.balance = balance;
-	}
 	public Account(String iBAN, AccountType acc_type, Currencies currency, Commision comm_admin, Rate rate, Double balance) {
 		super();
 		IBAN = iBAN;

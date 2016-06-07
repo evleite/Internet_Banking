@@ -15,6 +15,18 @@ angular.module('corePortalApp').service('CPAccountService',
                     method: 'POST',
                     url: 'rest/acounts/new',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                }
+                },
+                
+                deleteAccount: {
+                    method: 'POST',
+                    url: 'rest/acounts/delete',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                },
+                
+                editAccount: {
+                    method: 'POST',
+                    url: 'rest/acounts/edit',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                },
             });
     });

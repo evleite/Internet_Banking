@@ -1,5 +1,6 @@
 package cp.resources;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -14,8 +15,14 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import org.json.simple.JSONObject;
+
 import cp.models.CPUser;
+import cp.models.Commision;
+import cp.models.Rate;
+import cp.services.CommisionService;
 import cp.services.LoginFlowService;
+import cp.services.RateService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
 
@@ -27,8 +34,13 @@ public class LoginFlowResource {
 	@Inject
 	private LoginFlowService loginFlowService;
 	@Inject
+	private CommisionService commisionService;
+	@Inject
+	private RateService rateService;
+	@Inject
 	private HttpSession httpSession;
 	
+	@SuppressWarnings("unchecked")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -50,6 +62,24 @@ public class LoginFlowResource {
 			response.put("username", logedInUser.getUsername());
 			response.remove("user");
 			response.put("token", token);
+			
+			/* Cache commisions on session*/
+			Map<String, Object> commisions = commisionService.getCommisionList();
+			if ((boolean) commisions.get("success") == true) {
+				List<Commision> commisionList = (List<Commision>) commisions.get("commisionList");
+				httpSession.setAttribute("commisionList", commisionList);
+			} else {
+				return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
+			}
+			
+			/* Cache rates on session*/
+			Map<String, Object> rates = rateService.getRateList();
+			if ((boolean) rates.get("success") == true) {
+				List<Rate> rateList = (List<Rate>) rates.get("rateList");
+				httpSession.setAttribute("rateList", rateList);
+			} else {
+				return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
+			}
 			
 			return Response.status(200).entity(JsonUtils.mapToJson(response)).build();
 		}

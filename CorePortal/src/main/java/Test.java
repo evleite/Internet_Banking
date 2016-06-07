@@ -7,6 +7,7 @@ import cp.models.Rate;
 import cp.models.CPUser;
 import cp.models.Card;
 import cp.models.CardAssignement;
+import cp.utils.AccountUtils;
 import cp.utils.DataBase;
 import cp.utils.TrippleDes;
 import cp.utils.enums.AccountType;
@@ -95,6 +96,7 @@ public class Test {
 		
 		ExchangeRates er2 = new ExchangeRates(Currencies.USD, 4.1, 3.9);
 		DataBase.persistExchangeRate(er2);*/
+		
 	}
 
 }

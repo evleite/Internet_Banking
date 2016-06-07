@@ -8,6 +8,8 @@ import javax.jws.WebService;
 
 import cp.models.Account;
 import cp.models.Commision;
+import cp.models.Rate;
+import cp.utils.AccountUtils;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;
 import cp.utils.enums.AccountType;
@@ -29,20 +31,50 @@ public class AccountService {
 		}
 	}
 	
-	public Map<String, Object> addAccount(String type, String balance) throws Exception{
+	public Map<String, Object> addAccount(String type, String currency, Double balance, Long id_com, Long id_rate) throws Exception{
 		AccountType accType = AccountType.valueOf(type);
-		Double dBalance = Double.parseDouble(balance);
+		Currencies currencyType = Currencies.valueOf(currency);
+		Commision comm = DataBase.getCommisionById(id_com);
+		Rate rate = DataBase.getRateById(id_rate);
+		String IBAN = AccountUtils.generateIBAN(accType, currencyType);
 		
-		Commision comm1 = new Commision(CommisionType.CURRENT_ACOUNT, 5.0, "Comm for admin curr acc");
-		Account acc1 = new Account("HBCP00000000000000001111", accType, Currencies.RON, comm1, dBalance);
+		Account acc = new Account(IBAN, accType, currencyType, comm, rate, balance);
 		
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			DataBase.persistAccount(acc1);
+			DataBase.persistAccount(acc);
+			response.put("account", acc);
 			return ResponseUtils.respondWithSucces(response);
 		} catch (Exception e) {
-			return ResponseUtils.respondWithError("Can't save new account in database.");
+			return ResponseUtils.respondWithError("Can't add new account from database.");
+		}
+	}
+	
+	public Map<String, Object> deleteAccount(Long id) throws Exception{
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			Account acc = DataBase.deleteAccount(id);
+			response.put("account", acc);
+			return ResponseUtils.respondWithSucces(response);
+		} catch (Exception e) {
+			return ResponseUtils.respondWithError("Can't delete account from database.");
+		}
+	}
+	
+	public Map<String, Object> editAccount(Long id_account, Long id_com, Long id_rate) throws Exception{
+		Commision comm = DataBase.getCommisionById(id_com);
+		Rate rate = DataBase.getRateById(id_rate);
+		
+		Map<String, Object> response = new HashMap<>();
+		
+		try {
+			Account acc = DataBase.updateAccount(id_account, comm, rate);
+			response.put("account", acc);
+			return ResponseUtils.respondWithSucces(response);
+		} catch (Exception e) {
+			return ResponseUtils.respondWithError("Can't update account from database.");
 		}
 	}
 }

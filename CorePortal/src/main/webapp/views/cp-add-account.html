@@ -3,7 +3,7 @@
 		<h3 class="modal-title">Create new account</h3>
 	</div>
 	<div class="modal-body">
-		<form name="addAccountForm" ng-submit="login()" novalidate>
+		<form name="addAccountForm" novalidate>
 			<!-- Account type -->
 			<div class="form-group" ng-class="{ 'has-error' : addAccountForm.type.$invalid && !addAccountForm.type.$pristine }">
 				<label>Account type</label> 
@@ -13,6 +13,16 @@
 				</select>
 				<p ng-show="addAccountForm.type.$error.required" class="help-block">Account type is required!</p>
 			</div>
+			
+			<!-- Currencies -->
+			<div class="form-group" ng-class="{ 'has-error' : addAccountForm.currencies.$invalid && !addAccountForm.currencies.$pristine }">
+				<label>Currencies</label> 
+				<select name="currencies" class="form-control" ng-model="currencies" required >
+					<option disabled selected value> -- select an option -- </option>
+					<option ng-repeat="item in currenciesList" value="{{ item }}">{{ item }}</option>
+				</select>
+				<p ng-show="addAccountForm.currencies.$error.required" class="help-block">Currencies is required!</p>
+			</div>
 
 			<!-- Initial balance -->
 			<div class="form-group" ng-class="{ 'has-error' : addAccountForm.balance.$invalid && !addAccountForm.balance.$pristine }">
@@ -20,6 +30,26 @@
 				<input type="number" name="balance" value="" class="form-control" ng-model="balance" min="0" required >
 				<p ng-show="addAccountForm.balance.$error.min" class="help-block">Balance has to be positive!</p>
 				<p ng-show="addAccountForm.balance.$error.required" class="help-block">Balance is required!</p>
+			</div>
+			
+			<!-- Commision -->
+			<div class="form-group" ng-class="{ 'has-error' : addAccountForm.commision.$invalid && !addAccountForm.commision.$pristine }">
+				<label>Commision</label> 
+				<select name="commision" class="form-control" ng-model="commision" required >
+					<option disabled selected value> -- select an option -- </option>
+					<option ng-repeat="item in commisionList" value="{{ item.id }}">{{ item.details }}</option>
+				</select>
+				<p ng-show="addAccountForm.commision.$error.required" class="help-block">Commision is required!</p>
+			</div>
+			
+			<!-- Rate -->
+			<div class="form-group" ng-class="{ 'has-error' : addAccountForm.rate.$invalid && !addAccountForm.rate.$pristine }">
+				<label>Rate</label> 
+				<select name="rate" class="form-control" ng-model="rate" required >
+					<option disabled selected value> -- select an option -- </option>
+					<option ng-repeat="item in rateList" value="{{ item.id }}">{{ item.details }}</option>
+				</select>
+				<p ng-show="addAccountForm.rate.$error.required" class="help-block">Rate is required!</p>
 			</div>
 		</form>
 	</div>

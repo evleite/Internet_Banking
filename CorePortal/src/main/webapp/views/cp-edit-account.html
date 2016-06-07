@@ -1,0 +1,52 @@
+<div class="edit-account-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Edit account</h3>
+	</div>
+	<div class="modal-body">
+		<form name="editAccountForm" novalidate>
+			<!-- Account id -->
+			<div class="form-group">
+				<label>ID</label> 
+				<input type="number" name="id" value="{{ account.id }}" class="form-control" disabled >
+			</div>
+		
+			<!-- Account type -->
+			<div class="form-group">
+				<label>Account type</label> 
+				<input type="text" name="type" value="{{ account.acc_type }}" class="form-control" disabled >
+			</div>
+			
+			<!-- Currencies -->
+			<div class="form-group">
+				<label>Currencies</label> 
+				<input type="text" name="currencies" value="{{ account.currency }}" class="form-control" disabled >
+			</div>
+
+			<!-- Balance -->
+			<!-- <div class="form-group">
+				<label>Initial balance</label> 
+				<input type="number" name="balance" value="{{ account.balance }}" class="form-control" disabled >
+			</div> -->
+			
+			<!-- Commision -->
+			<div class="form-group" ng-class="{ 'has-error' : editAccountForm.commision.$invalid && !editAccountForm.commision.$pristine }">
+				<label>Commision</label> 
+				<select name="commision" class="form-control" ng-model="commision" required ng-options="item.id as item.details for item in commisionList" ng-init="commision=account.comm.id">
+				</select>
+				<p ng-show="editAccountForm.commision.$error.required" class="help-block">Commision is required!</p>
+			</div>
+			
+			<!-- Rate -->
+			<div class="form-group" ng-class="{ 'has-error' : editAccountForm.rate.$invalid && !editAccountForm.rate.$pristine }">
+				<label>Rate</label> 
+				<select name="rate" class="form-control" ng-model="rate" required ng-options="item.id as item.details for item in rateList" ng-init="rate=account.rate.id">
+				</select>
+				<p ng-show="editAccountForm.rate.$error.required" class="help-block">Rate is required!</p>
+			</div>
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="editAccountForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

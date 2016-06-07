@@ -6,6 +6,7 @@ import java.util.Map;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
+import javax.swing.plaf.BorderUIResource.EmptyBorderUIResource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -18,9 +19,12 @@ import org.json.simple.JSONObject;
 
 import cp.models.Account;
 import cp.services.AccountService;
+import cp.utils.DataBase;
+import cp.utils.EnumUtils;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
 import cp.utils.enums.AccountType;
+import cp.utils.enums.Currencies;
 
 
 @Path("/acounts")
@@ -55,14 +59,11 @@ public class AccountResource {
 				httpSession.setAttribute("accountList", accountList);
 				
 				JSONObject responseJson = new JSONObject();
+				
 				responseJson.put("success", true);
 				responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
-				
-				List<String> accountTypeList = new ArrayList<>();
-				accountTypeList.add(AccountType.CREDIT_ACCOUNT.toString());
-				accountTypeList.add(AccountType.CURRENT_ACOUNT.toString());
-				accountTypeList.add(AccountType.SAVING_ACCOUNT.toString());
-				responseJson.put("accountTypeList", JsonUtils.listOfPrimitivesToJsonAray(accountTypeList));
+				responseJson.put("accountTypeList", JsonUtils.listOfPrimitivesToJsonAray(EnumUtils.getAccountTypeList()));
+				responseJson.put("currenciesList", JsonUtils.listOfPrimitivesToJsonAray(EnumUtils.getCurrenciesList()));
 				
 				return Response.status(200).entity(responseJson).build();
 			} else {
@@ -72,14 +73,11 @@ public class AccountResource {
 			List<Account> accountList = (List<Account>) httpSession.getAttribute("accountList");
 			
 			JSONObject responseJson = new JSONObject();
+			
 			responseJson.put("success", true);
 			responseJson.put("accountList", JsonUtils.accountListToJson(accountList));
-			
-			List<String> accountTypeList = new ArrayList<>();
-			accountTypeList.add(AccountType.CREDIT_ACCOUNT.toString());
-			accountTypeList.add(AccountType.CURRENT_ACOUNT.toString());
-			accountTypeList.add(AccountType.SAVING_ACCOUNT.toString());
-			responseJson.put("accountTypeList", JsonUtils.listOfPrimitivesToJsonAray(accountTypeList));
+			responseJson.put("accountTypeList", JsonUtils.listOfPrimitivesToJsonAray(EnumUtils.getAccountTypeList()));
+			responseJson.put("currenciesList", JsonUtils.listOfPrimitivesToJsonAray(EnumUtils.getCurrenciesList()));
 			
 			return Response.status(200).entity(responseJson).build();
 		}
@@ -92,7 +90,10 @@ public class AccountResource {
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
 	public Response addAccount(@FormParam("token") String token,
 							   @FormParam("type") String type,
-							   @FormParam("balance") String balance) throws Exception {
+							   @FormParam("balance") Double balance,
+							   @FormParam("id_comm") Long id_com,
+							   @FormParam("id_rate") Long id_rate,
+							   @FormParam("currency") String currency) throws Exception {
 		
 		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
 			httpSession.invalidate();
@@ -103,11 +104,89 @@ public class AccountResource {
 		
 		Map<String, Object> response = null;
 		
-		response = accountService.addAccount(type, balance);
+		response = accountService.addAccount(type, currency, balance, id_com, id_rate);
 		if ((boolean) response.get("success") == true) {
+			Account account = (Account) response.get("account");
+			
+			/* Update account list in cache */
+			List<Account> accountList = (List<Account>) httpSession.getAttribute("accountList");
+			accountList.add(account);
+			httpSession.setAttribute("accountList", accountList);
+			
 			JSONObject responseJson = new JSONObject();
 			responseJson.put("success", true);
-				
+			return Response.status(200).entity(responseJson).build();
+		} else {
+			return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/delete")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response deleteAccount(@FormParam("token") String token,
+							      @FormParam("id") Long id) throws Exception {
+		
+		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
+			httpSession.invalidate();
+			return Response.serverError()
+					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Integrity violation!", 666)))
+					.build();
+		}
+		
+		Map<String, Object> response = null;
+		
+		response = accountService.deleteAccount(id);
+		if ((boolean) response.get("success") == true) {
+			Account account = (Account) response.get("account");
+			
+			/* Update account list in cache */
+			List<Account> accountList = (List<Account>) httpSession.getAttribute("accountList");
+			accountList.remove(account);			
+			httpSession.setAttribute("accountList", accountList);
+			
+			JSONObject responseJson = new JSONObject();
+			responseJson.put("success", true);
+			return Response.status(200).entity(responseJson).build();
+		} else {
+			return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/edit")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response editAccount(@FormParam("token") String token,
+							   @FormParam("id_account") Long id_account,
+							   @FormParam("id_comm") Long id_com,
+							   @FormParam("id_rate") Long id_rate) throws Exception {
+		
+		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
+			httpSession.invalidate();
+			return Response.serverError()
+					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Integrity violation!", 666)))
+					.build();
+		}
+		
+		Map<String, Object> response = null;
+		
+		response = accountService.editAccount(id_account, id_com, id_rate);
+		if ((boolean) response.get("success") == true) {
+			Account account = (Account) response.get("account");
+			Account oldAccount = DataBase.getAccountById(id_account);
+			
+			/* Update account list in cache */
+			List<Account> accountList = (List<Account>) httpSession.getAttribute("accountList");
+			accountList.remove(oldAccount);
+			accountList.add(account);
+			httpSession.setAttribute("accountList", accountList);
+			
+			JSONObject responseJson = new JSONObject();
+			responseJson.put("success", true);
 			return Response.status(200).entity(responseJson).build();
 		} else {
 			return Response.serverError().entity(JsonUtils.mapToJson(response)).build();

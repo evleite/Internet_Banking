@@ -23,13 +23,13 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="item account-item" ng-repeat="item in accountList">
+						<tr class="item account-item" ng-repeat="item in accountList track by $index">
 							<td>{{ item.id }}</td>
 							<td>{{ item.IBAN }}</td>
 							<td>{{ item.acc_type }}</td>
 							<td>{{ item.currency }}</td>
-							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
-							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-edit btn" aria-hidden="true" ng-click="editAccount(item, $index)"></span></td>
+							<td><span class="glyphicon glyphicon-remove btn" aria-hidden="true" ng-click="deleteAccount(item.id, $index)"></span></td>
 						</tr>
 					</tbody>
 				</table>

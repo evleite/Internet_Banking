@@ -51,29 +51,33 @@ public class DataBase {
 			return null;
 		}
 	}
-	/*public static void updateAccount(Long id, Account newObj) {
+	public static Account updateAccount(Long id, Commision comm, Rate rate) {
 		Account oldObj = entity.find(Account.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		
-		oldObj.setAcc_type(newObj.getAcc_type());
-		oldObj.setCurrency(newObj.getCurrency());
-		oldObj.setIBAN(newObj.getIBAN());
-		oldObj.setId_comm_admin(newObj.getId_comm_admin());
-		oldObj.setId_rate(newObj.getId_rate());
-		oldObj.setBalance(newObj.getBalance());
+		oldObj.setId_comm_admin(comm);
+		oldObj.setId_rate(rate);
 		
 		transaction.commit();
+		
+		return oldObj;
 	}
-	public static void deleteAccount(Long id){
+	public static Account deleteAccount(Long id){
 		Account obj = entity.find(Account.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		entity.remove(obj);
 		transaction.commit();
-	}*/
+		
+		return obj;
+	}
+	public static Account getAccountById(Long id) {
+		Account obj = entity.find(Account.class, id);
+		return obj;
+	}
 	
 	/* AccountAssignement model */
 	public static void persistAccountAssignement(AccountAssignement accAsig){
@@ -235,6 +239,10 @@ public class DataBase {
 			return null;
 		}
 	}
+	public static Commision getCommisionById(Long id) {
+		Commision obj = entity.find(Commision.class, id);
+		return obj;
+	}
 	/*public static void updateCommision(Long id, Commision newObj) {
 		Commision oldObj = entity.find(Commision.class, id);
 		EntityTransaction transaction = entity.getTransaction();
@@ -341,7 +349,7 @@ public class DataBase {
 			return null;
 		}
 	}
-	public static Rate getFalseRate() {
+	/*public static Rate getFalseRate() {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
@@ -356,6 +364,10 @@ public class DataBase {
 		} else {
 			return null;
 		}
+	}
+	*/public static Rate getRateById(Long id) {
+		Rate obj = entity.find(Rate.class, id);
+		return obj;
 	}
 	/*public static void updateRate(Long id, Rate newObj) {
 		Rate oldObj = entity.find(Rate.class, id);

@@ -27,7 +27,7 @@ angular.module('corePortalApp').factory(
 						/* When $uibModalInstance.dismiss()*/
 					});	
 				},
-				addAccount: function (accountTypeList) {
+				addAccount: function (accountTypeList, currenciesList, commisionList, rateList) {
 					
 					var modalInstance = $uibModal.open({
 						animation: false,
@@ -39,14 +39,52 @@ angular.module('corePortalApp').factory(
 					    resolve: { /* Parrameters passed as locals to controller*/
 					    	accountTypeList: function () {
 					    		return accountTypeList;
-					    	} 
+					    	},
+					    	currenciesList: function () {
+					    		return currenciesList;
+					    	},
+					    	rateList: function () {
+					    		return rateList;
+					    	},
+					    	commisionList: function () {
+					    		return commisionList;
+					    	},
 					    }
 					});
 
-					modalInstance.result.then(function (data) {
-						console.log("type: " + data[0] + " ; " + "balance: " + data[1]);
-					}, function (data) {
-						console.log(data);
+					modalInstance.result.then(function () {
+
+					}, function () {
+						
+					});	
+				},
+				
+				editAccount: function (account, commisionList, rateList) {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-edit-account.html',
+					    controller: 'CPEditAccountCtrl',
+					    size: 'lg',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	account: function () {
+					    		return account;
+					    	},					    	
+					    	rateList: function () {
+					    		return rateList;
+					    	},
+					    	commisionList: function () {
+					    		return commisionList;
+					    	},
+					    }
+					});
+
+					modalInstance.result.then(function () {
+
+					}, function () {
+						
 					});	
 				}
 			};
@@ -60,7 +98,7 @@ angular.module('corePortalApp').controller(
 	    	
 
 	    	$scope.ok = function() {
-				$uibModalInstance.close('ok');
+				$uibModalInstance.close();
 			};
 
 			/*$scope.cancel = function() {
@@ -71,17 +109,31 @@ angular.module('corePortalApp').controller(
 
 angular.module('corePortalApp').controller(
 	    'CPAddAccountCtrl',
-	    function ($scope, $uibModalInstance, $httpParamSerializer, CPModalFactory, CPAccountService, accountTypeList) {
+	    function (
+	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		CPModalFactory, CPAccountService, 
+	    		accountTypeList, currenciesList, rateList, commisionList) {
 	    	$scope.accountTypeList = accountTypeList;
+	    	$scope.currenciesList = currenciesList;
+	    	$scope.rateList = rateList;
+	    	$scope.commisionList = commisionList;
 	    	
 
 	    	$scope.save = function() {
 	    		CPAccountService.addAccount(
-                	$httpParamSerializer({token: window.sessionStorage.token, type: $scope.type, balance: $scope.balance}),
+                	$httpParamSerializer(
+                			{
+                				token: window.sessionStorage.token, 
+                				type: $scope.type, balance: $scope.balance,
+                				id_comm: $scope.commision,
+                				id_rate: $scope.rate,
+                				currency: $scope.currencies
+                			}
+                	),
                     function success(data) {
                 		console.log('New account succesfully created:', data);
                 		
-                		$uibModalInstance.close([$scope.type, $scope.balance]);
+                		$uibModalInstance.close();
                     },
                     function err(err) {
                       	console.log('Failed to add new account:', err);
@@ -98,7 +150,53 @@ angular.module('corePortalApp').controller(
 			};
 
 			$scope.cancel = function() {
-				$uibModalInstance.dismiss('cancel');
+				$uibModalInstance.dismiss();
+			};
+	    }
+);
+
+angular.module('corePortalApp').controller(
+	    'CPEditAccountCtrl',
+	    function (
+	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		CPModalFactory, CPAccountService, 
+	    		account, rateList, commisionList) {
+	    	$scope.account = account;
+	    	$scope.rateList = rateList;
+	    	$scope.commisionList = commisionList;
+	    	
+
+	    	$scope.save = function() {
+	    		CPAccountService.editAccount(
+                	$httpParamSerializer(
+                			{
+                				token: window.sessionStorage.token,
+                				id_account: account.id,
+                				id_comm: $scope.commision,
+                				id_rate: $scope.rate
+                			}
+                	),
+                    function success(data) {
+                		console.log('Account succesfully edited:', data);
+                		
+                		$uibModalInstance.close();
+                    },
+                    function err(err) {
+                      	console.log('Failed to edit account:', err);
+                        	
+                      	if (err.data.errorCode == 666){
+                      		window.sessionStorage.clear();
+                       		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                       		$location.path("/login");
+                       	} else {                            	
+                       		CPModalFactory.errorModal("Backend error");
+                       	}
+                    }
+                );
+			};
+
+			$scope.cancel = function() {
+				$uibModalInstance.dismiss();
 			};
 	    }
 );
