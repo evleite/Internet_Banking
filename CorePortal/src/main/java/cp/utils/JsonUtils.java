@@ -52,7 +52,7 @@ public class JsonUtils {
 		json.put("IBAN", acc.getIBAN());
 		json.put("id", acc.getId());
 		json.put("comm", commisionToJson(acc.getId_comm_admin()));
-		json.put("rate", acc.getId_rate().getRate_type().equals(RatesType.N_A) ? null : rateToJson(acc.getId_rate()));
+		json.put("rate", rateToJson(acc.getId_rate()));
 		
 		return json;
 	}

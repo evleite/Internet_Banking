@@ -44,7 +44,6 @@
 							<th>ACCOUNT TYPE</th>
 							<th>CURRENCY</th>
 							<th>USARNAME</th>
-							<th>EDIT</th>
 							<th>DELETE</th>
 						</tr>
 					</thead>
@@ -55,11 +54,11 @@
 							<td>{{ item.account.acc_type }}</td>
 							<td>{{ item.account.currency }}</td>
 							<td>{{ item.user.username }}</td>
-							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
-							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-remove btn" aria-hidden="true" ng-click="deleteAccountAssignement(item.id, $index)"></span></td>
 						</tr>
 					</tbody>
 				</table>
+				<button class="btn btn-primary" type="button" ng-click="addAccountAssignement()">ADD</button>
 			</div>
 			<div class="item-list card-list" ng-show="showCardList">
 				<table class="table table-hover table-striped">
@@ -77,11 +76,12 @@
 							<td>{{ item.id }}</td>
 							<td>{{ item.card_no }}</td>
 							<td>{{ item.type }}</td>
-							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
-							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-edit btn" aria-hidden="true" ng-click="editCard(item, $index)"></span></td>
+							<td><span class="glyphicon glyphicon-remove btn" aria-hidden="true" ng-click="deleteCard(item.id, $index)"></span></td>
 						</tr>
 					</tbody>
 				</table>
+				<button class="btn btn-primary" type="button" ng-click="addCard()">ADD</button>
 			</div>
 			<div class="item-list card-assignement-list" ng-show="showCardAssignementList">
 				<table class="table table-hover table-striped">
@@ -93,7 +93,6 @@
 							<th>CURRENCY</th>
 							<th>CARD NUMBER</th>
 							<th>USARNAME</th>
-							<th>EDIT</th>
 							<th>DELETE</th>
 						</tr>
 					</thead>
@@ -105,11 +104,11 @@
 							<td>{{ item.account.currency }}</td>
 							<td>{{ item.card.card_no }}</td>
 							<td>{{ item.user.username }}</td>
-							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
-							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-remove btn" aria-hidden="true" ng-click="deleteCardAssignement(item.id, $index)"></span></td>
 						</tr>
 					</tbody>
 				</table>
+				<button class="btn btn-primary" type="button" ng-click="addCardAssignement()">ADD</button>
 			</div>
 			<div class="item-list exchange-rate-list" ng-show="showExchangeRateList">
 				<table class="table table-hover table-striped">
@@ -129,11 +128,12 @@
 							<td>{{ item.currency }}</td>
 							<td>{{ item.buy }}</td>
 							<td>{{ item.sell }}</td>
-							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
-							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-edit btn" aria-hidden="true" ng-click="editExchangeRate(item, $index)"></span></td>
+							<td><span class="glyphicon glyphicon-remove btn" aria-hidden="true" ng-click="deleteExchangeRate(item.id, $index)"></span></td>
 						</tr>
 					</tbody>
 				</table>
+				<button class="btn btn-primary" type="button" ng-click="addExchangeRate()">ADD</button>
 			</div>
 			<div class="item-list rate-list" ng-show="showRateList">
 				<table class="table table-hover table-striped">
@@ -151,11 +151,12 @@
 							<td>{{ item.id }}</td>
 							<td>{{ item.type }}</td>
 							<td>{{ item.year_percentage }}</td>
-							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
-							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-edit btn" aria-hidden="true" ng-click="editRate(item, $index)"></span></td>
+							<td><span class="glyphicon glyphicon-remove btn" aria-hidden="true" ng-click="deleteRate(item.id, $index)"></span></td>
 						</tr>
 					</tbody>
 				</table>
+				<button class="btn btn-primary" type="button" ng-click="addRate()">ADD</button>
 			</div>
 			<div class="item-list commision-list" ng-show="showCommisionList">
 				<table class="table table-hover table-striped">
@@ -173,11 +174,12 @@
 							<td>{{ item.id }}</td>
 							<td>{{ item.type }}</td>
 							<td>{{ item.amount }}</td>
-							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
-							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-edit btn" aria-hidden="true" ng-click="editCommision(item, $index)"></span></td>
+							<td><span class="glyphicon glyphicon-remove btn" aria-hidden="true" ng-click="deleteCommision(item.id, $index)"></span></td>
 						</tr>
 					</tbody>
 				</table>
+				<button class="btn btn-primary" type="button" ng-click="addCommision()">ADD</button>
 			</div>
 			<div class="item-list user-cp-list" ng-show="showUserCPList">
 				<table class="table table-hover table-striped">
@@ -197,11 +199,12 @@
 							<td>{{ item.username }}</td>
 							<td>{{ item.firstname }}</td>
 							<td>{{ item.lastname }}</td>
-							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
-							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-edit btn" aria-hidden="true" ng-click="editCPUser(item, $index)"></span></td>
+							<td><span class="glyphicon glyphicon-remove btn" aria-hidden="true" ng-click="deleteCPUser(item.id, $index)"></span></td>
 						</tr>
 					</tbody>
 				</table>
+				<button class="btn btn-primary" type="button" ng-click="addCPUser()">ADD</button>
 			</div>
 			<div class="item-list user-hb-list" ng-show="showUserHBList">
 				<table class="table table-hover table-striped">
@@ -217,17 +220,18 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr class="item user-cp-item" ng-repeat="item in userHBList">
+						<tr class="item user-hb-item" ng-repeat="item in userHBList">
 							<td>{{ item.id }}</td>
 							<td>{{ item.username }}</td>
 							<td>{{ item.firstname }}</td>
 							<td>{{ item.lastname }}</td>
 							<td>{{ item.auth_type }}</td>
-							<td><span class="glyphicon glyphicon-edit" aria-hidden="true"></span></td>
-							<td><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></td>
+							<td><span class="glyphicon glyphicon-edit btn" aria-hidden="true" ng-click="editHBUser(item, $index)"></span></td>
+							<td><span class="glyphicon glyphicon-remove btn" aria-hidden="true" ng-click="deleteHBUser(item.id, $index)"></span></td>
 						</tr>
 					</tbody>
 				</table>
+				<button class="btn btn-primary" type="button" ng-click="addHBUser()">ADD</button>
 			</div>
 		</div>
 	</div>

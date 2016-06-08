@@ -47,7 +47,7 @@ public class AccountService {
 			response.put("account", acc);
 			return ResponseUtils.respondWithSucces(response);
 		} catch (Exception e) {
-			return ResponseUtils.respondWithError("Can't add new account from database.");
+			return ResponseUtils.respondWithError("Can't add new account in database.");
 		}
 	}
 	

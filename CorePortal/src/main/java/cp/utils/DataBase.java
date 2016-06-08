@@ -66,11 +66,14 @@ public class DataBase {
 	}
 	public static Account deleteAccount(Long id){
 		Account obj = entity.find(Account.class, id);
-		EntityTransaction transaction = entity.getTransaction();
 		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
+		if (obj != null) {
+			EntityTransaction transaction = entity.getTransaction();
+
+			transaction.begin();
+			entity.remove(obj);
+			transaction.commit();
+		}
 		
 		return obj;
 	}
@@ -103,25 +106,19 @@ public class DataBase {
 			return null;
 		}
 	}
-	/*public static void updateAccountAssignement(Long id, AccountAssignement newObj) {
-		AccountAssignement oldObj = entity.find(AccountAssignement.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		
-		oldObj.setAccount(newObj.getAccount());
-		oldObj.setUser(newObj.getUser());
-		
-		transaction.commit();
-	}*/
-	/*public static void deleteAccountAssignement(Long id){
+	public static AccountAssignement deleteAccountAssignement(Long id){
 		AccountAssignement obj = entity.find(AccountAssignement.class, id);
-		EntityTransaction transaction = entity.getTransaction();
 		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
-	}*/
+		if (obj != null) {
+			EntityTransaction transaction = entity.getTransaction();
+
+			transaction.begin();
+			entity.remove(obj);
+			transaction.commit();
+		}
+		
+		return obj;
+	}
 	
 	/* Card model */
 	public static void persistCard(Card card){
@@ -147,28 +144,36 @@ public class DataBase {
 			return null;
 		}
 	}
-	/*public static void updateCard(Long id, Card newObj) {
+	public static Card updateCard(Long id, Double daily_limit, String validity) {
 		Card oldObj = entity.find(Card.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		
-		oldObj.setCard_no(newObj.getCard_no());
-		oldObj.setCard_type(newObj.getCard_type());
-		oldObj.setId_rate(newObj.getId_rate());
-		oldObj.setValidity(newObj.getValidity());
-		oldObj.setDaily_limit(newObj.getDaily_limit());
+		oldObj.setValidity(validity);
+		oldObj.setDaily_limit(daily_limit);
 		
 		transaction.commit();
+		
+		return oldObj;
 	}
-	public static void deleteCard(Long id){
+	public static Card deleteCard(Long id){
 		Card obj = entity.find(Card.class, id);
-		EntityTransaction transaction = entity.getTransaction();
 		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
-	}*/
+		if (obj != null) {
+			EntityTransaction transaction = entity.getTransaction();
+
+			transaction.begin();
+			entity.remove(obj);
+			transaction.commit();
+		}
+		
+		return obj;
+	}
+	public static Card getCardById(Long id) {
+		Card obj = entity.find(Card.class, id);
+		return obj;
+	}
 	
 	/* CardAssignement model */
 	public static void persistCardAssignement(CardAssignement cardAsig){
@@ -592,6 +597,10 @@ public class DataBase {
 		} else {
 			return null;
 		}
+	}
+	public static HBUser getHBUserById(Long id) {
+		HBUser obj = entity.find(HBUser.class, id);
+		return obj;
 	}
 	/*public static void updateUser(Long id, CPUser newObj) {
 		CPUser oldObj = entity.find(CPUser.class, id);

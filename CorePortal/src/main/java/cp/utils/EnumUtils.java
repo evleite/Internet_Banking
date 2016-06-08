@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cp.utils.enums.AccountType;
+import cp.utils.enums.CardType;
 import cp.utils.enums.Currencies;
 
 public class EnumUtils {
@@ -24,6 +25,14 @@ public class EnumUtils {
 		currenciesList.add(Currencies.USD.toString());
 		
 		return currenciesList;
+	}
+	
+	public static List<String> getCardTypeList(){
+		List<String> cardTypeList = new ArrayList<>();
+		cardTypeList.add(CardType.CREDIT_CARD.toString());
+		cardTypeList.add(CardType.DEBIT_CARD.toString());
+		
+		return cardTypeList;
 	}
 
 }

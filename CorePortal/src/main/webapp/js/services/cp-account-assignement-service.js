@@ -9,6 +9,18 @@ angular.module('corePortalApp').service('CPAccountAssignementService',
             	getAccountAssignementList: {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                },
+                
+                addAccountAssignement: {
+                    method: 'POST',
+                    url: 'rest/accountAssignements/new',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                },
+                
+                deleteAccountAssignement: {
+                    method: 'POST',
+                    url: 'rest/accountAssignements/delete',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 }
             });
     });

@@ -1,0 +1,33 @@
+<div class="add-account-assignement-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new account assignement</h3>
+	</div>
+	<div class="modal-body">
+		<form name="addAccountAssignementForm" novalidate>
+			<!-- Account -->
+			<div class="form-group" ng-class="{ 'has-error' : addAccountAssignementForm.account.$invalid && !addAccountAssignementForm.account.$pristine }">
+				<label>Account</label> 
+				<select name="account" class="form-control" ng-model="account" required >
+					<option disabled selected value> -- select an option -- </option>
+					<option ng-repeat="item in accountList" value="{{ item.id }}">{{ item.IBAN }} | {{ item.acc_type }} | {{ item.currency }}</option>
+				</select>
+				<p ng-show="addAccountAssignementForm.account.$error.required" class="help-block">Account is required!</p>
+			</div>
+			
+			<!-- User -->
+			<div class="form-group" ng-class="{ 'has-error' : addAccountAssignementForm.user.$invalid && !addAccountAssignementForm.user.$pristine }">
+				<label>Client</label> 
+				<select name="user" class="form-control" ng-model="user" required >
+					<option disabled selected value> -- select an option -- </option>
+					<option ng-repeat="item in userHBList" value="{{ item.id }}">{{ item.username }}</option>
+				</select>
+				<p ng-show="addAccountAssignementForm.user.$error.required" class="help-block">Client is required!</p>
+			</div>
+
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="addAccountAssignementForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>
