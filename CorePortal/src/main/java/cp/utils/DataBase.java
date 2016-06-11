@@ -199,26 +199,19 @@ public class DataBase {
 			return null;
 		}
 	}
-	/*public static void updateCardAssignement(Long id, CardAssignement newObj) {
-		CardAssignement oldObj = entity.find(CardAssignement.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		
-		oldObj.setAccount(newObj.getAccount());
-		oldObj.setCard(newObj.getCard());
-		oldObj.setUser(newObj.getUser());
-		
-		transaction.commit();
-	}*/
-	/*public static void deleteCardAssignement(Long id){
+	public static CardAssignement deleteCardAssignement(Long id){
 		CardAssignement obj = entity.find(CardAssignement.class, id);
-		EntityTransaction transaction = entity.getTransaction();
 		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
-	}*/
+		if (obj != null) {
+			EntityTransaction transaction = entity.getTransaction();
+
+			transaction.begin();
+			entity.remove(obj);
+			transaction.commit();
+		}
+		
+		return obj;
+	}
 	
 	/* Commision model*/
 	public static void persistCommision(Commision comm){
@@ -248,26 +241,32 @@ public class DataBase {
 		Commision obj = entity.find(Commision.class, id);
 		return obj;
 	}
-	/*public static void updateCommision(Long id, Commision newObj) {
+	public static Commision updateCommision(Long id, Double amount, String details) {
 		Commision oldObj = entity.find(Commision.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		
-		oldObj.setAmount(newObj.getAmount());
-		oldObj.setComm_type(newObj.getComm_type());
-		oldObj.setDetails(newObj.getDetails());
+		oldObj.setAmount(amount);;
+		oldObj.setDetails(details);
 		
 		transaction.commit();
+		
+		return oldObj;
 	}
-	public static void deleteCommision(Long id){
+	public static Commision deleteCommision(Long id){
 		Commision obj = entity.find(Commision.class, id);
-		EntityTransaction transaction = entity.getTransaction();
 		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
-	}*/
+		if (obj != null) {
+			EntityTransaction transaction = entity.getTransaction();
+
+			transaction.begin();
+			entity.remove(obj);
+			transaction.commit();
+		}
+		
+		return obj;
+	}
 	
 	/* ExchangeRates model */
 	public static void persistExchangeRate(ExchangeRates exgRate){

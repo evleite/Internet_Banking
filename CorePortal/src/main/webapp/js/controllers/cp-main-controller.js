@@ -44,7 +44,8 @@ angular.module('corePortalApp').controller(
     		$scope.showUserCPList = false;
     		$scope.showUserHBList = false;
     	}
-    	
+  	    	
+        /* Account model */
     	$scope.getAccountList = function(){
     		CPAccountService.getAccountList(
     				$httpParamSerializer({token: window.sessionStorage.token}),
@@ -69,7 +70,43 @@ angular.module('corePortalApp').controller(
                     });
     	}
     	
-    	$scope.getAccountAssignementList = function(){
+        $scope.addAccount = function (){
+        	
+        	CPModalFactory.addAccount($scope.accountTypeList, $scope.currenciesList, $scope.commisionList, $scope.rateList);
+        	        	
+        }
+        
+        $scope.deleteAccount = function(id, index){
+        	CPAccountService.deleteAccount(
+    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
+                    function success(data) {
+                        console.log('Account deleted succesfully:', data);
+                        
+                        $scope.accountList.splice(index, 1);
+                        
+                    },
+                    function err(err) {
+                    	console.log('Delete account failed:', err);
+                    	
+                    	if (err.data.errorCode == 666){
+                    		window.sessionStorage.clear();
+                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                    		$location.path("/login");
+                    	} else {                            	
+                    		CPModalFactory.errorModal("Backend error");
+                    	}
+                    });
+        	
+        }
+        
+        $scope.editAccount = function(account, index){  	
+        	
+        	CPModalFactory.editAccount(account, $scope.commisionList, $scope.rateList);
+        	        	
+        }
+        
+        /* AccountAssignement model */
+        $scope.getAccountAssignementList = function(){
     		CPAccountAssignementService.getAccountAssignementList(
             		$httpParamSerializer({token: window.sessionStorage.token}),
                     function success(data) {
@@ -90,8 +127,37 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
-    	
-    	$scope.getCardList = function(){
+        
+        $scope.addAccountAssignement = function(){
+        	
+        	CPModalFactory.addAccountAssignement($scope.accountList, $scope.userHBList);
+        }
+        
+        $scope.deleteAccountAssignement = function(id, index){
+        	CPAccountAssignementService.deleteAccountAssignement(
+    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
+                    function success(data) {
+                        console.log('AccountAssignement deleted succesfully:', data);
+                        
+                        $scope.accountAssignementList.splice(index, 1);
+                        
+                    },
+                    function err(err) {
+                    	console.log('Delete accountAssignement failed:', err);
+                    	
+                    	if (err.data.errorCode == 666){
+                    		window.sessionStorage.clear();
+                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                    		$location.path("/login");
+                    	} else {                            	
+                    		CPModalFactory.errorModal("Backend error");
+                    	}
+                    });
+        	
+        }
+        
+        /* Card model */
+        $scope.getCardList = function(){
     		CPCardService.getCardList(
             		$httpParamSerializer({token: window.sessionStorage.token}),
                     function success(data) {
@@ -113,8 +179,44 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
-    	
-    	$scope.getCardAssignementList = function(){
+        
+        $scope.addCard = function (){
+        	
+        	CPModalFactory.addCard($scope.cardTypeList);
+        	        	
+        }
+        
+        $scope.deleteCard = function(id, index){
+        	CPCardService.deleteCard(
+    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
+                    function success(data) {
+                        console.log('Card deleted succesfully:', data);
+                        
+                        $scope.cardList.splice(index, 1);
+                        
+                    },
+                    function err(err) {
+                    	console.log('Delete card failed:', err);
+                    	
+                    	if (err.data.errorCode == 666){
+                    		window.sessionStorage.clear();
+                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                    		$location.path("/login");
+                    	} else {                            	
+                    		CPModalFactory.errorModal("Backend error");
+                    	}
+                    });
+        	
+        }
+        
+        $scope.editCard = function(card, index){  	
+        	
+        	CPModalFactory.editCard(card);
+        	        	
+        }
+        
+        /* CardAssignement model */
+        $scope.getCardAssignementList = function(){
     		CPCardAssignementService.getCardAssignementList(
             		$httpParamSerializer({token: window.sessionStorage.token}),
                     function success(data) {
@@ -135,14 +237,44 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
-    	
-    	$scope.getCommisionList = function(){
+        
+        $scope.addCardAssignement = function(){
+        	
+        	CPModalFactory.addCardAssignement($scope.accountList, $scope.userHBList, $scope.cardList);
+        }
+        
+        $scope.deleteCardAssignement = function(id, index){
+        	CPCardAssignementService.deleteCardAssignement(
+    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
+                    function success(data) {
+                        console.log('CardAssignement deleted succesfully:', data);
+                        
+                        $scope.cardAssignementList.splice(index, 1);
+                        
+                    },
+                    function err(err) {
+                    	console.log('Delete cardAssignement failed:', err);
+                    	
+                    	if (err.data.errorCode == 666){
+                    		window.sessionStorage.clear();
+                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                    		$location.path("/login");
+                    	} else {                            	
+                    		CPModalFactory.errorModal("Backend error");
+                    	}
+                    });
+        	
+        }
+        
+        /* Commision model */
+        $scope.getCommisionList = function(){
     		CPCommisionService.getCommisionList(
             		$httpParamSerializer({token: window.sessionStorage.token}),
                     function success(data) {
                         console.log('Commision list:', data);
                         
                         $scope.commisionList = data.commisionList;
+                        $scope.commisionTypeList = data.commisionTypeList;
                         
                     },
                     function err(err) {
@@ -158,8 +290,44 @@ angular.module('corePortalApp').controller(
                     	
                     });
     	}
-    	
-    	$scope.getExchangeRatesList = function(){
+        
+        $scope.addCommision = function (){
+        	
+        	CPModalFactory.addCommision($scope.commisionTypeList);
+        	        	
+        }
+        
+        $scope.deleteCommision = function(id, index){
+        	CPCommisionService.deleteCommision(
+    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
+                    function success(data) {
+                        console.log('Commision deleted succesfully:', data);
+                        
+                        $scope.commisionList.splice(index, 1);
+                        
+                    },
+                    function err(err) {
+                    	console.log('Delete commision failed:', err);
+                    	
+                    	if (err.data.errorCode == 666){
+                    		window.sessionStorage.clear();
+                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                    		$location.path("/login");
+                    	} else {                            	
+                    		CPModalFactory.errorModal("Backend error");
+                    	}
+                    });
+        	
+        }
+        
+        $scope.editCommision = function(commision, index){  	
+        	
+        	CPModalFactory.editCommision(commision);
+        	        	
+        }
+        
+        /* ExchangeReates model */
+        $scope.getExchangeRatesList = function(){
     		CPExchangeRateService.getExchangeRateList(
             		$httpParamSerializer({token: window.sessionStorage.token}),
                     function success(data) {
@@ -180,8 +348,9 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
-    	
-    	$scope.getRateList = function(){
+        
+        /* Rate model */
+        $scope.getRateList = function(){
     		CPRateService.getRateList(
             		$httpParamSerializer({token: window.sessionStorage.token}),
                     function success(data) {
@@ -202,8 +371,9 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
-    	
-    	$scope.getCPUserList = function(){
+        
+        /* CPUser model */
+        $scope.getCPUserList = function(){
     		CPUserCPService.getUserList(
             		$httpParamSerializer({token: window.sessionStorage.token}),
                     function success(data) {
@@ -226,8 +396,9 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
-    	
-    	$scope.getHBUserList = function(){
+        
+        /* HBUser model */
+        $scope.getHBUserList = function(){
     		CPUserHBService.getUserList(
             		$httpParamSerializer({token: window.sessionStorage.token}),
                     function success(data) {
@@ -248,7 +419,8 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
-    	
+        
+        /* Main */
         $scope.main = function (item) {
         	switch (item) {
             	case "account":
@@ -286,6 +458,9 @@ angular.module('corePortalApp').controller(
             		$scope.selectedNode = item;
             		
             		$scope.getCardAssignementList();
+            		$scope.getAccountList();
+            		$scope.getHBUserList();
+            		$scope.getCardList();
             		
             		$scope.hideAdminLists();
                     $scope.showCardAssignementList = true;
@@ -351,107 +526,6 @@ angular.module('corePortalApp').controller(
             	default:
         	}
         };
-        
-        /* Account model */
-        $scope.addAccount = function (){
-        	
-        	CPModalFactory.addAccount($scope.accountTypeList, $scope.currenciesList, $scope.commisionList, $scope.rateList);
-        	        	
-        }
-        
-        $scope.deleteAccount = function(id, index){
-        	CPAccountService.deleteAccount(
-    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
-                    function success(data) {
-                        console.log('Account deleted succesfully:', data);
-                        
-                        $scope.accountList.splice(index, 1);
-                        
-                    },
-                    function err(err) {
-                    	console.log('Delete account failed:', err);
-                    	
-                    	if (err.data.errorCode == 666){
-                    		window.sessionStorage.clear();
-                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
-                    		$location.path("/login");
-                    	} else {                            	
-                    		CPModalFactory.errorModal("Backend error");
-                    	}
-                    });
-        	
-        }
-        
-        $scope.editAccount = function(account, index){  	
-        	
-        	CPModalFactory.editAccount(account, $scope.commisionList, $scope.rateList);
-        	        	
-        }
-        
-        /* AccountAssignement model */
-        $scope.addAccountAssignement = function(){
-        	
-        	CPModalFactory.addAccountAssignement($scope.accountList, $scope.userHBList);
-        }
-        
-        $scope.deleteAccountAssignement = function(id, index){
-        	CPAccountAssignementService.deleteAccountAssignement(
-    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
-                    function success(data) {
-                        console.log('AccountAssignement deleted succesfully:', data);
-                        
-                        $scope.accountAssignementList.splice(index, 1);
-                        
-                    },
-                    function err(err) {
-                    	console.log('Delete accountAssignement failed:', err);
-                    	
-                    	if (err.data.errorCode == 666){
-                    		window.sessionStorage.clear();
-                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
-                    		$location.path("/login");
-                    	} else {                            	
-                    		CPModalFactory.errorModal("Backend error");
-                    	}
-                    });
-        	
-        }
-        
-        /* Card model */
-        $scope.addCard = function (){
-        	
-        	CPModalFactory.addCard($scope.cardTypeList);
-        	        	
-        }
-        
-        $scope.deleteCard = function(id, index){
-        	CPCardService.deleteCard(
-    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
-                    function success(data) {
-                        console.log('Card deleted succesfully:', data);
-                        
-                        $scope.cardList.splice(index, 1);
-                        
-                    },
-                    function err(err) {
-                    	console.log('Delete card failed:', err);
-                    	
-                    	if (err.data.errorCode == 666){
-                    		window.sessionStorage.clear();
-                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
-                    		$location.path("/login");
-                    	} else {                            	
-                    		CPModalFactory.errorModal("Backend error");
-                    	}
-                    });
-        	
-        }
-        
-        $scope.editCard = function(card, index){  	
-        	
-        	CPModalFactory.editCard(card);
-        	        	
-        }
         
         $scope.main("account");
     });

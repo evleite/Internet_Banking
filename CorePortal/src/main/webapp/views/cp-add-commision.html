@@ -1,0 +1,39 @@
+<div class="add-commision-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new commision</h3>
+	</div>
+	<div class="modal-body">
+		<form name="addCommisionForm" novalidate>
+			<!-- Commision type -->
+			<div class="form-group" ng-class="{ 'has-error' : addCommisionForm.type.$invalid && !addCommisionForm.type.$pristine }">
+				<label>Commision type</label> 
+				<select name="type" class="form-control" ng-model="type" required >
+					<option disabled selected value> -- select an option -- </option>
+					<option ng-repeat="item in commisionTypeList" value="{{ item }}">{{ item }}</option>
+				</select>
+				<p ng-show="addCommisionForm.type.$error.required" class="help-block">Commision type is required!</p>
+			</div>
+			
+			<!-- Amount -->
+			<div class="form-group" ng-class="{ 'has-error' : addCommisionForm.amount.$invalid && !addCommisionForm.amount.$pristine }">
+				<label>Amount</label> 
+				<input type="number" name="amount" value="" class="form-control" ng-model="amount" min="0" required >
+				<p ng-show="addCommisionForm.amount.$error.min" class="help-block">Commision has to be positive!</p>
+				<p ng-show="addCommisionForm.amount.$error.required" class="help-block">Commision is required!</p>
+			</div>
+			
+			<!-- Details -->
+			<div class="form-group" ng-class="{ 'has-error' : addCommisionForm.details.$invalid && !addCommisionForm.details.$pristine }">
+				<label>Details</label> 
+				<textarea name="details" class="form-control" ng-model="details" ng-maxlength="100" required></textarea>
+	    		<p ng-show="addCommisionForm.details.$error.maxlength" class="help-block">Details are too long!</p>
+	    		<p ng-show="addCommisionForm.details.$error.required" class="help-block">Details are required!</p>
+			</div>
+			
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="addCommisionForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

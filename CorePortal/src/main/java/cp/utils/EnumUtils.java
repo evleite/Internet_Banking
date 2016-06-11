@@ -5,6 +5,7 @@ import java.util.List;
 
 import cp.utils.enums.AccountType;
 import cp.utils.enums.CardType;
+import cp.utils.enums.CommisionType;
 import cp.utils.enums.Currencies;
 
 public class EnumUtils {
@@ -33,6 +34,23 @@ public class EnumUtils {
 		cardTypeList.add(CardType.DEBIT_CARD.toString());
 		
 		return cardTypeList;
+	}
+	
+	public static List<String> getCommisionTypeList(){
+		List<String> commisionTypeList = new ArrayList<>();
+		commisionTypeList.add(CommisionType.CREDIT_ACCOUNT.toString());
+		commisionTypeList.add(CommisionType.CURR_CREDIT_DIFF_CURRENCY.toString());
+		commisionTypeList.add(CommisionType.CURR_CREDIT_SAME_CURRENCY.toString());
+		commisionTypeList.add(CommisionType.CURR_SAVINGS_DIFF_CURRENCY.toString());
+		commisionTypeList.add(CommisionType.CURR_SAVINGS_SAME_CURRENCY.toString());
+		commisionTypeList.add(CommisionType.CURRENT_ACOUNT.toString());
+		commisionTypeList.add(CommisionType.INTERN_DIFF_CURRENCY.toString());
+		commisionTypeList.add(CommisionType.INTERN_SAME_CURRENCY.toString());
+		commisionTypeList.add(CommisionType.SAVING_ACCOUNT.toString());
+		commisionTypeList.add(CommisionType.SAVINGS_CURR_DIFF_CURRENCY.toString());
+		commisionTypeList.add(CommisionType.SAVINGS_CURR_SAME_CURRENCY.toString());
+		
+		return commisionTypeList;
 	}
 
 }

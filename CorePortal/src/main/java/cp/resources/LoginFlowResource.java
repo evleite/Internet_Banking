@@ -23,6 +23,7 @@ import cp.models.Commision;
 import cp.models.HBUser;
 import cp.models.Rate;
 import cp.services.AccountService;
+import cp.services.CardService;
 import cp.services.CommisionService;
 import cp.services.LoginFlowService;
 import cp.services.RateService;
@@ -37,6 +38,8 @@ public class LoginFlowResource {
 
 	@Inject
 	private LoginFlowService loginFlowService;
+	@Inject
+	private CardService cardService;
 	@Inject
 	private UserHBService userHBService;
 	@Inject
@@ -103,6 +106,15 @@ public class LoginFlowResource {
 			if ((boolean) hbUsers.get("success") == true) {
 				List<HBUser> userHBList = (List<HBUser>) hbUsers.get("userHBList");
 				httpSession.setAttribute("userHBList", userHBList);
+			} else {
+				return Response.serverError().entity(JsonUtils.mapToJson(hbUsers)).build();
+			}
+			
+			/* Cache cards on session*/
+			Map<String, Object> cards = cardService.getCardList();
+			if ((boolean) cards.get("success") == true) {
+				List<HBUser> cardList = (List<HBUser>) cards.get("cardList");
+				httpSession.setAttribute("cardList", cardList);
 			} else {
 				return Response.serverError().entity(JsonUtils.mapToJson(hbUsers)).build();
 			}

@@ -15,8 +15,11 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
+import cp.models.Account;
 import cp.models.Commision;
 import cp.services.CommisionService;
+import cp.utils.DataBase;
+import cp.utils.EnumUtils;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
 
@@ -55,6 +58,7 @@ public class CommisionResource {
 				JSONObject responseJson = new JSONObject();
 				responseJson.put("success", true);
 				responseJson.put("commisionList", JsonUtils.commisionListToJson(commisionList));
+				responseJson.put("commisionTypeList", JsonUtils.listOfPrimitivesToJsonAray(EnumUtils.getCommisionTypeList()));
 				
 				return Response.status(200).entity(responseJson).build();
 			} else {
@@ -66,8 +70,117 @@ public class CommisionResource {
 			JSONObject responseJson = new JSONObject();
 			responseJson.put("success", true);
 			responseJson.put("commisionList", JsonUtils.commisionListToJson(commisionList));
+			responseJson.put("commisionTypeList", JsonUtils.listOfPrimitivesToJsonAray(EnumUtils.getCommisionTypeList()));
 			
 			return Response.status(200).entity(responseJson).build();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/new")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response addCommision(@FormParam("token") String token,
+							     @FormParam("type") String type,
+							     @FormParam("amount") Double amount,
+							     @FormParam("details") String details) throws Exception {
+		
+		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
+			httpSession.invalidate();
+			return Response.serverError()
+					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Integrity violation!", 666)))
+					.build();
+		}
+		
+		Map<String, Object> response = null;
+		
+		response = commisionService.addCommision(type, amount, details);
+		if ((boolean) response.get("success") == true) {
+			Commision commision = (Commision) response.get("commision");
+			
+			/* Update commision list in cache */
+			List<Commision> commisionList = (List<Commision>) httpSession.getAttribute("commisionList");
+			commisionList.add(commision);
+			httpSession.setAttribute("commisionList", commisionList);
+			
+			JSONObject responseJson = new JSONObject();
+			responseJson.put("success", true);
+			return Response.status(200).entity(responseJson).build();
+		} else {
+			return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/delete")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response deleteCommision(@FormParam("token") String token,
+							      @FormParam("id") Long id) throws Exception {
+		
+		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
+			httpSession.invalidate();
+			return Response.serverError()
+					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Integrity violation!", 666)))
+					.build();
+		}
+		
+		Map<String, Object> response = null;
+		
+		response = commisionService.deleteCommision(id);
+		if ((boolean) response.get("success") == true) {
+			Commision commision = (Commision) response.get("commision");
+			
+			/* Update commision list in cache */
+			List<Commision> commisionList = (List<Commision>) httpSession.getAttribute("commisionList");
+			commisionList.remove(commision);			
+			httpSession.setAttribute("commisionList", commisionList);
+			
+			JSONObject responseJson = new JSONObject();
+			responseJson.put("success", true);
+			return Response.status(200).entity(responseJson).build();
+		} else {
+			return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
+		}
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/edit")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response editCommision(@FormParam("token") String token,
+							   @FormParam("id_commision") Long id_commision,
+							   @FormParam("amount") Double amount,
+							   @FormParam("details") String details) throws Exception {
+		
+		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
+			httpSession.invalidate();
+			return Response.serverError()
+					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Integrity violation!", 666)))
+					.build();
+		}
+		
+		Map<String, Object> response = null;
+		
+		response = commisionService.editCommision(id_commision, amount, details);
+		if ((boolean) response.get("success") == true) {
+			Commision commision = (Commision) response.get("commision");
+			Commision oldCommision = DataBase.getCommisionById(id_commision);
+			
+			/* Update commision list in cache */
+			List<Commision> commisionList = (List<Commision>) httpSession.getAttribute("commisionList");
+			commisionList.remove(oldCommision);
+			commisionList.add(commision);
+			httpSession.setAttribute("commisionList", commisionList);
+			
+			JSONObject responseJson = new JSONObject();
+			responseJson.put("success", true);
+			return Response.status(200).entity(responseJson).build();
+		} else {
+			return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
 		}
 	}
 }

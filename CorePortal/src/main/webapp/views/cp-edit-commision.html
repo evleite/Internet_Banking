@@ -1,0 +1,41 @@
+<div class="edit-commision-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Edit commision</h3>
+	</div>
+	<div class="modal-body">
+		<form name="editCommisionForm" novalidate>
+			<!-- Commision id -->
+			<div class="form-group">
+				<label>ID</label> 
+				<input type="number" name="id" value="{{ commision.id }}" class="form-control" disabled >
+			</div>
+			
+			<!-- Commision type -->
+			<div class="form-group">
+				<label>Commision type</label> 
+				<input type="text" name="type" value="{{ commision.type }}" class="form-control" disabled >
+			</div>
+			
+			<!-- Amount -->
+			<div class="form-group" ng-class="{ 'has-error' : editCommisionForm.amount.$invalid && !editCommisionForm.amount.$pristine }">
+				<label>Amount</label> 
+				<input type="number" name="amount" value="{{ commision.amount }}" class="form-control" ng-model="amount" min="0" required >
+				<p ng-show="editCommisionForm.amount.$error.min" class="help-block">Amount has to be positive!</p>
+				<p ng-show="editCommisionForm.amount.$error.required" class="help-block">Amount is required!</p>
+			</div>
+			
+			<!-- Details -->
+			<div class="form-group" ng-class="{ 'has-error' : editCommisionForm.details.$invalid && !editCommisionForm.details.$pristine }">
+				<label>Details</label> 
+				<textarea name="details" class="form-control" ng-init="details=commision.details" ng-model="details" ng-maxlength="100" required></textarea>
+	    		<p ng-show="editCommisionForm.details.$error.maxlength" class="help-block">Details are too long!</p>
+	    		<p ng-show="editCommisionForm.details.$error.required" class="help-block">Details are required!</p>
+			</div>
+			
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="editCommisionForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>
