@@ -20,6 +20,7 @@
 <script src="js/controllers/cp-login-controller.js"></script>
 <script src="js/controllers/cp-main-controller.js"></script>
 <script src="js/controllers/cp-error-modal-controller.js"></script>
+<script src="js/controllers/cp-info-modal-controller.js"></script>
 <script src="js/controllers/cp-add-account-controller.js"></script>
 <script src="js/controllers/cp-edit-account-controller.js"></script>
 <script src="js/controllers/cp-add-account-assignement-controller.js"></script>
@@ -28,6 +29,15 @@
 <script src="js/controllers/cp-add-card-assignement-controller.js"></script>
 <script src="js/controllers/cp-add-commision-controller.js"></script>
 <script src="js/controllers/cp-edit-commision-controller.js"></script>
+<script src="js/controllers/cp-add-exchange-rate-controller.js"></script>
+<script src="js/controllers/cp-edit-exchange-rate-controller.js"></script>
+<script src="js/controllers/cp-add-rate-controller.js"></script>
+<script src="js/controllers/cp-edit-rate-controller.js"></script>
+<script src="js/controllers/cp-add-cp-user-controller.js"></script>
+<script src="js/controllers/cp-edit-cp-user-controller.js"></script>
+<script src="js/controllers/cp-change-password-controller.js"></script>
+<script src="js/controllers/cp-add-hb-user-controller.js"></script>
+<script src="js/controllers/cp-edit-hb-user-controller.js"></script>
 
 <script src="js/services/cp-login-service.js"></script>
 <script src="js/services/cp-account-service.js"></script>
@@ -40,19 +50,20 @@
 <script src="js/services/cp-exchange-rate-service.js"></script>
 <script src="js/services/cp-user-hb-service.js"></script>
 <script src="js/factories/cp-modal-factory.js"></script>
+
 </head>
 <body ng-app="corePortalApp">
 	<header class="fixed-header">
 		<div class="container">
 			<div class="row">
-				<div class="col-md-9">
+				<div class="col-md-10">
 					<div class="logo">
 						<h3>Core Portal</h3>
 					</div>
 				</div>
-				<div class="col-md-3">
+				<div class="col-md-2">
 					<div class="loged-in-user">
-						<h3>{{ seesion.username }}</h3>
+						<h3></h3>
 					</div>
 				</div>
 			</div>

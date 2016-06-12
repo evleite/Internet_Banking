@@ -1,0 +1,41 @@
+<div class="edit-exchange-rate-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Edit exchange rate</h3>
+	</div>
+	<div class="modal-body">
+		<form name="editExchangeRateForm" novalidate>
+			<!-- Exchange rate id -->
+			<div class="form-group">
+				<label>ID</label> 
+				<input type="number" name="id" value="{{ exchangeRate.id }}" class="form-control" disabled >
+			</div>
+			
+			<!-- Exchange rate currency type -->
+			<div class="form-group">
+				<label>Currency</label> 
+				<input type="text" name="type" value="{{ exchangeRate.currency }}" class="form-control" disabled >
+			</div>
+			
+			<!-- Buy rate -->
+			<div class="form-group" ng-class="{ 'has-error' : editExchangeRateForm.buy.$invalid && !editExchangeRateForm.buy.$pristine }">
+				<label>Buy rate</label> 
+				<input type="number" name="buy" ng-init="buy=exchangeRate.buy" class="form-control" ng-model="buy" min="0" required >
+				<p ng-show="editExchangeRateForm.buy.$error.min" class="help-block">Buy rate has to be positive!</p>
+				<p ng-show="editExchangeRateForm.buy.$error.required" class="help-block">Buy rate is required!</p>
+			</div>
+			
+			<!-- Sell rate -->
+			<div class="form-group" ng-class="{ 'has-error' : editExchangeRateForm.sell.$invalid && !editExchangeRateForm.sell.$pristine }">
+				<label>Sell rate</label> 
+				<input type="number" name="sell" ng-init="sell=exchangeRate.sell" class="form-control" ng-model="sell" min="0" required >
+				<p ng-show="editExchangeRateForm.sell.$error.min" class="help-block">Sell rate has to be positive!</p>
+				<p ng-show="editExchangeRateForm.sell.$error.required" class="help-block">Sell rate is required!</p>
+			</div>
+			
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="editExchangeRateForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

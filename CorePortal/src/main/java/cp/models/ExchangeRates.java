@@ -36,7 +36,7 @@ public class ExchangeRates extends AbstractModel implements Serializable {
 		this.sell = null;
 		this.buy = null;
 	}
-	public ExchangeRates(Currencies currency, Double sell, Double buy) {
+	public ExchangeRates(Currencies currency, Double buy, Double sell) {
 		super();
 		this.currency = currency;
 		this.sell = sell;

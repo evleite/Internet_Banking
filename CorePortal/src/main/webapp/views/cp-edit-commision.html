@@ -19,7 +19,7 @@
 			<!-- Amount -->
 			<div class="form-group" ng-class="{ 'has-error' : editCommisionForm.amount.$invalid && !editCommisionForm.amount.$pristine }">
 				<label>Amount</label> 
-				<input type="number" name="amount" value="{{ commision.amount }}" class="form-control" ng-model="amount" min="0" required >
+				<input type="number" name="amount" ng-init="amount=commision.amount" class="form-control" ng-model="amount" min="0" required >
 				<p ng-show="editCommisionForm.amount.$error.min" class="help-block">Amount has to be positive!</p>
 				<p ng-show="editCommisionForm.amount.$error.required" class="help-block">Amount is required!</p>
 			</div>

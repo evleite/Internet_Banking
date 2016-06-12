@@ -14,6 +14,11 @@ angular.module('corePortalApp').controller(
     		$location.path("/login");
     	}
     	
+    	$scope.logOut = function(){
+    		window.sessionStorage.clear();
+    		$location.path("/login");
+    	}
+    	
     	$scope.adminNav = [];
     	$scope.adminNav.push.apply($scope.adminNav, [
     			{key:"account", value:"Accounts"},
@@ -71,7 +76,7 @@ angular.module('corePortalApp').controller(
     	}
     	
         $scope.addAccount = function (){
-        	
+        	$rootScope.main = $scope.main;
         	CPModalFactory.addAccount($scope.accountTypeList, $scope.currenciesList, $scope.commisionList, $scope.rateList);
         	        	
         }
@@ -100,7 +105,7 @@ angular.module('corePortalApp').controller(
         }
         
         $scope.editAccount = function(account, index){  	
-        	
+        	$rootScope.main = $scope.main;
         	CPModalFactory.editAccount(account, $scope.commisionList, $scope.rateList);
         	        	
         }
@@ -129,8 +134,9 @@ angular.module('corePortalApp').controller(
     	}
         
         $scope.addAccountAssignement = function(){
-        	
+        	$rootScope.main = $scope.main;
         	CPModalFactory.addAccountAssignement($scope.accountList, $scope.userHBList);
+
         }
         
         $scope.deleteAccountAssignement = function(id, index){
@@ -181,7 +187,7 @@ angular.module('corePortalApp').controller(
     	}
         
         $scope.addCard = function (){
-        	
+        	$rootScope.main = $scope.main;
         	CPModalFactory.addCard($scope.cardTypeList);
         	        	
         }
@@ -210,7 +216,7 @@ angular.module('corePortalApp').controller(
         }
         
         $scope.editCard = function(card, index){  	
-        	
+        	$rootScope.main = $scope.main;
         	CPModalFactory.editCard(card);
         	        	
         }
@@ -239,8 +245,9 @@ angular.module('corePortalApp').controller(
     	}
         
         $scope.addCardAssignement = function(){
-        	
+        	$rootScope.main = $scope.main;
         	CPModalFactory.addCardAssignement($scope.accountList, $scope.userHBList, $scope.cardList);
+
         }
         
         $scope.deleteCardAssignement = function(id, index){
@@ -292,7 +299,7 @@ angular.module('corePortalApp').controller(
     	}
         
         $scope.addCommision = function (){
-        	
+        	$rootScope.main = $scope.main;
         	CPModalFactory.addCommision($scope.commisionTypeList);
         	        	
         }
@@ -321,7 +328,7 @@ angular.module('corePortalApp').controller(
         }
         
         $scope.editCommision = function(commision, index){  	
-        	
+        	$rootScope.main = $scope.main;
         	CPModalFactory.editCommision(commision);
         	        	
         }
@@ -334,6 +341,7 @@ angular.module('corePortalApp').controller(
                         console.log('ExchangeRate list:', data);
                         
                         $scope.exchangeRateList = data.exchangeRateList;
+                        $scope.currenciesList = data.currenciesList;
                         
                     },
                     function err(err) {
@@ -348,6 +356,40 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
+        $scope.addExchangeRate = function (){
+        	$rootScope.main = $scope.main;
+        	CPModalFactory.addExchangeRate($scope.currenciesList);
+        	        	
+        }
+        
+        $scope.deleteExchangeRate = function(id, index){
+        	CPExchangeRateService.deleteExchangeRate(
+    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
+                    function success(data) {
+                        console.log('ExchangeRate deleted succesfully:', data);
+                        
+                        $scope.exchangeRateList.splice(index, 1);
+                        
+                    },
+                    function err(err) {
+                    	console.log('Delete exchangeRate failed:', err);
+                    	
+                    	if (err.data.errorCode == 666){
+                    		window.sessionStorage.clear();
+                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                    		$location.path("/login");
+                    	} else {                            	
+                    		CPModalFactory.errorModal("Backend error");
+                    	}
+                    });
+        	
+        }
+        
+        $scope.editExchangeRate = function(exchangeRate, index){  	
+        	$rootScope.main = $scope.main;
+        	CPModalFactory.editExchangeRate(exchangeRate);
+        	        	
+        }
         
         /* Rate model */
         $scope.getRateList = function(){
@@ -357,6 +399,7 @@ angular.module('corePortalApp').controller(
                         console.log('Rate list:', data);
                         
                         $scope.rateList = data.rateList;
+                        $scope.rateTypeList = data.rateTypeList;
                         
                     },
                     function err(err) {
@@ -371,6 +414,40 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
+        $scope.addRate = function (){
+        	$rootScope.main = $scope.main;
+        	CPModalFactory.addRate($scope.rateTypeList);
+        	        	
+        }
+        
+        $scope.deleteRate = function(id, index){
+        	CPRateService.deleteRate(
+    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
+                    function success(data) {
+                        console.log('Rate deleted succesfully:', data);
+                        
+                        $scope.rateList.splice(index, 1);
+                        
+                    },
+                    function err(err) {
+                    	console.log('Delete rate failed:', err);
+                    	
+                    	if (err.data.errorCode == 666){
+                    		window.sessionStorage.clear();
+                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                    		$location.path("/login");
+                    	} else {                            	
+                    		CPModalFactory.errorModal("Backend error");
+                    	}
+                    });
+        	
+        }
+        
+        $scope.editRate = function(rate, index){  	
+        	$rootScope.main = $scope.main;
+        	CPModalFactory.editRate(rate);
+        	        	
+        }
         
         /* CPUser model */
         $scope.getCPUserList = function(){
@@ -396,6 +473,40 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
+        $scope.addCPUser = function (){
+        	$rootScope.main = $scope.main;
+        	CPModalFactory.addCPUser();
+        	        	
+        }
+        
+        $scope.deleteCPUser = function(id, index){
+        	CPUserCPService.deleteCPUser(
+    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
+                    function success(data) {
+                        console.log('CP User deleted succesfully:', data);
+                        
+                        $scope.userCPList.splice(index, 1);
+                        
+                    },
+                    function err(err) {
+                    	console.log('Delete CP user failed:', err);
+                    	
+                    	if (err.data.errorCode == 666){
+                    		window.sessionStorage.clear();
+                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                    		$location.path("/login");
+                    	} else {                            	
+                    		CPModalFactory.errorModal("Backend error");
+                    	}
+                    });
+        	
+        }
+        
+        $scope.editCPUser = function(user, index){  	
+        	$rootScope.main = $scope.main;
+        	CPModalFactory.editCPUser(user);
+        	        	
+        }
         
         /* HBUser model */
         $scope.getHBUserList = function(){
@@ -405,6 +516,7 @@ angular.module('corePortalApp').controller(
                         console.log('HB user list:', data);
                         
                         $scope.userHBList = data.userHBList;
+                        $scope.authenticationTypeList = data.authenticationTypeList;
                         
                     },
                     function err(err) {
@@ -419,6 +531,40 @@ angular.module('corePortalApp').controller(
                     	}
                     });
     	}
+        $scope.addHBUser = function (){
+        	$rootScope.main = $scope.main;
+        	CPModalFactory.addHBUser($scope.authenticationTypeList);
+        	        	
+        }
+        
+        $scope.deleteHBUser = function(id, index){
+        	CPUserHBService.deleteHBUser(
+    				$httpParamSerializer({token: window.sessionStorage.token, id: id}),
+                    function success(data) {
+                        console.log('HB User deleted succesfully:', data);
+                        
+                        $scope.userHBList.splice(index, 1);
+                        
+                    },
+                    function err(err) {
+                    	console.log('Delete HB user failed:', err);
+                    	
+                    	if (err.data.errorCode == 666){
+                    		window.sessionStorage.clear();
+                    		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                    		$location.path("/login");
+                    	} else {                            	
+                    		CPModalFactory.errorModal("Backend error");
+                    	}
+                    });
+        	
+        }
+        
+        $scope.editHBUser = function(user, index){  	
+        	$rootScope.main = $scope.main;
+        	CPModalFactory.editHBUser(user, $scope.authenticationTypeList);
+        	        	
+        }
         
         /* Main */
         $scope.main = function (item) {

@@ -9,6 +9,30 @@ angular.module('corePortalApp').service('CPUserCPService',
                 getUserList: {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-                }
+                },
+                
+                addCPUser: {
+                    method: 'POST',
+                    url: 'rest/usersCP/new',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                },
+                
+                deleteCPUser: {
+                    method: 'POST',
+                    url: 'rest/usersCP/delete',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                },
+                
+                editCPUser: {
+                    method: 'POST',
+                    url: 'rest/usersCP/edit',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                },
+                
+                changePassword: {
+                    method: 'POST',
+                    url: 'rest/usersCP/changePassword',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                },
             });
     });

@@ -1,0 +1,41 @@
+<div class="edit-rate-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Edit rate</h3>
+	</div>
+	<div class="modal-body">
+		<form name="editRateForm" novalidate>
+			<!-- Rate id -->
+			<div class="form-group">
+				<label>ID</label> 
+				<input type="number" name="id" value="{{ rate.id }}" class="form-control" disabled >
+			</div>
+		
+			<!-- Rate type -->
+			<div class="form-group">
+				<label>Rate type</label> 
+				<input type="text" name="type" value="{{ rate.type }}" class="form-control" disabled >
+			</div>
+			
+			<!-- Year percentage -->
+			<div class="form-group" ng-class="{ 'has-error' : editRateForm.year_percentage.$invalid && !editRateForm.year_percentage.$pristine }">
+				<label>Year percentage</label> 
+				<input type="number" name="year_percentage" ng-init="year_percentage=rate.year_percentage" class="form-control" ng-model="year_percentage" min="0" required >
+				<p ng-show="editRateForm.year_percentage.$error.min" class="help-block">Year percentage has to be positive!</p>
+				<p ng-show="editRateForm.year_percentage.$error.required" class="help-block">Year percentage is required!</p>
+			</div>
+			
+			<!-- Details -->
+			<div class="form-group" ng-class="{ 'has-error' : addRateForm.details.$invalid && !addRateForm.details.$pristine }">
+				<label>Details</label> 
+				<textarea name="details" class="form-control" ng-init="details=rate.details" ng-model="details" ng-maxlength="100" required></textarea>
+	    		<p ng-show="editRateForm.details.$error.maxlength" class="help-block">Details are too long!</p>
+	    		<p ng-show="editRateForm.details.$error.required" class="help-block">Details are required!</p>
+			</div>
+			
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="editRateForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

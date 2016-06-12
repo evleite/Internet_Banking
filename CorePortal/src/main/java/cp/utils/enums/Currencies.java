@@ -3,7 +3,9 @@ package cp.utils.enums;
 public enum Currencies {
 	RON,
 	EUR,
-	USD;
+	USD,
+	CHF,
+	GBP;
 	
 	public String toString(){
         switch(this){
@@ -13,6 +15,10 @@ public enum Currencies {
             return "EUR";
         case USD :
             return "USD";
+        case CHF :
+        	return "CHF";
+        case GBP :
+        	return "GBP";
         }
         return null;
     }

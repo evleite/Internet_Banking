@@ -2,7 +2,7 @@
 
 angular.module('corePortalApp').factory(
 		'CPModalFactory', 
-		function ($uibModal) {
+		function ($uibModal, $rootScope) {
 			return {
 				errorModal: function (errorMessage) {
 					console.log(errorMessage);
@@ -25,6 +25,30 @@ angular.module('corePortalApp').factory(
 						/* When $uibModalInstance.close()*/
 					}, function () {
 						/* When $uibModalInstance.dismiss()*/
+					});	
+				},
+				
+				infoModal: function (infoMessage) {
+					console.log(infoMessage);
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-info-modal.html',
+					    controller: 'CPInfoModelCtrl',
+					    /*size: size,*/
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	infoMessage: function () {
+					    		return infoMessage;
+					    	} 
+					    }
+					});
+
+					modalInstance.result.then(function () {
+						
+					}, function () {
+						
 					});	
 				},
 				
@@ -54,7 +78,7 @@ angular.module('corePortalApp').factory(
 					});
 
 					modalInstance.result.then(function () {
-
+						$rootScope.main("account");
 					}, function () {
 						
 					});	
@@ -83,7 +107,7 @@ angular.module('corePortalApp').factory(
 					});
 
 					modalInstance.result.then(function () {
-
+						$rootScope.main("account");
 					}, function () {
 						
 					});	
@@ -109,7 +133,7 @@ angular.module('corePortalApp').factory(
 					});
 
 					modalInstance.result.then(function () {
-
+						$rootScope.main("accountAssignement");
 					}, function () {
 						
 					});	
@@ -132,7 +156,7 @@ angular.module('corePortalApp').factory(
 					});
 
 					modalInstance.result.then(function () {
-
+						$rootScope.main("card");
 					}, function () {
 						
 					});	
@@ -155,7 +179,7 @@ angular.module('corePortalApp').factory(
 					});
 
 					modalInstance.result.then(function () {
-
+						$rootScope.main("card");
 					}, function () {
 						
 					});	
@@ -184,7 +208,7 @@ angular.module('corePortalApp').factory(
 					});
 
 					modalInstance.result.then(function () {
-
+						$rootScope.main("cardAssignement");
 					}, function () {
 						
 					});	
@@ -207,7 +231,7 @@ angular.module('corePortalApp').factory(
 					});
 
 					modalInstance.result.then(function () {
-
+						$rootScope.main("commision");
 					}, function () {
 						
 					});	
@@ -230,7 +254,214 @@ angular.module('corePortalApp').factory(
 					});
 
 					modalInstance.result.then(function () {
+						$rootScope.main("commision");
+					}, function () {
+						
+					});	
+				},
+				
+				addExchangeRate: function (currenciesList) {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-add-exchange-rate.html',
+					    controller: 'CPAddExchangeRateCtrl',
+					    size: 'lg',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	currenciesList: function () {
+					    		return currenciesList;
+					    	}
+					    }
+					});
 
+					modalInstance.result.then(function () {
+						$rootScope.main("exchangeRate");
+					}, function () {
+						
+					});	
+				},
+				
+				editExchangeRate: function (exchangeRate) {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-edit-exchange-rate.html',
+					    controller: 'CPEditExchangeRateCtrl',
+					    size: 'lg',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	exchangeRate: function () {
+					    		return exchangeRate;
+					    	},					    	
+					    }
+					});
+
+					modalInstance.result.then(function () {
+						$rootScope.main("exchangeRate");
+					}, function () {
+						
+					});	
+				},
+				
+				addRate: function (rateTypeList) {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-add-rate.html',
+					    controller: 'CPAddRateCtrl',
+					    size: 'lg',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	rateTypeList: function () {
+					    		return rateTypeList;
+					    	}
+					    }
+					});
+
+					modalInstance.result.then(function () {
+						$rootScope.main("rate");
+					}, function () {
+						
+					});	
+				},
+				
+				editRate: function (rate) {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-edit-rate.html',
+					    controller: 'CPEditRateCtrl',
+					    size: 'lg',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	rate: function () {
+					    		return rate;
+					    	},					    	
+					    }
+					});
+
+					modalInstance.result.then(function () {
+						$rootScope.main("rate");
+					}, function () {
+						
+					});	
+				},
+				
+				addCPUser: function () {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-add-cp-user.html',
+					    controller: 'CPAddCPUserCtrl',
+					    size: 'lg',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	
+					    }
+					});
+
+					modalInstance.result.then(function () {
+						$rootScope.main("userCP");
+					}, function () {
+						
+					});	
+				},
+				
+				editCPUser: function (user) {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-edit-cp-user.html',
+					    controller: 'CPEditCPUserCtrl',
+					    size: 'lg',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	user: function () {
+					    		return user;
+					    	},					    	
+					    }
+					});
+
+					modalInstance.result.then(function () {
+						$rootScope.main("userCP");
+					}, function () {
+						
+					});	
+				},
+				
+				changePassword: function (user) {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-change-password.html',
+					    controller: 'CPChangePasswordCtrl',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	user: function () {
+					    		return user;
+					    	},					    	
+					    }
+					});
+
+					modalInstance.result.then(function () {
+						
+					}, function () {
+						
+					});	
+				},
+				
+				addHBUser: function (authenticationTypeList) {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-add-hb-user.html',
+					    controller: 'CPAddHBUserCtrl',
+					    size: 'lg',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	authenticationTypeList: function () {
+					    		return authenticationTypeList;
+					    	}
+					    }
+					});
+
+					modalInstance.result.then(function () {
+						$rootScope.main("userHB");
+					}, function () {
+						
+					});	
+				},
+				
+				editHBUser: function (user, authenticationTypeList) {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/cp-edit-hb-user.html',
+					    controller: 'CPEditHBUserCtrl',
+					    size: 'lg',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { /* Parrameters passed as locals to controller*/
+					    	user: function () {
+					    		return user;
+					    	},
+					    	authenticationTypeList: function () {
+					    		return authenticationTypeList;
+					    	}
+					    }
+					});
+
+					modalInstance.result.then(function () {
+						$rootScope.main("userHB");
 					}, function () {
 						
 					});	

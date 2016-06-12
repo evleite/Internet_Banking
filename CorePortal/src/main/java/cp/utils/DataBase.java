@@ -19,6 +19,7 @@ import cp.models.Rate;
 import cp.models.Token;
 import cp.models.TokenAssignement;
 import cp.models.CPUser;
+import cp.utils.enums.AuthenticationType;
 import cp.utils.enums.RatesType;
 import cp.utils.enums.TransactionStatus;
 import cp.models.Transaction;
@@ -292,42 +293,36 @@ public class DataBase {
 			return null;
 		}
 	}
-	/*public static List<ExchangeRates> getExchangeRatesFromDB() {
-		EntityTransaction transaction = entity.getTransaction();
-		transaction.begin();
-		
-		Query queryResult = entity.createQuery("from exchange_rates");
-		List qList = queryResult.getResultList();
-		
-		transaction.commit();
-		
-		List<ExchangeRates> result = new ArrayList<ExchangeRates>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((ExchangeRates) qList.get(i));
-		}
-		
-		return result;
+	public static ExchangeRates getExchangeRateById(Long id) {
+		ExchangeRates obj = entity.find(ExchangeRates.class, id);
+		return obj;
 	}
-	public static void updateExchangeRate(Long id, ExchangeRates newObj) {
+	public static ExchangeRates updateExchangeRate(Long id, Double buy, Double sell) {
 		ExchangeRates oldObj = entity.find(ExchangeRates.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		
-		oldObj.setBuy(newObj.getBuy());
-		oldObj.setSell(newObj.getSell());
-		oldObj.setCurrency(newObj.getCurrency());
+		oldObj.setBuy(buy);
+		oldObj.setSell(sell);
 		
 		transaction.commit();
+		
+		return oldObj;
 	}
-	public static void deleteExchangeRate(Long id){
+	public static ExchangeRates deleteExchangeRate(Long id){
 		ExchangeRates obj = entity.find(ExchangeRates.class, id);
-		EntityTransaction transaction = entity.getTransaction();
 		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
-	}*/
+		if (obj != null) {
+			EntityTransaction transaction = entity.getTransaction();
+
+			transaction.begin();
+			entity.remove(obj);
+			transaction.commit();
+		}
+		
+		return obj;
+	}
 	
 	/* Rate model */
 	public static void persistRate(Rate rate){
@@ -353,159 +348,36 @@ public class DataBase {
 			return null;
 		}
 	}
-	/*public static Rate getFalseRate() {
-		EntityTransaction transaction = entity.getTransaction();
-		transaction.begin();
-		
-		Query queryResult = entity.createNativeQuery("select * from rates where rate_type= :rate_type", Rate.class)
-				.setParameter("rate_type", 6);
-		@SuppressWarnings("unchecked")
-		List<Rate> qList = queryResult.getResultList();
-		transaction.commit();
-		
-		if (qList.size() > 0){
-			return qList.get(0);
-		} else {
-			return null;
-		}
-	}
-	*/public static Rate getRateById(Long id) {
+	public static Rate getRateById(Long id) {
 		Rate obj = entity.find(Rate.class, id);
 		return obj;
 	}
-	/*public static void updateRate(Long id, Rate newObj) {
+	public static Rate updateRate(Long id, Double year_percentage, String details) {
 		Rate oldObj = entity.find(Rate.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
 		transaction.begin();
 		
-		oldObj.setDetails(newObj.getDetails());
-		oldObj.setRate_type(newObj.getRate_type());
-		oldObj.setYear_percentage(newObj.getYear_percentage());
+		oldObj.setYear_percentage(year_percentage);
+		oldObj.setDetails(details);
 		
 		transaction.commit();
+		
+		return oldObj;
 	}
-	public static void deleteRate(Long id){
+	public static Rate deleteRate(Long id){
 		Rate obj = entity.find(Rate.class, id);
-		EntityTransaction transaction = entity.getTransaction();
 		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
-	}*/
-	
-	/* Token model */
-	/*public static void persistToken(Token token){
-		EntityTransaction transaction = entity.getTransaction();
-		transaction.begin();
+		if (obj != null) {
+			EntityTransaction transaction = entity.getTransaction();
 
-		entity.persist(token);
-
-		transaction.commit();
-	}
-	public static List<Token> getTokenList() {
-		EntityTransaction transaction = entity.getTransaction();
-		transaction.begin();
-		
-		Query queryResult = entity.createNativeQuery("select * from tokens", Token.class);
-		@SuppressWarnings("unchecked")
-		List<Token> qList = queryResult.getResultList();
-		transaction.commit();
-		
-		if (qList.size() > 0){
-			return qList;
-		} else {
-			return null;
-		}
-	}*/
-	/*public static void updateToken(Long id, Token newObj) {
-		Token oldObj = entity.find(Token.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		
-		oldObj.setSerial(newObj.getSerial());
-		oldObj.setToken_type(newObj.getToken_type());
-		
-		transaction.commit();
-	}*/
-	/*public static void deleteToken(Long id){
-		Token obj = entity.find(Token.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
-	}*/
-	
-	/* TokenAssignement model */
-	/*public static void persistTokenAssignement(TokenAssignement tokenAsig){
-		EntityTransaction transaction = entity.getTransaction();
-		transaction.begin();
-
-		entity.persist(tokenAsig);
-
-		transaction.commit();
-	}
-	public static List<TokenAssignement> getTokenAssignementList() {
-		EntityTransaction transaction = entity.getTransaction();
-		transaction.begin();
-		
-		Query queryResult = entity.createNativeQuery("select * from tokens_assignements", TokenAssignement.class);
-		@SuppressWarnings("unchecked")
-		List<TokenAssignement> qList = queryResult.getResultList();
-		transaction.commit();
-		
-		if (qList.size() > 0){
-			return qList;
-		} else {
-			return null;
-		}
-	}*/
-	/*public static void updateTokenAssignement(Long id, TokenAssignement newObj) {
-		TokenAssignement oldObj = entity.find(TokenAssignement.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		
-		oldObj.setToken(newObj.getToken());
-		oldObj.setUser(newObj.getUser());
-		
-		transaction.commit();
-	}*/
-	/*public static void deleteTokenAssignement(Long id){
-		TokenAssignement obj = entity.find(TokenAssignement.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
-	}*/
-	
-	/* Transaction model */
-	/*public static void proccesTransactions() {
-		EntityTransaction transaction = entity.getTransaction();
-		transaction.begin();
-		
-		Query queryResult = entity.createQuery("from transactions");
-		List qList = queryResult.getResultList();
-		
-		transaction.commit();
-		
-		List<Transaction> result = new ArrayList<Transaction>();
-		for (int i = 0; i < qList.size(); i++) {
-			result.add((Transaction) qList.get(i));
-		}
-		
-		for (Transaction trans : result){
-			Transaction obj = entity.find(Transaction.class, trans.getId());
 			transaction.begin();
-			
-			obj.setStatus(TransactionStatus.PROCESSED);
-			
+			entity.remove(obj);
 			transaction.commit();
 		}
-	}*/
+		
+		return obj;
+	}
 	
 	/* CPUser model */
 	public static void persistUser(CPUser user){
@@ -531,31 +403,6 @@ public class DataBase {
 			return null;
 		}
 	}
-	/*public static void updateUser(Long id, CPUser newObj) {
-		CPUser oldObj = entity.find(CPUser.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		
-		oldObj.setAddress(newObj.getAddress());
-		oldObj.setCNP(newObj.getCNP());
-		oldObj.setEmail(newObj.getEmail());
-		oldObj.setFirstname(newObj.getFirstname());
-		oldObj.setLastname(newObj.getLastname());
-		oldObj.setPassword(newObj.getPassword());
-		oldObj.setTelephone(newObj.getTelephone());
-		oldObj.setUsername(newObj.getUsername());
-		
-		transaction.commit();
-	}
-	public static void deleteUser(Long id){
-		CPUser obj = entity.find(CPUser.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
-	}*/
 	public static CPUser getUserByUserName(String username) {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
@@ -571,6 +418,68 @@ public class DataBase {
 		} else {
 			return null;
 		}
+	}
+	public static CPUser getUserByCNP(String CNP) {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from users_cp where CNP= :CNP", CPUser.class)
+				.setParameter("CNP", CNP);
+		@SuppressWarnings("unchecked")
+		List<CPUser> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList.get(0);
+		} else {
+			return null;
+		}
+	}
+	public static CPUser getCPUserById(Long id) {
+		CPUser obj = entity.find(CPUser.class, id);
+		return obj;
+	}
+	public static CPUser deleteCPUser(Long id){
+		CPUser obj = entity.find(CPUser.class, id);
+		
+		if (obj != null) {
+			EntityTransaction transaction = entity.getTransaction();
+
+			transaction.begin();
+			entity.remove(obj);
+			transaction.commit();
+		}
+		
+		return obj;
+	}
+	public static CPUser updateCPUser(Long id, String firstname, String lastname, String CNP, String email, String address, String telephone) {
+		CPUser oldObj = entity.find(CPUser.class, id);
+		EntityTransaction transaction = entity.getTransaction();
+		
+		transaction.begin();
+		
+		oldObj.setAddress(address);
+		oldObj.setCNP(CNP);
+		oldObj.setEmail(email);
+		oldObj.setFirstname(firstname);
+		oldObj.setLastname(lastname);
+		oldObj.setTelephone(telephone);
+		
+		transaction.commit();
+		
+		return oldObj;
+	}
+	public static CPUser changePassword(Long id, String new_password) {
+		CPUser oldObj = entity.find(CPUser.class, id);
+		EntityTransaction transaction = entity.getTransaction();
+		
+		transaction.begin();
+		
+		oldObj.setPassword(new_password);
+				
+		transaction.commit();
+		
+		return oldObj;
 	}
 	
 	/* HBUser model */
@@ -601,32 +510,7 @@ public class DataBase {
 		HBUser obj = entity.find(HBUser.class, id);
 		return obj;
 	}
-	/*public static void updateUser(Long id, CPUser newObj) {
-		CPUser oldObj = entity.find(CPUser.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		
-		oldObj.setAddress(newObj.getAddress());
-		oldObj.setCNP(newObj.getCNP());
-		oldObj.setEmail(newObj.getEmail());
-		oldObj.setFirstname(newObj.getFirstname());
-		oldObj.setLastname(newObj.getLastname());
-		oldObj.setPassword(newObj.getPassword());
-		oldObj.setTelephone(newObj.getTelephone());
-		oldObj.setUsername(newObj.getUsername());
-		
-		transaction.commit();
-	}
-	public static void deleteUser(Long id){
-		CPUser obj = entity.find(CPUser.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		entity.remove(obj);
-		transaction.commit();
-	}*/
-	/*public static HBUser getUserByUserName(String username) {
+	public static HBUser getHBUserByUserName(String username) {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
 		
@@ -641,6 +525,65 @@ public class DataBase {
 		} else {
 			return null;
 		}
-	}*/
+	}
+	public static HBUser getHBUserByCNP(String CNP) {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from users_hb where CNP= :CNP", HBUser.class)
+				.setParameter("CNP", CNP);
+		@SuppressWarnings("unchecked")
+		List<HBUser> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList.get(0);
+		} else {
+			return null;
+		}
+	}
+	public static HBUser deleteHBUser(Long id){
+		HBUser obj = entity.find(HBUser.class, id);
+		
+		if (obj != null) {
+			EntityTransaction transaction = entity.getTransaction();
+
+			transaction.begin();
+			entity.remove(obj);
+			transaction.commit();
+		}
+		
+		return obj;
+	}
+	public static HBUser updateHBUser(Long id, String firstname, String lastname, String CNP, String email, String address, String telephone, AuthenticationType authentication_type) {
+		HBUser oldObj = entity.find(HBUser.class, id);
+		EntityTransaction transaction = entity.getTransaction();
+		
+		transaction.begin();
+		
+		oldObj.setAddress(address);
+		oldObj.setCNP(CNP);
+		oldObj.setEmail(email);
+		oldObj.setFirstname(firstname);
+		oldObj.setLastname(lastname);
+		oldObj.setTelephone(telephone);
+		oldObj.setAuth_type(authentication_type);
+		
+		transaction.commit();
+		
+		return oldObj;
+	}
+	public static HBUser generateNewPassword(Long id, String new_password) {
+		HBUser oldObj = entity.find(HBUser.class, id);
+		EntityTransaction transaction = entity.getTransaction();
+		
+		transaction.begin();
+		
+		oldObj.setPassword(new_password);
+				
+		transaction.commit();
+		
+		return oldObj;
+	}
 
 }

@@ -1,0 +1,39 @@
+<div class="add-exchnage-rate-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new exchange rate</h3>
+	</div>
+	<div class="modal-body">
+		<form name="addExchangeRateForm" novalidate>
+			<!-- Currency -->
+			<div class="form-group" ng-class="{ 'has-error' : addExchangeRateForm.currency.$invalid && !addExchangeRateForm.currency.$pristine }">
+				<label>Currency</label> 
+				<select name="currency" class="form-control" ng-model="currency" required >
+					<option disabled selected value> -- select an option -- </option>
+					<option ng-repeat="item in currenciesList" value="{{ item }}">{{ item }}</option>
+				</select>
+				<p ng-show="addExchangeRateForm.currency.$error.required" class="help-block">Currency is required!</p>
+			</div>
+			
+			<!-- Buy rate -->
+			<div class="form-group" ng-class="{ 'has-error' : addExchangeRateForm.buy.$invalid && !addExchangeRateForm.buy.$pristine }">
+				<label>Buy rate</label> 
+				<input type="number" name="buy" value="" class="form-control" ng-model="buy" min="0" required >
+				<p ng-show="addCommisionForm.buy.$error.min" class="help-block">Buy rate has to be positive!</p>
+				<p ng-show="addCommisionForm.buy.$error.required" class="help-block">Buy rate is required!</p>
+			</div>
+			
+			<!-- Sell rate -->
+			<div class="form-group" ng-class="{ 'has-error' : addExchangeRateForm.sell.$invalid && !addExchangeRateForm.sell.$pristine }">
+				<label>Sell rate</label> 
+				<input type="number" name="sell" value="" class="form-control" ng-model="sell" min="0" required >
+				<p ng-show="addExchangeRateForm.sell.$error.min" class="help-block">Sell rate has to be positive!</p>
+				<p ng-show="addExchangeRateForm.sell.$error.required" class="help-block">Sell rate is required!</p>
+			</div>
+			
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="addExchangeRateForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

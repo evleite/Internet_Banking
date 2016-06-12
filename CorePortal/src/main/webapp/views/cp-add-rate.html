@@ -1,0 +1,39 @@
+<div class="add-rate-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new rate</h3>
+	</div>
+	<div class="modal-body">
+		<form name="addRateForm" novalidate>
+			<!-- Rate type -->
+			<div class="form-group" ng-class="{ 'has-error' : addRateForm.type.$invalid && !addRateForm.type.$pristine }">
+				<label>Rate type</label> 
+				<select name="type" class="form-control" ng-model="type" required >
+					<option disabled selected value> -- select an option -- </option>
+					<option ng-repeat="item in rateTypeList" value="{{ item }}">{{ item }}</option>
+				</select>
+				<p ng-show="addRateForm.type.$error.required" class="help-block">Rate type is required!</p>
+			</div>
+			
+			<!-- Year percentage -->
+			<div class="form-group" ng-class="{ 'has-error' : addRateForm.year_percentage.$invalid && !addRateForm.year_percentage.$pristine }">
+				<label>Year percentage</label> 
+				<input type="number" name="year_percentage" value="" class="form-control" ng-model="year_percentage" min="0" required >
+				<p ng-show="addRateForm.year_percentage.$error.min" class="help-block">Year percentage has to be positive!</p>
+				<p ng-show="addRateForm.year_percentage.$error.required" class="help-block">Year percentage is required!</p>
+			</div>
+			
+			<!-- Details -->
+			<div class="form-group" ng-class="{ 'has-error' : addRateForm.details.$invalid && !addRateForm.details.$pristine }">
+				<label>Details</label> 
+				<textarea name="details" class="form-control" ng-model="details" ng-maxlength="100" required></textarea>
+	    		<p ng-show="addRateForm.details.$error.maxlength" class="help-block">Details are too long!</p>
+	    		<p ng-show="addRateForm.details.$error.required" class="help-block">Details are required!</p>
+			</div>
+			
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="addRateForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

@@ -174,10 +174,10 @@ public class AccountResource {
 		
 		Map<String, Object> response = null;
 		
+		Account oldAccount = DataBase.getAccountById(id_account);
 		response = accountService.editAccount(id_account, id_com, id_rate);
 		if ((boolean) response.get("success") == true) {
 			Account account = (Account) response.get("account");
-			Account oldAccount = DataBase.getAccountById(id_account);
 			
 			/* Update account list in cache */
 			List<Account> accountList = (List<Account>) httpSession.getAttribute("accountList");

@@ -4,9 +4,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import cp.utils.enums.AccountType;
+import cp.utils.enums.AuthenticationType;
 import cp.utils.enums.CardType;
 import cp.utils.enums.CommisionType;
 import cp.utils.enums.Currencies;
+import cp.utils.enums.RatesType;
 
 public class EnumUtils {
 	
@@ -24,6 +26,8 @@ public class EnumUtils {
 		currenciesList.add(Currencies.EUR.toString());
 		currenciesList.add(Currencies.RON.toString());
 		currenciesList.add(Currencies.USD.toString());
+		currenciesList.add(Currencies.CHF.toString());
+		currenciesList.add(Currencies.GBP.toString());
 		
 		return currenciesList;
 	}
@@ -53,4 +57,25 @@ public class EnumUtils {
 		return commisionTypeList;
 	}
 
+	public static List<String> getRateTypeList(){
+		List<String> rateTypeList = new ArrayList<>();
+		rateTypeList.add(RatesType.CREDIT_CARD_EURO.toString());
+		rateTypeList.add(RatesType.CREDIT_CARD_LOCAL_CURR.toString());
+		rateTypeList.add(RatesType.CREDIT_CARD_USD.toString());
+		rateTypeList.add(RatesType.N_A.toString());
+		rateTypeList.add(RatesType.SAVING_ACC_EURO.toString());
+		rateTypeList.add(RatesType.SAVING_ACC_LOCAL_CURR.toString());
+		rateTypeList.add(RatesType.SAVING_ACC_USD.toString());
+		
+		return rateTypeList;
+	}
+	
+	public static List<String> getAuthenticationTypeList(){
+		List<String> authenticationTypeList = new ArrayList<>();
+		authenticationTypeList.add(AuthenticationType.E_TOKEN.toString());
+		authenticationTypeList.add(AuthenticationType.HARD_TOKEN.toString());
+		authenticationTypeList.add(AuthenticationType.PASSWORD.toString());
+		
+		return authenticationTypeList;
+	}
 }

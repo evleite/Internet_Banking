@@ -1,0 +1,79 @@
+<div class="add-hb-user-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Create new HomeBank user</h3>
+	</div>
+	<div class="modal-body">
+		<form name="addHBUserForm" novalidate>
+			<!-- Username -->
+			<div class="form-group" ng-class="{ 'has-error' : addHBUserForm.username.$invalid && !addHBUserForm.username.$pristine }">
+	    		<label>Username</label>
+	    		<input type="text" name="username" value="" placeholder="Username" class="form-control" ng-model="username" ng-minlength="4" ng-maxlength="30" required>
+	    		<p ng-show="addHBUserForm.username.$error.minlength" class="help-block">Username is too short!</p>
+	    		<p ng-show="addHBUserForm.username.$error.maxlength" class="help-block">Username is too long!</p>
+	    		<p ng-show="addHBUserForm.username.$error.required" class="help-block">Username is required!</p>
+			</div>
+			
+			<!-- Firstname -->
+			<div class="form-group" ng-class="{ 'has-error' : addHBUserForm.firstname.$invalid && !addHBUserForm.firstname.$pristine }">
+	    		<label>Firstname</label>
+	    		<input type="text" name="firstname" value="" placeholder="Firstname" class="form-control" ng-model="firstname"required>
+	    		<p ng-show="addHBUserForm.firstname.$error.required" class="help-block">Firstname is required!</p>
+			</div>
+			
+			<!-- Lastname -->
+			<div class="form-group" ng-class="{ 'has-error' : addHBUserForm.lastname.$invalid && !addHBUserForm.lastname.$pristine }">
+	    		<label>Lastname</label>
+	    		<input type="text" name="lastname" value="" placeholder="Lastname" class="form-control" ng-model="lastname"required>
+	    		<p ng-show="addHBUserForm.lastname.$error.required" class="help-block">Firstname is required!</p>
+			</div>
+			
+			<!-- CNP -->
+			<div class="form-group" ng-class="{ 'has-error' : addHBUserForm.CNP.$invalid && !addHBUserForm.CNP.$pristine }">
+	    		<label>CNP</label>
+	    		<input type="text" name="CNP" value="" placeholder="CNP" class="form-control" ng-model="CNP" ng-pattern="/^[0-9]{13}$/" required>
+	    		<p ng-show="addHBUserForm.CNP.$error.pattern" class="help-block">CNP contains 13 digits!</p>
+	    		<p ng-show="addHBUserForm.CNP.$error.required" class="help-block">CNP is required!</p>
+			</div>
+			
+			<!-- Email -->
+			<div class="form-group" ng-class="{ 'has-error' : addHBUserForm.email.$invalid && !addHBUserForm.email.$pristine }">
+	    		<label>Email</label>
+	    		<input type="text" name="email" value="" placeholder="Email" class="form-control" ng-model="email" ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
+" required>
+	    		<p ng-show="addHBUserForm.email.$error.pattern" class="help-block">Invalid email format!</p>
+	    		<p ng-show="addHBUserForm.email.$error.required" class="help-block">CNP is required!</p>
+			</div>
+			
+			<!-- Address -->
+			<div class="form-group" ng-class="{ 'has-error' : addHBUserForm.address.$invalid && !addHBUserForm.address.$pristine }">
+				<label>Address</label> 
+				<textarea name="address" class="form-control" placeholder="Address" ng-model="address" ng-maxlength="300" required></textarea>
+	    		<p ng-show="addHBUserForm.address.$error.maxlength" class="help-block">Address is too long!</p>
+	    		<p ng-show="addHBUserForm.address.$error.required" class="help-block">Address is required!</p>
+			</div>
+			
+			<!-- Telephone -->
+			<div class="form-group" ng-class="{ 'has-error' : addHBUserForm.telephone.$invalid && !addHBUserForm.telephone.$pristine }">
+	    		<label>Telephone</label>
+	    		<input type="text" name="telephone" value="" placeholder="Telephone" class="form-control" ng-model="telephone" ng-pattern="/^\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})? ?(\w{1,10}\s?\d{1,6})?$/" required>
+	    		<p ng-show="addHBUserForm.telephone.$error.pattern" class="help-block">Telephone format: +XX...X</p>
+	    		<p ng-show="addHBUserForm.telephone.$error.required" class="help-block">Telephone is required!</p>
+			</div>
+			
+			<!-- Authentication type -->
+			<div class="form-group" ng-class="{ 'has-error' : addHBUserForm.auth_type.$invalid && !addHBUserForm.auth_type.$pristine }">
+				<label>Authentication type</label> 
+				<select name="auth_type" class="form-control" ng-model="auth_type" required >
+					<option disabled selected value> -- select an option -- </option>
+					<option ng-repeat="item in authenticationTypeList" value="{{ item }}">{{ item }}</option>
+				</select>
+				<p ng-show="addHBUserForm.auth_type.$error.required" class="help-block">Authentication type is required!</p>
+			</div>
+			
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="addHBUserForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

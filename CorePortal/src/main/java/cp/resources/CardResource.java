@@ -165,10 +165,10 @@ public class CardResource {
 		
 		Map<String, Object> response = null;
 		
+		Card oldCard = DataBase.getCardById(id_card);
 		response = cardService.editCard(id_card, daily_limit, validity);
 		if ((boolean) response.get("success") == true) {
 			Card card = (Card) response.get("card");
-			Card oldCard = DataBase.getCardById(id_card);
 			
 			/* Update cards list in cache */
 			List<Card> cardList = (List<Card>) httpSession.getAttribute("cardList");

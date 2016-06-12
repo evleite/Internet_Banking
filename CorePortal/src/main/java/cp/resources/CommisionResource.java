@@ -165,10 +165,10 @@ public class CommisionResource {
 		
 		Map<String, Object> response = null;
 		
+		Commision oldCommision = DataBase.getCommisionById(id_commision);
 		response = commisionService.editCommision(id_commision, amount, details);
 		if ((boolean) response.get("success") == true) {
 			Commision commision = (Commision) response.get("commision");
-			Commision oldCommision = DataBase.getCommisionById(id_commision);
 			
 			/* Update commision list in cache */
 			List<Commision> commisionList = (List<Commision>) httpSession.getAttribute("commisionList");
