@@ -10,13 +10,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 import hb.utils.enums.AccountType;
 import hb.utils.enums.Currencies;
-import hb.utils.enums.RatesType;
 
 @Entity
 @Table(name="accounts")
@@ -50,15 +48,6 @@ public class Account extends AbstractModel implements Serializable {
 		this.currency = null;
 		this.comm_admin = null;
 		this.rate = null;
-	}
-	public Account(String iBAN, AccountType acc_type, Currencies currency, Commision comm_admin, Double balance) {
-		super();
-		IBAN = iBAN;
-		this.acc_type = acc_type;
-		this.currency = currency;
-		this.comm_admin = comm_admin;
-		this.rate = new Rate(RatesType.N_A, 0.0);
-		this.balance = balance;
 	}
 	public Account(String iBAN, AccountType acc_type, Currencies currency, Commision comm_admin, Rate rate, Double balance) {
 		super();

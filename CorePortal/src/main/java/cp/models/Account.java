@@ -13,10 +13,8 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-import cp.utils.DataBase;
 import cp.utils.enums.AccountType;
 import cp.utils.enums.Currencies;
-import cp.utils.enums.RatesType;
 
 @Entity
 @Table(name="accounts")

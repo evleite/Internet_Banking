@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('corePortalApp').controller(
-    'CPLoginCtrl',
-    function ($rootScope, $scope, CPLoginService, $location, $httpParamSerializer) {
+angular.module('homeBankApp').controller(
+    'HBLoginCtrl',
+    function ($rootScope, $scope, HBLoginService, $location, $httpParamSerializer) {
     	window.sessionStorage.clear();
     	$(".loged-in-user > .username").html("");
     	
@@ -14,7 +14,7 @@ angular.module('corePortalApp').controller(
         	$scope.loginFailed = false;
             $scope.errorMessage = "";
             $rootScope.session = {}
-        	CPLoginService.login(
+        	HBLoginService.login(
         		$httpParamSerializer({username: $scope.user, password: $scope.pass}),
                 function success(data) {
                     console.log('Login succeeded:', data);

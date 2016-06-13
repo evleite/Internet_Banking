@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
-import cp.models.Account;
 import cp.models.Card;
 import cp.services.CardService;
 import cp.utils.DataBase;

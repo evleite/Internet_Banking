@@ -16,8 +16,7 @@
 }
 .content{
 	position: relative;
-	top: 56px;
-	margin-top: 20px;
+	top: 72px;
     padding: 10px;
 }
 .administration, .main-content{
@@ -32,18 +31,6 @@ hr{
 .item-list-title {
 	text-align: center;
 } 
-.footer{
-	border-top: 20px solid white;
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    z-index: 100;
-    padding-top: 2em;
-    background-color: #9e9b9b;
-    color: white;
-    padding-bottom: 2em;
-}
 
 /* Login form */
 .login-form{
@@ -55,9 +42,8 @@ hr{
     margin-top: 50px;
     box-shadow: 5px 5px 5px #337ab7;
 }
-.btn-primary{
-	/* background-color: #75cc75;
-    border-color: #75cc75; */
+.log-out {
+	cursor: pointer;
 }
 
 /* Administration navigation menu */
@@ -71,9 +57,6 @@ hr{
 }
 .admin-nav-item.selected{
 	background-color: #f1f1f1;
-}
-.log-out {
-	cursor: pointer;
 }
 
 /* Accounts*/

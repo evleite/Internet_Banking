@@ -6,17 +6,11 @@ import java.util.Map;
 
 import javax.jws.WebService;
 
-import cp.models.Account;
 import cp.models.Card;
-import cp.models.Commision;
-import cp.models.Rate;
-import cp.utils.AccountUtils;
 import cp.utils.CardUtils;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;
-import cp.utils.enums.AccountType;
 import cp.utils.enums.CardType;
-import cp.utils.enums.Currencies;
 
 @WebService
 public class CardService {

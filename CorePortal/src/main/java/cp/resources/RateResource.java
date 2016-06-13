@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
-import cp.models.Commision;
 import cp.models.Rate;
 import cp.services.RateService;
 import cp.utils.DataBase;

@@ -1,9 +1,89 @@
-.header{
-	
+.fixed-header{
+	position: fixed;
+    z-index: 1000;
+	top: 0;
+    left: 0;
+    right: 0;
+	background-color: #ffffff;
+	padding: 10px;
+}
+.logo, .title {
+	display: inline-block;
+}
+.title {
+	font-size: 30px;
+    font-family: Copperplate Gothic Light;
 }
 .content{
-	height: 500px;
+	position: relative;
+	top: 124px;
+    padding: 10px;
+    min-height: 800px;
+}
+.navbar-fixed-top {
+    top: 72px;
+    border-width: 1px 0 1px;
+}
+.navbar-fixed-top1{
+	top: 0;
+    border-width: 0 0 1px;
+}
+.right-nav{
+	float: right;
+}
+.dropdown{
+	padding: 10px;
+}
+.dropdown-toggle{
+	cursor: pointer;
+}
+.glyphicon{
+	font-size: 25px;
+    padding: 13px;
+}
+.nav-vetical-line{
+	border-width: 0 2px 0 0;
+    border-color: #dcd9d9;
+    border-style: solid;
+}
+.navbar-nav-item{
+	font-size: 20px;
+	cursor: pointer;
+}
+.welcome{
+	padding: 30px;
+}
+hr{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.products{
+	text-align: center;
 }
 .footer{
-	
+	margin-top: 124px;
+	border-top: 20px solid white;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 100;
+    padding-top: 2em;
+    background-color: #9e9b9b;
+    color: white;
+    padding-bottom: 2em;
+}
+
+/* Login form */
+.login-form{
+	border-radius:10px;
+    margin: auto;
+    width: 30%;
+    border: 1px solid #f5f5f5;
+    padding: 10px;
+    margin-top: 50px;
+    box-shadow: 5px 5px 5px #337ab7;
+}
+
+.log-out {
+	cursor: pointer;
 }

@@ -6,7 +6,6 @@ import java.util.Map;
 
 import javax.jws.WebService;
 
-import cp.models.CPUser;
 import cp.models.HBUser;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;

@@ -6,11 +6,9 @@ import java.util.Map;
 
 import javax.jws.WebService;
 
-import cp.models.Commision;
 import cp.models.Rate;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;
-import cp.utils.enums.CommisionType;
 import cp.utils.enums.RatesType;
 
 @WebService

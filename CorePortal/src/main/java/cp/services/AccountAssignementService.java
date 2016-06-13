@@ -8,14 +8,9 @@ import javax.jws.WebService;
 
 import cp.models.Account;
 import cp.models.AccountAssignement;
-import cp.models.Commision;
 import cp.models.HBUser;
-import cp.models.Rate;
-import cp.utils.AccountUtils;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;
-import cp.utils.enums.AccountType;
-import cp.utils.enums.Currencies;
 
 @WebService
 public class AccountAssignementService {

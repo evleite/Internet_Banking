@@ -7,12 +7,10 @@ import java.util.Map;
 import javax.jws.WebService;
 
 import cp.models.CPUser;
-import cp.models.Rate;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;
 import cp.utils.TrippleDes;
 import cp.utils.UserUtils;
-import cp.utils.enums.RatesType;
 
 @WebService
 public class UserCPService {

@@ -11,9 +11,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import hb.models.HBUser;
+
 @Entity
 @Table(name="acc_assignements")
-public class AccountAssignement extends AbstractAssignement implements Serializable {
+public class AccountAssignement implements Serializable {
 
 	private static final long serialVersionUID = 462842833438116887L;
 	
@@ -23,13 +25,16 @@ public class AccountAssignement extends AbstractAssignement implements Serializa
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_account", nullable = false)
 	private Account account;
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name = "id_user", nullable = false)
+	private HBUser user;
 
 	public AccountAssignement() {
-		super();
+		this.user = null;
 		this.account = null;
 	}
-	public AccountAssignement(Account account) {
-		super();
+	public AccountAssignement(HBUser user, Account account) {
+		this.user = user;
 		this.account = account;
 	}
 	
@@ -42,18 +47,25 @@ public class AccountAssignement extends AbstractAssignement implements Serializa
 	public void setAccount(Account account) {
 		this.account = account;
 	}
+	public HBUser getUser() {
+		return user;
+	}
+	public void setUser(HBUser user) {
+		this.user = user;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
-		int result = super.hashCode();
+		int result = 1;
 		result = prime * result + ((account == null) ? 0 : account.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
-		if (!super.equals(obj))
+		if (obj == null)
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
@@ -62,6 +74,11 @@ public class AccountAssignement extends AbstractAssignement implements Serializa
 			if (other.account != null)
 				return false;
 		} else if (!account.equals(other.account))
+			return false;
+		if (user == null) {
+			if (other.user != null)
+				return false;
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}

@@ -7,9 +7,7 @@ import javax.crypto.Cipher;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.DESedeKeySpec;
-import javax.enterprise.inject.Model;
 
-@Model
 public class TrippleDes {
 	private static final String UNICODE_FORMAT = "UTF8";
 	private static final String DESEDE_ENCRYPTION_SCHEME = "DESede";
@@ -32,7 +30,7 @@ public class TrippleDes {
     }
 
 
-    public static String encrypt(String unencryptedString) {
+    public String encrypt(String unencryptedString) {
         String encryptedString = null;
         try {
             cipher.init(Cipher.ENCRYPT_MODE, key);
@@ -46,7 +44,7 @@ public class TrippleDes {
     }
 
 
-    public static String decrypt(String encryptedString) {
+    public String decrypt(String encryptedString) {
         String decryptedText=null;
         try {
             cipher.init(Cipher.DECRYPT_MODE, key);
@@ -58,4 +56,18 @@ public class TrippleDes {
         }
         return decryptedText;
     }
+    
+    /*public static void main(String args []) throws Exception
+    {
+        TrippleDes td= new TrippleDes();
+
+        String target="imparator";
+        String encrypted=td.encrypt(target);
+        String decrypted=td.decrypt(encrypted);
+
+        System.out.println("String To Encrypt: "+ target);
+        System.out.println("Encrypted String:" + encrypted);
+        System.out.println("Decrypted String:" + decrypted);
+
+    }*/
 }

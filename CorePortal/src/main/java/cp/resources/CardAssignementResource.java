@@ -15,7 +15,6 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
-import cp.models.AccountAssignement;
 import cp.models.CardAssignement;
 import cp.services.CardAssignementService;
 import cp.utils.JsonUtils;

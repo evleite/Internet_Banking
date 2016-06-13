@@ -1,12 +1,10 @@
 package cp.resources;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.servlet.http.HttpSession;
-import javax.swing.plaf.BorderUIResource.EmptyBorderUIResource;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.FormParam;
 import javax.ws.rs.POST;
@@ -23,8 +21,6 @@ import cp.utils.DataBase;
 import cp.utils.EnumUtils;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
-import cp.utils.enums.AccountType;
-import cp.utils.enums.Currencies;
 
 
 @Path("/acounts")

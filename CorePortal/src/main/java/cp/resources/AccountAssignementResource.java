@@ -15,11 +15,8 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
-import cp.models.Account;
 import cp.models.AccountAssignement;
-import cp.models.Rate;
 import cp.services.AccountAssignementService;
-import cp.services.RateService;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
 

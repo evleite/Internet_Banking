@@ -7,7 +7,6 @@ import java.util.Map;
 import javax.jws.WebService;
 
 import cp.models.Account;
-import cp.models.AccountAssignement;
 import cp.models.Card;
 import cp.models.CardAssignement;
 import cp.models.HBUser;

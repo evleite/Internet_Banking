@@ -16,13 +16,8 @@ import cp.models.Commision;
 import cp.models.ExchangeRates;
 import cp.models.HBUser;
 import cp.models.Rate;
-import cp.models.Token;
-import cp.models.TokenAssignement;
 import cp.models.CPUser;
 import cp.utils.enums.AuthenticationType;
-import cp.utils.enums.RatesType;
-import cp.utils.enums.TransactionStatus;
-import cp.models.Transaction;
 
 public class DataBase {
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistenceUnit");
