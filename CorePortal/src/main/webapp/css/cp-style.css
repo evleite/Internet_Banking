@@ -1,15 +1,37 @@
-.content{
-	position: relative;
-	top: 56px;
-}
 .fixed-header{
 	position: fixed;
     z-index: 1000;
 	top: 0;
     left: 0;
     right: 0;
-	background-color: #75cc75;
+	background-color: #ffffff;
+	padding: 10px;
 }
+.logo, .title {
+	display: inline-block;
+}
+.title {
+	font-size: 30px;
+    font-family: Copperplate Gothic Light;
+}
+.content{
+	position: relative;
+	top: 56px;
+	margin-top: 20px;
+    padding: 10px;
+}
+.administration, .main-content{
+	border: 2px solid #f5f5f5;
+    border-radius: 10px;
+    min-height: 600px;
+}
+hr{
+	margin-top: 0;
+	margin-bottom: 0;
+}
+.item-list-title {
+	text-align: center;
+} 
 .footer{
 	border-top: 20px solid white;
     position: absolute;
@@ -22,22 +44,20 @@
     color: white;
     padding-bottom: 2em;
 }
-.content{
-	margin-top: 50px;
-}
 
 /* Login form */
 .login-form{
 	border-radius:10px;
     margin: auto;
     width: 30%;
-    border: 2px solid #75cc75;
+    border: 1px solid #f5f5f5;
     padding: 10px;
     margin-top: 50px;
+    box-shadow: 5px 5px 5px #337ab7;
 }
 .btn-primary{
-	background-color: #75cc75;
-    border-color: #75cc75;
+	/* background-color: #75cc75;
+    border-color: #75cc75; */
 }
 
 /* Administration navigation menu */

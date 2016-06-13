@@ -8,7 +8,7 @@ angular.module('corePortalApp').controller(
     		CPModalFactory,
     		$location, $httpParamSerializer, $q) {
     	if (window.sessionStorage.login == "true"){
-    		$(".loged-in-user > h3").html(window.sessionStorage.username);
+    		$(".loged-in-user > .username").html(window.sessionStorage.username);
     	} else {
     		window.sessionStorage.clear();
     		$location.path("/login");

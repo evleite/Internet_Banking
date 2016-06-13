@@ -4,7 +4,7 @@ angular.module('corePortalApp').controller(
     'CPLoginCtrl',
     function ($rootScope, $scope, CPLoginService, $location, $httpParamSerializer) {
     	window.sessionStorage.clear();
-    	$(".loged-in-user > h3").html("");
+    	$(".loged-in-user > .username").html("");
     	
         $scope.login = function () {
         	$scope.user = $scope.username;
