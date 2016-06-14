@@ -25,6 +25,27 @@ cpApp.config(function($routeProvider){
 			}
 		)
 		.when(
+			'/borrowing',
+			{
+				templateUrl: 'views/hb-borrowing.html',
+				//controller: 'HBBorrowingCtrl'
+			}
+		)
+		.when(
+			'/banking',
+			{
+				templateUrl: 'views/hb-banking.html',
+				//controller: 'HBBankingCtrl'
+			}
+		)
+		.when(
+			'/savings',
+			{
+				templateUrl: 'views/hb-savings.html',
+				//controller: 'HBSavingsCtrl'
+			}
+		)
+		.when(
 			'/error',
 			{
 				templateUrl: 'views/hb-error-page.html'

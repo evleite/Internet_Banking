@@ -250,6 +250,7 @@ public class JsonUtils {
 		json.put("beneficiary_IBAN", trans.getBeneficiary_IBAN());
 		json.put("datails", trans.getDetails());
 		json.put("id", trans.getId());
+		json.put("date", DateUtils.getHumanRedableDate(trans.getDate()));
 		json.put("commision", commisionToJson(trans.getId_trans_comm()));
 		json.put("payer_IBAN", trans.getPayer_IBAN());
 		json.put("status", trans.getStatus());

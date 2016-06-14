@@ -18,7 +18,7 @@
 	position: relative;
 	top: 124px;
     padding: 10px;
-    min-height: 800px;
+    min-height: 700px;
 }
 .navbar-fixed-top {
     top: 72px;
@@ -57,8 +57,59 @@ hr{
 	margin-top: 0;
 	margin-bottom: 0;
 }
-.products{
+.main-page-products{
 	text-align: center;
+	padding: 10px;
+}
+.product{
+	border: 1px solid #000;
+    width: 300px;
+    margin: 10px auto;
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    padding: 10px;
+}
+.borrowing {
+	background-color: #ff3838;
+	border-color: #ff3838;
+}
+.banking {
+	background-color: #387dff;
+	border-color: #387dff;
+}
+.savings {
+	background-color: #43ff38;
+	border-color: #43ff38;
+}
+.product-details {
+	vertical-align: top;
+    min-height: 147px;
+	display: inline-block;
+	border: 1px solid #dedcdc;
+    width: 350px;
+    margin: 0 20px 20px 0;
+    font-size: 15px;
+    font-weight: bold;
+    color: white;
+    background-color: #dedcdc;
+}
+.product-details-header {
+	padding: 10px;
+}
+.product-details-content {
+	padding: 10px;
+	color: black;
+}
+.transaction-grid {
+	border: 1px solid #dedcdc;
+}
+.transaction-grid-header {
+	color: white;
+	font-size: 15px;
+    font-weight: bold;
+	padding: 10px;
 }
 .footer{
 	margin-top: 124px;
