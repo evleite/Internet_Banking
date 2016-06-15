@@ -18,7 +18,8 @@ angular.module('corePortalApp').controller(
                 				token: window.sessionStorage.token,
                 				id_account: account.id,
                 				id_comm: $scope.commision,
-                				id_rate: $scope.rate
+                				id_rate: $scope.rate,
+                				balance: $scope.balance
                 			}
                 	),
                     function success(data) {

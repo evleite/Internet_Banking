@@ -1,6 +1,7 @@
 package cp.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -40,23 +41,27 @@ public class Account extends AbstractModel implements Serializable {
 	private Rate rate;
 	@NotNull
 	private Double balance;
+	@NotNull
+	private Date opening_date;
 	
 	public Account() {
 		super();
-		IBAN = null;
+		this.IBAN = null;
 		this.acc_type = null;
 		this.currency = null;
 		this.comm_admin = null;
 		this.rate = null;
+		this.opening_date = null;
 	}
 	public Account(String iBAN, AccountType acc_type, Currencies currency, Commision comm_admin, Rate rate, Double balance) {
 		super();
-		IBAN = iBAN;
+		this.IBAN = iBAN;
 		this.acc_type = acc_type;
 		this.currency = currency;
 		this.comm_admin = comm_admin;
 		this.rate = rate;
 		this.balance = balance;
+		this.opening_date = new Date();
 	}
 	
 	public Long getId() {
@@ -97,6 +102,12 @@ public class Account extends AbstractModel implements Serializable {
 	}
 	public void setBalance(Double balance) {
 		this.balance = balance;
+	}
+	public Date getOpening_date() {
+		return opening_date;
+	}
+	public void setOpening_date(Date opening_date) {
+		this.opening_date = opening_date;
 	}
 	@Override
 	public int hashCode() {

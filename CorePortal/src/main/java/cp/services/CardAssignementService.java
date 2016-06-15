@@ -19,12 +19,11 @@ public class CardAssignementService {
 	public Map<String, Object> getCardAssignementList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
-		List<CardAssignement> cardAssignementList =	DataBase.getCardAssignementList();
-		
-		if(cardAssignementList != null){
+		try {
+			List<CardAssignement> cardAssignementList =	DataBase.getCardAssignementList();
 			response.put("cardAssignementList", cardAssignementList);
 			return ResponseUtils.respondWithSucces(response);
-		} else {
+		} catch (Exception e) {
 			return ResponseUtils.respondWithError("Can't get cardAssignementList from database.");
 		}
 		

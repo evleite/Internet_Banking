@@ -2,7 +2,7 @@
 
 angular.module('homeBankApp').controller(
     'HBLoginCtrl',
-    function ($rootScope, $scope, HBLoginService, $location, $httpParamSerializer) {
+    function ($scope, HBLoginService, $location, $httpParamSerializer) {
     	window.sessionStorage.clear();
     	$(".loged-in-user > .username").html("");
     	
@@ -13,7 +13,6 @@ angular.module('homeBankApp').controller(
         	$scope.password = "";
         	$scope.loginFailed = false;
             $scope.errorMessage = "";
-            $rootScope.session = {}
         	HBLoginService.login(
         		$httpParamSerializer({username: $scope.user, password: $scope.pass}),
                 function success(data) {

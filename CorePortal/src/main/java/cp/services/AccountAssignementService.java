@@ -18,12 +18,11 @@ public class AccountAssignementService {
 	public Map<String, Object> getAccountAssignementList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
-		List<AccountAssignement> accountAssignementList =	DataBase.getAccountAssignementList();
-		
-		if(accountAssignementList != null){
+		try {
+			List<AccountAssignement> accountAssignementList =	DataBase.getAccountAssignementList();
 			response.put("accountAssignementList", accountAssignementList);
 			return ResponseUtils.respondWithSucces(response);
-		} else {
+		} catch (Exception e) {
 			return ResponseUtils.respondWithError("Can't get accountAssignementList from database.");
 		}
 		

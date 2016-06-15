@@ -3,7 +3,7 @@
 		<div class="dropdown nav navbar-nav">
 			<span class="dropdown-toggle navbar-nav-item" data-toggle="dropdown">PAY <span class="caret"></span></span>
 			<ul class="dropdown-menu">
-				<li class="navbar-nav-item"><a>INTERNAL TRANSFER</a></li>
+				<li class="navbar-nav-item" ><a>INTERNAL TRANSFER</a></li>
 				<li class="navbar-nav-item"><a>CURRENT TO SAVINGS</a></li>
 				<li class="navbar-nav-item"><a>SAVINGS TO CURRENT</a></li>
 				<li class="navbar-nav-item"><a>CURRENT TO CREDIT</a></li>
@@ -12,56 +12,41 @@
 		</div>
 		<div class="right-nav">
 			<ul class="nav navbar-nav">
-				<li class="nav-vetical-line"><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
-				<li class="navbar-nav-item"><a>Borrowing</a></li>
-				<li class="navbar-nav-item"><a>Banking</a></li>
-				<li class="navbar-nav-item nav-vetical-line"><a>Savings</a></li>
-				<li><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></li>
-				<li class="navbar-nav-item"><a>Log out</a></li>
+				<li class="navbar-nav-item nav-vetical-line" ng-click=homePage()><span class="glyphicon glyphicon-home" aria-hidden="true"></span></li>
+				<li class="navbar-nav-item" ng-click=borrowingPage()><a>Borrowing</a></li>
+				<li class="navbar-nav-item" ng-click=bankingPage()><a>Banking</a></li>
+				<li class="navbar-nav-item nav-vetical-line" ng-click=savingsPage()><a>Savings</a></li>
+				<li class="navbar-nav-item" ng-click=settings()><span class="glyphicon glyphicon-cog" aria-hidden="true"></span></li>
+				<li class="navbar-nav-item" ng-click=logOut()><a>Log out</a></li>
 			</ul>
 		</div>
 	</div>
 </nav>
 
 <div class="welcome">
-	<h3>Welcome Client1!</h3>
+	<h3>Welcome {{username}}!</h3>
 </div>
 <hr>
 <div class="row main-page-products">
 	<div class="col-md-4">
-		<div class="product borrowing">
+		<div class="product borrowing" ng-repeat="item in credidCards track by $index">
 			<div>CREDIT CARD</div>
-			<div>9057 7666 1951 8962</div>
-			<div>Balance: -945.78</div>
-		</div>
-		<div class="product borrowing">
-			<div>CREDIT CARD</div>
-			<div>9057 7666 1951 8962</div>
-			<div>Balance: -945.78</div>
+			<div>{{ item.card.card_no }}</div>
+			<div>Balance: {{ item.account.balance }} {{ item.account.currency }}</div>
 		</div>
 	</div>
 	<div class="col-md-4">
-		<div class="product banking">
+		<div class="product banking" ng-repeat="item in currentAccounts track by $index">
 			<div>CURRENT ACCOUNT</div>
-			<div>HBCP00000000000000002001</div>
-			<div>Balance: 945.78</div>
-		</div>
-		<div class="product banking">
-			<div>CURRENT ACCOUNT</div>
-			<div>HBCP00000000000000002001</div>
-			<div>Balance: 945.78</div>
+			<div>{{ item.account.IBAN }}</div>
+			<div>Balance: {{ item.account.balance }} {{ item.account.currency }}</div>
 		</div>
 	</div>
 	<div class="col-md-4">
-		<div class="product savings">
+		<div class="product savings" ng-repeat="item in currentAccounts track by $index">
 			<div>SAVING ACCOUNT</div>
-			<div>HBCP00000000000000002001</div>
-			<div>Balance: 945.78</div>
-		</div>
-		<div class="product savings">
-			<div>SAVING ACCOUNT</div>
-			<div>HBCP00000000000000002001</div>
-			<div>Balance: 945.78</div>
+			<div>{{ item.account.IBAN }}</div>
+			<div>Balance: {{ item.account.balance }} {{ item.account.currency }}</div>
 		</div>
 	</div>
 </div>

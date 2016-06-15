@@ -159,7 +159,8 @@ public class AccountResource {
 	public Response editAccount(@FormParam("token") String token,
 							   @FormParam("id_account") Long id_account,
 							   @FormParam("id_comm") Long id_com,
-							   @FormParam("id_rate") Long id_rate) throws Exception {
+							   @FormParam("id_rate") Long id_rate,
+							   @FormParam("balance") Double balance) throws Exception {
 		
 		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
 			httpSession.invalidate();
@@ -171,7 +172,7 @@ public class AccountResource {
 		Map<String, Object> response = null;
 		
 		Account oldAccount = DataBase.getAccountById(id_account);
-		response = accountService.editAccount(id_account, id_com, id_rate);
+		response = accountService.editAccount(id_account, id_com, id_rate, balance);
 		if ((boolean) response.get("success") == true) {
 			Account account = (Account) response.get("account");
 			

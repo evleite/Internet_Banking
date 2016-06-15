@@ -1,6 +1,7 @@
 package cp.models;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,6 +45,8 @@ public class Transaction extends AbstractModel implements Serializable {
 	private String details;
 	@NotNull
 	private TransactionStatus status;
+	@NotNull
+	private Date date;
 	
 	public Transaction() {
 		super();
@@ -53,6 +56,7 @@ public class Transaction extends AbstractModel implements Serializable {
 		this.amount = null;
 		this.trans_comm = null;
 		this.details = null;
+		this.date = null;
 	}
 	public Transaction(String payer_IBAN, String beneficiary_IBAN, TransactionType trans_type, Double amount,
 			Commision trans_comm, TransactionStatus status) {
@@ -64,6 +68,7 @@ public class Transaction extends AbstractModel implements Serializable {
 		this.trans_comm = trans_comm;
 		this.details = "N/A";
 		this.status = status;
+		this.date = new Date();
 	}
 	public Transaction(String payer_IBAN, String beneficiary_IBAN, TransactionType trans_type, Double amount,
 			Commision trans_comm, String details, TransactionStatus status) {
@@ -121,6 +126,12 @@ public class Transaction extends AbstractModel implements Serializable {
 	}
 	public void setStatus(TransactionStatus status) {
 		this.status = status;
+	}
+	public Date getDate() {
+		return date;
+	}
+	public void setDate(Date date) {
+		this.date = date;
 	}
 	@Override
 	public int hashCode() {

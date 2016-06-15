@@ -18,11 +18,11 @@ public class CardService {
 	public Map<String, Object> getCardList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
-		List<Card> cardList =	DataBase.getCardList();
-		if(cardList != null){
+		try {
+			List<Card> cardList =	DataBase.getCardList();
 			response.put("cardList", cardList);
 			return ResponseUtils.respondWithSucces(response);
-		} else {
+		} catch (Exception e) {
 			return ResponseUtils.respondWithError("Can't get cards from database.");
 		}
 	}

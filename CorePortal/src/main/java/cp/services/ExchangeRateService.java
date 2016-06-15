@@ -17,12 +17,11 @@ public class ExchangeRateService {
 	public Map<String, Object> getExchangeRateList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
-		List<ExchangeRates> exchangeRateList =	DataBase.getExchangeRateList();
-		
-		if(exchangeRateList != null){
+		try {
+			List<ExchangeRates> exchangeRateList =	DataBase.getExchangeRateList();
 			response.put("exchangeRateList", exchangeRateList);
 			return ResponseUtils.respondWithSucces(response);
-		} else {
+		} catch (Exception e) {
 			return ResponseUtils.respondWithError("Can't get accounts from database.");
 		}
 		

@@ -21,11 +21,11 @@ public class AccountService {
 	public Map<String, Object> getAccountList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
-		List<Account> accountList =	DataBase.getAccountList();
-		if(accountList != null){
+		try {
+			List<Account> accountList =	DataBase.getAccountList();
 			response.put("accountList", accountList);
 			return ResponseUtils.respondWithSucces(response);
-		} else {
+		} catch (Exception e) {
 			return ResponseUtils.respondWithError("Can't get accounts from database.");
 		}
 	}
@@ -62,14 +62,14 @@ public class AccountService {
 		}
 	}
 	
-	public Map<String, Object> editAccount(Long id_account, Long id_com, Long id_rate) throws Exception{
+	public Map<String, Object> editAccount(Long id_account, Long id_com, Long id_rate, Double balance) throws Exception{
 		Commision comm = DataBase.getCommisionById(id_com);
 		Rate rate = DataBase.getRateById(id_rate);
 		
 		Map<String, Object> response = new HashMap<>();
 		
 		try {
-			Account acc = DataBase.updateAccount(id_account, comm, rate);
+			Account acc = DataBase.updateAccount(id_account, comm, rate, balance);
 			response.put("account", acc);
 			return ResponseUtils.respondWithSucces(response);
 		} catch (Exception e) {

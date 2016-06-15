@@ -1,5 +1,6 @@
 package cp.utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -44,10 +45,10 @@ public class DataBase {
 		if (qList.size() > 0){
 			return qList;
 		} else {
-			return null;
+			return new ArrayList<Account>();
 		}
 	}
-	public static Account updateAccount(Long id, Commision comm, Rate rate) {
+	public static Account updateAccount(Long id, Commision comm, Rate rate, Double balance) {
 		Account oldObj = entity.find(Account.class, id);
 		EntityTransaction transaction = entity.getTransaction();
 		
@@ -55,6 +56,7 @@ public class DataBase {
 		
 		oldObj.setId_comm_admin(comm);
 		oldObj.setId_rate(rate);
+		oldObj.setBalance(balance);
 		
 		transaction.commit();
 		
@@ -99,7 +101,7 @@ public class DataBase {
 		if (qList.size() > 0){
 			return qList;
 		} else {
-			return null;
+			return new ArrayList<AccountAssignement>();
 		}
 	}
 	public static AccountAssignement deleteAccountAssignement(Long id){
@@ -137,7 +139,7 @@ public class DataBase {
 		if (qList.size() > 0){
 			return qList;
 		} else {
-			return null;
+			return new ArrayList<Card>();
 		}
 	}
 	public static Card updateCard(Long id, Double daily_limit, String validity) {
@@ -192,7 +194,7 @@ public class DataBase {
 		if (qList.size() > 0){
 			return qList;
 		} else {
-			return null;
+			return new ArrayList<CardAssignement>();
 		}
 	}
 	public static CardAssignement deleteCardAssignement(Long id){
@@ -230,7 +232,7 @@ public class DataBase {
 		if (qList.size() > 0){
 			return qList;
 		} else {
-			return null;
+			return new ArrayList<Commision>();
 		}
 	}
 	public static Commision getCommisionById(Long id) {
@@ -285,7 +287,7 @@ public class DataBase {
 		if (qList.size() > 0){
 			return qList;
 		} else {
-			return null;
+			return new ArrayList<ExchangeRates>();
 		}
 	}
 	public static ExchangeRates getExchangeRateById(Long id) {
@@ -340,7 +342,7 @@ public class DataBase {
 		if (qList.size() > 0){
 			return qList;
 		} else {
-			return null;
+			return new ArrayList<Rate>();
 		}
 	}
 	public static Rate getRateById(Long id) {
@@ -395,7 +397,7 @@ public class DataBase {
 		if (qList.size() > 0){
 			return qList;
 		} else {
-			return null;
+			return new ArrayList<CPUser>();
 		}
 	}
 	public static CPUser getUserByUserName(String username) {
@@ -498,7 +500,7 @@ public class DataBase {
 		if (qList.size() > 0){
 			return qList;
 		} else {
-			return null;
+			return new ArrayList<HBUser>();
 		}
 	}
 	public static HBUser getHBUserById(Long id) {

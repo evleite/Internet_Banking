@@ -14,6 +14,7 @@ import hb.models.CardAssignement;
 import hb.models.Commision;
 import hb.models.ExchangeRates;
 import hb.models.HBUser;
+import hb.models.Product;
 import hb.models.Rate;
 import hb.models.Token;
 import hb.models.TokenAssignement;
@@ -292,6 +293,26 @@ public class JsonUtils {
 		JSONArray json = new JSONArray();
 		for (HBUser obj : list){
 			json.add(userHbToJson(obj));
+		}
+		return json;
+	}
+	
+	/* Product model */
+	@SuppressWarnings("unchecked")
+	public static JSONObject productToJson(Product prod){
+		JSONObject json = new JSONObject();
+		
+		json.put("account", accountToJson(prod.getAccount()));
+		json.put("card", prod.getCard() != null ? cardToJson(prod.getCard()) : null);		
+		
+		return json;
+	}
+	
+	@SuppressWarnings("unchecked")
+	public static JSONArray productListToJson(List<Product> list){
+		JSONArray json = new JSONArray();
+		for (Product obj : list){
+			json.add(productToJson(obj));
 		}
 		return json;
 	}

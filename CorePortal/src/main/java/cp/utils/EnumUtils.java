@@ -59,13 +59,9 @@ public class EnumUtils {
 
 	public static List<String> getRateTypeList(){
 		List<String> rateTypeList = new ArrayList<>();
-		rateTypeList.add(RatesType.CREDIT_CARD_EURO.toString());
-		rateTypeList.add(RatesType.CREDIT_CARD_LOCAL_CURR.toString());
-		rateTypeList.add(RatesType.CREDIT_CARD_USD.toString());
+		rateTypeList.add(RatesType.CREDIT_CARD.toString());
 		rateTypeList.add(RatesType.N_A.toString());
-		rateTypeList.add(RatesType.SAVING_ACC_EURO.toString());
-		rateTypeList.add(RatesType.SAVING_ACC_LOCAL_CURR.toString());
-		rateTypeList.add(RatesType.SAVING_ACC_USD.toString());
+		rateTypeList.add(RatesType.SAVING_ACC.toString());
 		
 		return rateTypeList;
 	}

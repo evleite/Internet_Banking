@@ -16,16 +16,13 @@ public class CommisionService {
 	
 	public Map<String, Object> getCommisionList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
-		
-		List<Commision> commisionList =	DataBase.getCommisionList();
-		
-		if(commisionList != null){
+		try {
+			List<Commision> commisionList =	DataBase.getCommisionList();
 			response.put("commisionList", commisionList);
 			return ResponseUtils.respondWithSucces(response);
-		} else {
+		} catch(Exception e) {
 			return ResponseUtils.respondWithError("Can't get commisions from database.");
 		}
-		
 	}
 	
 	public Map<String, Object> addCommision(String type, Double amount, String details) throws Exception{

@@ -98,6 +98,10 @@ public class Test {
 		ExchangeRates er2 = new ExchangeRates(Currencies.USD, 4.1, 3.9);
 		DataBase.persistExchangeRate(er2);*/
 		
+		/*TrippleDes td = new TrippleDes();
+		CPUser admin = new CPUser("admin", td.encrypt("admin"), "N/A", "N/A", "N/A0000000000", "domentiimaxim@yahoo.com", "N/A", "N/A");
+		DataBase.persistUser(admin);*/
+		
 	}
 
 }

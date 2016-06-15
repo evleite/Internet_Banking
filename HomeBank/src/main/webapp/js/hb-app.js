@@ -21,7 +21,7 @@ cpApp.config(function($routeProvider){
 			'/main',
 			{
 				templateUrl: 'views/hb-main.html',
-				//controller: 'HBMainCtrl'
+				controller: 'HBMainCtrl'
 			}
 		)
 		.when(

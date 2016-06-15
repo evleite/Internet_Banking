@@ -19,7 +19,6 @@ import cp.models.Rate;
 import cp.models.Token;
 import cp.models.TokenAssignement;
 import cp.models.Transaction;
-import cp.utils.enums.RatesType;
 
 public class JsonUtils {
 	

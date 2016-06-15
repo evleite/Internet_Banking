@@ -17,12 +17,11 @@ public class RateService {
 	public Map<String, Object> getRateList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
-		List<Rate> rateList =	DataBase.getRateList();
-		
-		if(rateList != null){
+		try {
+			List<Rate> rateList =	DataBase.getRateList();
 			response.put("rateList", rateList);
 			return ResponseUtils.respondWithSucces(response);
-		} else {
+		} catch (Exception e) {
 			return ResponseUtils.respondWithError("Can't get rates from database.");
 		}
 		

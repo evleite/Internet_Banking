@@ -19,12 +19,11 @@ public class UserHBService {
 	public Map<String, Object> getHBUserList() throws Exception{
 		Map<String, Object> response = new HashMap<>();
 		
-		List<HBUser> userHBList =	DataBase.getHBUserList();
-		
-		if(userHBList != null){
+		try {
+			List<HBUser> userHBList =	DataBase.getHBUserList();
 			response.put("userHBList", userHBList);
 			return ResponseUtils.respondWithSucces(response);
-		} else {
+		} catch (Exception e ) {
 			return ResponseUtils.respondWithError("Can't get CP users from database.");
 		}
 		

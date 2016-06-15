@@ -37,10 +37,6 @@
 .dropdown-toggle{
 	cursor: pointer;
 }
-.glyphicon{
-	font-size: 25px;
-    padding: 13px;
-}
 .nav-vetical-line{
 	border-width: 0 2px 0 0;
     border-color: #dcd9d9;
@@ -49,6 +45,10 @@
 .navbar-nav-item{
 	font-size: 20px;
 	cursor: pointer;
+}
+.glyphicon{
+	font-size: 25px;
+    padding: 13px;
 }
 .welcome{
 	padding: 30px;
