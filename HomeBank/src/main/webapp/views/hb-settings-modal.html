@@ -1,0 +1,73 @@
+<div class="edit-user-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Personal settings</h3>
+	</div>
+	<div class="modal-body">
+		<form name="editUserForm" novalidate>
+			<!-- Username -->
+			<div class="form-group">
+	    		<label>Username</label>
+	    		<input type="text" name="username" ng-init="username=user.username" class="form-control" ng-model="username" disabled>
+			</div>
+			
+			<!-- Firstname -->
+			<div class="form-group" ng-class="{ 'has-error' : editUserForm.firstname.$invalid && !editUserForm.firstname.$pristine }">
+	    		<label>Firstname</label>
+	    		<input type="text" name="firstname" ng-init="firstname=user.firstname" placeholder="Firstname" class="form-control" ng-model="firstname"required>
+	    		<p ng-show="editUserForm.firstname.$error.required" class="help-block">Firstname is required!</p>
+			</div>
+			
+			<!-- Lastname -->
+			<div class="form-group" ng-class="{ 'has-error' : editUserForm.lastname.$invalid && !editUserForm.lastname.$pristine }">
+	    		<label>Lastname</label>
+	    		<input type="text" name="lastname" ng-init="lastname=user.lastname" placeholder="Lastname" class="form-control" ng-model="lastname"required>
+	    		<p ng-show="editUserForm.lastname.$error.required" class="help-block">Firstname is required!</p>
+			</div>
+			
+			<!-- CNP -->
+			<div class="form-group" ng-class="{ 'has-error' : editUserForm.CNP.$invalid && !editUserForm.CNP.$pristine }">
+	    		<label>CNP</label>
+	    		<input type="text" name="CNP" ng-init="CNP=user.CNP" placeholder="CNP" class="form-control" ng-model="CNP" ng-pattern="/^[0-9]{13}$/" required>
+	    		<p ng-show="editUserForm.CNP.$error.pattern" class="help-block">CNP contains 13 digits!</p>
+	    		<p ng-show="editUserForm.CNP.$error.required" class="help-block">CNP is required!</p>
+			</div>
+			
+			<!-- Email -->
+			<div class="form-group" ng-class="{ 'has-error' : editUserForm.email.$invalid && !editUserForm.email.$pristine }">
+	    		<label>Email</label>
+	    		<input type="text" name="email" ng-init="email=user.email" placeholder="Email" class="form-control" ng-model="email" ng-pattern="/^[-a-z0-9~!$%^&*_=+}{\'?]+(\.[-a-z0-9~!$%^&*_=+}{\'?]+)*@([a-z0-9_][-a-z0-9_]*(\.[-a-z0-9_]+)*\.(aero|arpa|biz|com|coop|edu|gov|info|int|mil|museum|name|net|org|pro|travel|mobi|[a-z][a-z])|([0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}))(:[0-9]{1,5})?$/i
+" required>
+	    		<p ng-show="editUserForm.email.$error.pattern" class="help-block">Invalid email format!</p>
+	    		<p ng-show="editUserForm.email.$error.required" class="help-block">CNP is required!</p>
+			</div>
+			
+			<!-- Address -->
+			<div class="form-group" ng-class="{ 'has-error' : editUserForm.address.$invalid && !editUserForm.address.$pristine }">
+				<label>Address</label> 
+				<textarea name="address" class="form-control" placeholder="Address" ng-init="address=user.address" ng-model="address" ng-maxlength="300" required></textarea>
+	    		<p ng-show="editUserForm.address.$error.maxlength" class="help-block">Address is too long!</p>
+	    		<p ng-show="editUserForm.address.$error.required" class="help-block">Address is required!</p>
+			</div>
+			
+			<!-- Telephone -->
+			<div class="form-group" ng-class="{ 'has-error' : editUserForm.telephone.$invalid && !editUserForm.telephone.$pristine }">
+	    		<label>Telephone</label>
+	    		<input type="text" name="telephone" ng-init="telephone=user.telephone" placeholder="Telephone" class="form-control" ng-model="telephone" ng-pattern="/^\(?\+[0-9]{1,3}\)? ?-?[0-9]{1,3} ?-?[0-9]{3,5} ?-?[0-9]{4}( ?-?[0-9]{3})? ?(\w{1,10}\s?\d{1,6})?$/" required>
+	    		<p ng-show="editUserForm.telephone.$error.pattern" class="help-block">Telephone format: +XX...X</p>
+	    		<p ng-show="editUserForm.telephone.$error.required" class="help-block">Telephone is required!</p>
+			</div>
+			
+			<!-- Authentication type -->
+			<div class="form-group">
+				<label>Authentication type</label> 
+				<input type="text" name="auth_type" ng-init="auth_type=user.auth_type" class="form-control" ng-model="auth_type" disabled>
+			</div>
+			
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="changePassword()">Change password</button>
+		<button class="btn btn-primary" type="button" ng-disabled="editUserForm.$invalid" ng-click="save()">Save</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

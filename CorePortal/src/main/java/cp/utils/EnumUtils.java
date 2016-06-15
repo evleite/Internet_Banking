@@ -53,6 +53,7 @@ public class EnumUtils {
 		commisionTypeList.add(CommisionType.SAVING_ACCOUNT.toString());
 		commisionTypeList.add(CommisionType.SAVINGS_CURR_DIFF_CURRENCY.toString());
 		commisionTypeList.add(CommisionType.SAVINGS_CURR_SAME_CURRENCY.toString());
+		commisionTypeList.add(CommisionType.N_A.toString());
 		
 		return commisionTypeList;
 	}

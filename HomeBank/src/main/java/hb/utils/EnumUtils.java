@@ -53,19 +53,16 @@ public class EnumUtils {
 		commisionTypeList.add(CommisionType.SAVING_ACCOUNT.toString());
 		commisionTypeList.add(CommisionType.SAVINGS_CURR_DIFF_CURRENCY.toString());
 		commisionTypeList.add(CommisionType.SAVINGS_CURR_SAME_CURRENCY.toString());
+		commisionTypeList.add(CommisionType.N_A.toString());
 		
 		return commisionTypeList;
 	}
 
 	public static List<String> getRateTypeList(){
 		List<String> rateTypeList = new ArrayList<>();
-		rateTypeList.add(RatesType.CREDIT_CARD_EURO.toString());
-		rateTypeList.add(RatesType.CREDIT_CARD_LOCAL_CURR.toString());
-		rateTypeList.add(RatesType.CREDIT_CARD_USD.toString());
+		rateTypeList.add(RatesType.CREDIT_CARD.toString());
 		rateTypeList.add(RatesType.N_A.toString());
-		rateTypeList.add(RatesType.SAVING_ACC_EURO.toString());
-		rateTypeList.add(RatesType.SAVING_ACC_LOCAL_CURR.toString());
-		rateTypeList.add(RatesType.SAVING_ACC_USD.toString());
+		rateTypeList.add(RatesType.SAVING_ACC.toString());
 		
 		return rateTypeList;
 	}

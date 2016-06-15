@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPEditCardCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPCardService, 
 	    		card) {
 	    	$scope.card = card;

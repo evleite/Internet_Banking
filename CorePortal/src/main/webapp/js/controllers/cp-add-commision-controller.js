@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPAddCommisionCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPCommisionService, 
 	    		commisionTypeList) {
 	    	$scope.commisionTypeList = commisionTypeList;

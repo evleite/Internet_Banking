@@ -11,7 +11,8 @@ public enum CommisionType {
 	CURR_CREDIT_DIFF_CURRENCY,
 	CURRENT_ACOUNT,
 	SAVING_ACCOUNT,
-	CREDIT_ACCOUNT;
+	CREDIT_ACCOUNT,
+	N_A;
 	
 	public String toString(){
         switch(this){
@@ -37,6 +38,8 @@ public enum CommisionType {
         	return "SAVINGS_CURR_DIFF_CURRENCY";
         case SAVINGS_CURR_SAME_CURRENCY:
         	return "SAVINGS_CURR_SAME_CURRENCY";
+        case N_A:
+        	return "N_A";
         }
         return null;
     }

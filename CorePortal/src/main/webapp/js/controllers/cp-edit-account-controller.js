@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPEditAccountCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPAccountService, 
 	    		account, rateList, commisionList) {
 	    	$scope.account = account;

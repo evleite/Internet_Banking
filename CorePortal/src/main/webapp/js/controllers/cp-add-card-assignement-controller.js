@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPAddCardAssignementCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPCardAssignementService, 
 	    		accountList, userHBList, cardList) {
 	    	$scope.accountList = accountList;

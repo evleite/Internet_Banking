@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPEditCommisionCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPCommisionService, 
 	    		commision) {
 	    	$scope.commision = commision;

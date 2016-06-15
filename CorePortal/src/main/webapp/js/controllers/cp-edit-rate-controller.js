@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPEditRateCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPRateService, 
 	    		rate) {
 	    	$scope.rate = rate;

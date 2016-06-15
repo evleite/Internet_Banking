@@ -35,7 +35,7 @@ cpApp.config(function($routeProvider){
 			'/banking',
 			{
 				templateUrl: 'views/hb-banking.html',
-				//controller: 'HBBankingCtrl'
+				controller: 'HBBankingCtrl'
 			}
 		)
 		.when(

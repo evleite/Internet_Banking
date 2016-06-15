@@ -1,17 +1,16 @@
 'use strict';
 
-angular.module('corePortalApp').controller(
-	    'CPAddCPUserCtrl',
-	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
-	    		CPModalFactory, CPUserCPService) {
+angular.module('homeBankApp').controller(
+	    'HBSettingsModelCtrl',
+	    function ($scope, $location, $uibModalInstance, $httpParamSerializer, HBUserHBService, HBModalFactory, user) {
+	    	$scope.user = user;
 	    	
 	    	$scope.save = function() {
-	    		CPUserCPService.addCPUser(
+	    		HBUserHBService.editUser(
                 	$httpParamSerializer(
                 			{
-                				token: window.sessionStorage.token, 
-                				username: $scope.username,
+                				token: window.sessionStorage.token,
+                				id_user: user.id,
                 				firstname: $scope.firstname,
                 				lastname: $scope.lastname,
                 				CNP: $scope.CNP,
@@ -21,24 +20,22 @@ angular.module('corePortalApp').controller(
                 			}
                 	),
                     function success(data) {
-                		console.log('New CP user succesfully created:');
+                		console.log('User succesfully edited:', data);
                 		
-                		CPModalFactory.infoModal("User succesfully created with password: " + data.password);
-                		
-                		$uibModalInstance.close();
+                		$uibModalInstance.close(data.user);
                     },
                     function err(err) {
-                      	console.log('Failed to add new CP user:', err);
+                      	console.log('Failed to edit user:', err);
                         	
                       	if (err.data.errorCode == 666){
                       		window.sessionStorage.clear();
-                       		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                       		HBModalFactory.errorModal("Your session has expired. Please login again.");
                        		$location.path("/login");
                        	} else if (err.data.errorCode == 600) {
-                       		CPModalFactory.errorModal(err.data.error);
+                       		HBModalFactory.errorModal(err.data.error);
                        		
                        	} else {                            	
-                       		CPModalFactory.errorModal("Backend error");
+                       		HBModalFactory.errorModal("Backend error");
                        	}
                     }
                 );
@@ -46,6 +43,10 @@ angular.module('corePortalApp').controller(
 
 			$scope.cancel = function() {
 				$uibModalInstance.dismiss();
+			};
+			
+			$scope.changePassword = function() {
+				HBModalFactory.changePassword($scope.user);
 			};
 	    }
 );

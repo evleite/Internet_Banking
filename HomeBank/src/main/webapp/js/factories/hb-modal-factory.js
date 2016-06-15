@@ -2,7 +2,7 @@
 
 angular.module('homeBankApp').factory(
 		'HBModalFactory', 
-		function ($uibModal, $rootScope) {
+		function ($uibModal, $rootScope, HBUserHBService) {
 			return {
 				errorModal: function (errorMessage) {
 					console.log(errorMessage);
@@ -14,17 +14,17 @@ angular.module('homeBankApp').factory(
 					    /*size: size,*/
 					    backdrop  : 'static',
 					    keyboard  : false,
-					    resolve: { /* Parrameters passed as locals to controller*/
+					    resolve: { 
 					    	errorMessage: function () {
 					    		return errorMessage;
 					    	} 
 					    }
 					});
 
-					modalInstance.result.then(function (/* parametrii de aici seprimesc de la $uibModalInstance.close() */) {
-						/* When $uibModalInstance.close()*/
+					modalInstance.result.then(function () {
+
 					}, function () {
-						/* When $uibModalInstance.dismiss()*/
+
 					});	
 				},
 				
@@ -38,7 +38,7 @@ angular.module('homeBankApp').factory(
 					    /*size: size,*/
 					    backdrop  : 'static',
 					    keyboard  : false,
-					    resolve: { /* Parrameters passed as locals to controller*/
+					    resolve: { 
 					    	infoMessage: function () {
 					    		return infoMessage;
 					    	} 
@@ -50,6 +50,71 @@ angular.module('homeBankApp').factory(
 					}, function () {
 						
 					});	
+				},
+				
+				settings: function (user) {
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/hb-settings-modal.html',
+					    controller: 'HBSettingsModelCtrl',
+					    size: 'lg',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { 
+					    	user: function () {
+					    		return user;
+					    	} 
+					    }
+					});
+
+					modalInstance.result.then(function (user) {
+						
+					}, function () {
+
+					});			               
+				},
+				
+				changePassword: function (user) {
+					
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/hb-change-password.html',
+					    controller: 'HBChangePasswordCtrl',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: {
+					    	user: function () {
+					    		return user;
+					    	},					    	
+					    }
+					});
+
+					modalInstance.result.then(function () {
+						
+					}, function () {
+						
+					});	
+				},
+				
+				internalPayment: function (products) {
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/hb-internal-payment.html',
+					    controller: 'HBInternalPaymentCtrl',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { 
+					    	products: function () {
+					    		return products;
+					    	} 
+					    }
+					});
+
+					modalInstance.result.then(function (user) {
+						
+					}, function () {
+
+					});			               
 				},
 				
 			};

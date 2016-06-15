@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPEditCPUserCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPUserCPService,
 	    		user) {
 	    	$scope.user = user;

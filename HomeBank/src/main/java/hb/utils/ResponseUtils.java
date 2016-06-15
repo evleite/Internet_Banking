@@ -29,5 +29,11 @@ public class ResponseUtils {
 		return model;
 	}
 	
+	public static Map<String, Object> respondWithSucces(){
+		Map<String, Object> response = new HashMap<>();
+		response.put("success", true);
+		return response;
+	}
+	
 
 }

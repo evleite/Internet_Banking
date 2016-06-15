@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPEditExchangeRateCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPExchangeRateService, 
 	    		exchangeRate) {
 	    	$scope.exchangeRate = exchangeRate;

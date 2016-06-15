@@ -3,11 +3,11 @@
 		<div class="dropdown nav navbar-nav">
 			<span class="dropdown-toggle navbar-nav-item" data-toggle="dropdown">PAY <span class="caret"></span></span>
 			<ul class="dropdown-menu">
-				<li class="navbar-nav-item" ><a>INTERNAL TRANSFER</a></li>
-				<li class="navbar-nav-item"><a>CURRENT TO SAVINGS</a></li>
-				<li class="navbar-nav-item"><a>SAVINGS TO CURRENT</a></li>
-				<li class="navbar-nav-item"><a>CURRENT TO CREDIT</a></li>
-				<li class="navbar-nav-item"><a>CREDIT TO CURRENT</a></li>
+				<li class="navbar-nav-item" ng-click=internalPayment()><a>INTERNAL TRANSFER</a></li>
+				<li class="navbar-nav-item" ng-click=currentToSavingPayment()><a>CURRENT TO SAVINGS</a></li>
+				<li class="navbar-nav-item" ng-click=savingToCurrentPayment()><a>SAVINGS TO CURRENT</a></li>
+				<li class="navbar-nav-item" ng-click=currentToCreditPayment()><a>CURRENT TO CREDIT</a></li>
+				<li class="navbar-nav-item" ng-click=creditToCurrentPayment()><a>CREDIT TO CURRENT</a></li>
 			</ul>
 		</div>
 		<div class="right-nav">
@@ -29,21 +29,21 @@
 <hr>
 <div class="row main-page-products">
 	<div class="col-md-4">
-		<div class="product borrowing" ng-repeat="item in credidCards track by $index">
+		<div class="product borrowing cursor-pointer" ng-repeat="item in credidCards track by $index" ng-click=borrowingPage(item.account.IBAN)>
 			<div>CREDIT CARD</div>
 			<div>{{ item.card.card_no }}</div>
 			<div>Balance: {{ item.account.balance }} {{ item.account.currency }}</div>
 		</div>
 	</div>
 	<div class="col-md-4">
-		<div class="product banking" ng-repeat="item in currentAccounts track by $index">
+		<div class="product banking cursor-pointer" ng-repeat="item in currentAccounts track by $index" ng-click=bankingPage(item.account.IBAN)>
 			<div>CURRENT ACCOUNT</div>
 			<div>{{ item.account.IBAN }}</div>
 			<div>Balance: {{ item.account.balance }} {{ item.account.currency }}</div>
 		</div>
 	</div>
 	<div class="col-md-4">
-		<div class="product savings" ng-repeat="item in currentAccounts track by $index">
+		<div class="product savings cursor-pointer" ng-repeat="item in savingsAccounts track by $index" ng-click=savingsPage(item.account.IBAN)>
 			<div>SAVING ACCOUNT</div>
 			<div>{{ item.account.IBAN }}</div>
 			<div>Balance: {{ item.account.balance }} {{ item.account.currency }}</div>

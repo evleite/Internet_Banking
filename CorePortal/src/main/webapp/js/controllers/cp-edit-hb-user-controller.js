@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPEditHBUserCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPUserHBService,
 	    		user, authenticationTypeList) {
 	    	$scope.user = user;

@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPAddExchangeRateCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPExchangeRateService, 
 	    		currenciesList) {
 	    	$scope.currenciesList = currenciesList;

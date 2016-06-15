@@ -3,7 +3,7 @@
 angular.module('corePortalApp').controller(
 	    'CPAddHBUserCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, 
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
 	    		CPModalFactory, CPUserHBService,
 	    		authenticationTypeList) {
 	    	$scope.authenticationTypeList = authenticationTypeList;

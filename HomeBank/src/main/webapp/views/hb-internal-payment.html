@@ -1,0 +1,47 @@
+<div class="internal-payment-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Internal payment</h3>
+	</div>
+	<div class="modal-body">
+		<form name="internalPayment" novalidate>
+			<!-- From account -->
+			<div class="form-group" ng-class="{ 'has-error' : internalPayment.payer_IBAN.$invalid && !internalPayment.payer_IBAN.$pristine }">
+				<label>From account</label> 
+				<select name="payer_IBAN" class="form-control" ng-model="payer_IBAN" required >
+					<option disabled selected value> -- select an account -- </option>
+					<option ng-repeat="item in products" value="{{ item.account.IBAN }}">{{ item.account.IBAN }} {{ item.account.acc_type }} {{ item.account.currency }}</option>
+				</select>
+				<p ng-show="internalPayment.payer_IBAN.$error.required" class="help-block">Your account is required!</p>
+			</div>
+			
+			<!-- Beneficiary -->
+			<div class="form-group" ng-class="{ 'has-error' : internalPayment.beneficiary_IBAN.$invalid && !internalPayment.beneficiary_IBAN.$pristine }">
+				<label>Beneficiary</label>
+				<input type="text" name="beneficiary_IBAN" value="" class="form-control" ng-model="beneficiary_IBAN" required ng-pattern="/^AL\d{10}[0-9A-Z]{16}$|^AD\d{10}[0-9A-Z]{12}$|^AT\d{18}$|^BH\d{2}[A-Z]{4}[0-9A-Z]{14}$|^BE\d{14}$|^BA\d{18}$|^BG\d{2}[A-Z]{4}\d{6}[0-9A-Z]{8}$|^HR\d{19}$|^CY\d{10}[0-9A-Z]{16}$|^CZ\d{22}$|^DK\d{16}$|^FO\d{16}$|^GL\d{16}$|^DO\d{2}[0-9A-Z]{4}\d{20}$|^EE\d{18}$|^FI\d{16}$|^FR\d{12}[0-9A-Z]{11}\d{2}$|^GE\d{2}[A-Z]{2}\d{16}$|^DE\d{20}$|^GI\d{2}[A-Z]{4}[0-9A-Z]{15}$|^GR\d{9}[0-9A-Z]{16}$|^HU\d{26}$|^IS\d{24}$|^IE\d{2}[A-Z]{4}\d{14}$|^IL\d{21}$|^IT\d{2}[A-Z]\d{10}[0-9A-Z]{12}$|^[A-Z]{2}\d{5}[0-9A-Z]{13}$|^KW\d{2}[A-Z]{4}22!$|^LV\d{2}[A-Z]{4}[0-9A-Z]{13}$|^LB\d{6}[0-9A-Z]{20}$|^LI\d{7}[0-9A-Z]{12}$|^LT\d{18}$|^LU\d{5}[0-9A-Z]{13}$|^MK\d{5}[0-9A-Z]{10}\d{2}$|^MT\d{2}[A-Z]{4}\d{5}[0-9A-Z]{18}$|^MR13\d{23}$|^MU\d{2}[A-Z]{4}\d{19}[A-Z]{3}$|^MC\d{12}[0-9A-Z]{11}\d{2}$|^ME\d{20}$|^NL\d{2}[A-Z]{4}\d{10}$|^NO\d{13}$|^PL\d{10}[0-9A-Z]{,16}n$|^PT\d{23}$|^RO\d{2}[A-Z]{4}[0-9A-Z]{16}$|^SM\d{2}[A-Z]\d{10}[0-9A-Z]{12}$|^SA\d{4}[0-9A-Z]{18}$|^RS\d{20}$|^SK\d{22}$|^SI\d{17}$|^ES\d{22}$|^SE\d{22}$|^CH\d{7}[0-9A-Z]{12}$|^TN59\d{20}$|^TR\d{7}[0-9A-Z]{17}$|^AE\d{21}$|^GB\d{2}[A-Z]{4}\d{14}$/">
+				<p ng-show="internalPayment.beneficiary_IBAN.$error.required" class="help-block">Beneficiary account is required!</p>
+				<p ng-show="internalPayment.beneficiary_IBAN.$error.pattern" class="help-block">Invalid beneficiary account!</p>
+			</div>
+		
+			<!-- Amount -->
+			<div class="form-group" ng-class="{ 'has-error' : internalPayment.amount.$invalid && !internalPayment.amount.$pristine }">
+				<label>Amount</label> 
+				<input type="number" name="amount" value="" class="form-control" ng-model="amount" min="0" required >
+				<p ng-show="internalPayment.balance.$error.min" class="help-block">Amount has to be positive!</p>
+				<p ng-show="internalPayment.balance.$error.required" class="help-block">Amount is required!</p>
+			</div>
+			
+			<!-- Payment details -->
+			<div class="form-group" ng-class="{ 'has-error' : internalPayment.details.$invalid && !internalPayment.details.$pristine }">
+				<label>Payment details</label> 
+				<textarea name="details" class="form-control" ng-model="details" ng-maxlength="100" required></textarea>
+	    		<p ng-show="internalPayment.details.$error.maxlength" class="help-block">Details are too long!</p>
+	    		<p ng-show="internalPayment.details.$error.required" class="help-block">Details are required!</p>
+			</div>
+			
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="internalPayment.$invalid" ng-click="save()">Pay now</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

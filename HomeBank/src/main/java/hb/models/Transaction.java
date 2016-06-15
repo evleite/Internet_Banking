@@ -36,7 +36,6 @@ public class Transaction extends AbstractModel implements Serializable {
 	@NotNull
 	private TransactionType trans_type;
 	@NotNull
-	@Min(0)
 	private Double amount;
 	@ManyToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "id_comm", nullable = false)
@@ -59,18 +58,6 @@ public class Transaction extends AbstractModel implements Serializable {
 		this.date = null;
 	}
 	public Transaction(String payer_IBAN, String beneficiary_IBAN, TransactionType trans_type, Double amount,
-			Commision trans_comm, TransactionStatus status) {
-		super();
-		this.payer_IBAN = payer_IBAN;
-		this.beneficiary_IBAN = beneficiary_IBAN;
-		this.trans_type = trans_type;
-		this.amount = amount;
-		this.trans_comm = trans_comm;
-		this.details = "N/A";
-		this.status = status;
-		this.date = new Date();
-	}
-	public Transaction(String payer_IBAN, String beneficiary_IBAN, TransactionType trans_type, Double amount,
 			Commision trans_comm, String details, TransactionStatus status) {
 		super();
 		this.payer_IBAN = payer_IBAN;
@@ -80,6 +67,7 @@ public class Transaction extends AbstractModel implements Serializable {
 		this.trans_comm = trans_comm;
 		this.details = details;
 		this.status = status;
+		this.date = new Date();
 	}
 	
 	public Long getId() {

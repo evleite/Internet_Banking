@@ -29,9 +29,9 @@ CREATE TABLE `acc_assignements` (
   PRIMARY KEY (`id`),
   KEY `FK_isan3ym0sy9q96swt0i9vdtt0` (`id_account`),
   KEY `FK_jx0yvie4l4jpag2qj7heegi22` (`id_user`),
-  CONSTRAINT `FK_jx0yvie4l4jpag2qj7heegi22` FOREIGN KEY (`id_user`) REFERENCES `users_hb` (`id`),
-  CONSTRAINT `FK_isan3ym0sy9q96swt0i9vdtt0` FOREIGN KEY (`id_account`) REFERENCES `accounts` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  CONSTRAINT `FK_isan3ym0sy9q96swt0i9vdtt0` FOREIGN KEY (`id_account`) REFERENCES `accounts` (`id`),
+  CONSTRAINT `FK_jx0yvie4l4jpag2qj7heegi22` FOREIGN KEY (`id_user`) REFERENCES `users_hb` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,7 +40,7 @@ CREATE TABLE `acc_assignements` (
 
 LOCK TABLES `acc_assignements` WRITE;
 /*!40000 ALTER TABLE `acc_assignements` DISABLE KEYS */;
-INSERT INTO `acc_assignements` VALUES (1,1,1),(2,2,1),(3,3,1),(4,4,1),(5,5,1),(6,6,1);
+INSERT INTO `acc_assignements` VALUES (1,1,1),(2,2,1),(3,3,1),(4,4,1),(5,5,1),(6,6,1),(7,7,2),(8,8,2);
 /*!40000 ALTER TABLE `acc_assignements` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -65,7 +65,7 @@ CREATE TABLE `accounts` (
   KEY `FK_2uikcufueg8vcbqboa8ac2hle` (`id_rate`),
   CONSTRAINT `FK_2uikcufueg8vcbqboa8ac2hle` FOREIGN KEY (`id_rate`) REFERENCES `rates` (`id`),
   CONSTRAINT `FK_dbsf1jmd1ttsvdsrah08yt3oe` FOREIGN KEY (`id_comm`) REFERENCES `commisions` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -74,7 +74,7 @@ CREATE TABLE `accounts` (
 
 LOCK TABLES `accounts` WRITE;
 /*!40000 ALTER TABLE `accounts` DISABLE KEYS */;
-INSERT INTO `accounts` VALUES (1,'RO01TEST3262702634709088',2,0,0,'2016-06-14 17:30:24',1,2),(2,'RO02TEST9562979163898794',2,0,1,'2016-06-14 17:30:57',2,3),(3,'RO01TEST6383290919662709',0,1000,0,'2016-06-14 17:31:13',3,1),(4,'RO02TEST1743188689617071',0,1000,1,'2016-06-14 17:31:29',4,1),(5,'RO01TEST8470827035996785',1,1000,0,'2016-06-14 17:31:46',5,4),(6,'RO02TEST8025179927069130',1,1000,1,'2016-06-14 17:33:17',6,5);
+INSERT INTO `accounts` VALUES (1,'RO01TEST3262702634709088',2,0,0,'2016-06-14 17:30:24',1,2),(2,'RO02TEST9562979163898794',2,0,1,'2016-06-14 17:30:57',2,3),(3,'RO01TEST6383290919662709',0,1000,0,'2016-06-14 17:31:13',3,1),(4,'RO02TEST1743188689617071',0,1000,1,'2016-06-14 17:31:29',4,1),(5,'RO01TEST8470827035996785',1,1000,0,'2016-06-14 17:31:46',5,4),(6,'RO02TEST8025179927069130',1,1000,1,'2016-06-14 17:33:17',6,5),(7,'RO01TEST8494622164088562',0,100,0,'2016-06-15 18:24:10',3,1),(8,'RO02TEST6696280318880379',0,100,1,'2016-06-15 18:25:03',4,1);
 /*!40000 ALTER TABLE `accounts` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -150,7 +150,7 @@ CREATE TABLE `commisions` (
   `comm_type` int(11) NOT NULL,
   `details` varchar(255) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -159,7 +159,7 @@ CREATE TABLE `commisions` (
 
 LOCK TABLES `commisions` WRITE;
 /*!40000 ALTER TABLE `commisions` DISABLE KEYS */;
-INSERT INTO `commisions` VALUES (1,10,10,'Comm for admin credit acc in RON'),(2,10,10,'Comm for admin credit acc in EUR'),(3,5,8,'Comm for admin curr acc in RON'),(4,5,8,'Comm for admin curr acc in EUR'),(5,5,9,'Comm for admin saving acc in RON'),(6,5,9,'Comm for admin saving acc in EUR');
+INSERT INTO `commisions` VALUES (1,10,10,'Comm for admin credit acc in RON'),(2,10,10,'Comm for admin credit acc in EUR'),(3,5,8,'Comm for admin curr acc in RON'),(4,5,8,'Comm for admin curr acc in EUR'),(5,5,9,'Comm for admin saving acc in RON'),(6,5,9,'Comm for admin saving acc in EUR'),(7,0,11,'False comm for in-house TRX');
 /*!40000 ALTER TABLE `commisions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -286,7 +286,7 @@ CREATE TABLE `transactions` (
   PRIMARY KEY (`id`),
   KEY `FK_d3s88w9ra4jxjiyqivvn5e5d1` (`id_comm`),
   CONSTRAINT `FK_d3s88w9ra4jxjiyqivvn5e5d1` FOREIGN KEY (`id_comm`) REFERENCES `commisions` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -295,6 +295,7 @@ CREATE TABLE `transactions` (
 
 LOCK TABLES `transactions` WRITE;
 /*!40000 ALTER TABLE `transactions` DISABLE KEYS */;
+INSERT INTO `transactions` VALUES (4,100,'RO01TEST8494622164088562','2016-06-16 01:29:10','Internal payment with same currency','RO01TEST6383290919662709',0,0,7),(5,10,'RO01TEST8494622164088562','2016-06-16 01:29:53','Internal payment EUR->RON','RO02TEST1743188689617071',0,1,7),(6,1,'RO02TEST6696280318880379','2016-06-16 01:30:42','Internal payment RON->EUR','RO01TEST6383290919662709',0,1,7);
 /*!40000 ALTER TABLE `transactions` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -352,7 +353,7 @@ CREATE TABLE `users_hb` (
   PRIMARY KEY (`id`),
   UNIQUE KEY `UK_mf3xdb760i9c68e6xitl1exju` (`CNP`),
   UNIQUE KEY `UK_ip1yx662d25ubv1qdx079na1n` (`username`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -361,7 +362,7 @@ CREATE TABLE `users_hb` (
 
 LOCK TABLES `users_hb` WRITE;
 /*!40000 ALTER TABLE `users_hb` DISABLE KEYS */;
-INSERT INTO `users_hb` VALUES (1,'1921029000000','Romania, Bucuresti, Sector 6',0,'domentiimaxim@yahoo.com','maxim','domentii','b+AMLfR5zGTPzV+QjN2Aog==','+700000000','client1');
+INSERT INTO `users_hb` VALUES (1,'1921029111111','Romania, Bucuresti, Sector 6, Aleea Bradisului, nr 1, sc 2',0,'domentiimaxim@yahoo.com','Maxim','Domentii','zlvuQR/E/jE=','+711111111','client1'),(2,'1111111111111','test test test',0,'test@test.com','Client2','Client2','LThs/uK1SaY=','+400000000000','client2');
 /*!40000 ALTER TABLE `users_hb` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -374,4 +375,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-15  3:30:50
+-- Dump completed on 2016-06-16  1:55:20

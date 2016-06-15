@@ -1,16 +1,14 @@
 'use strict';
 
-angular.module('corePortalApp').controller(
-	    'CPChangePasswordCtrl',
+angular.module('homeBankApp').controller(
+	    'HBChangePasswordCtrl',
 	    function (
-	    		$scope, $uibModalInstance, $httpParamSerializer, $location,
-	    		CPModalFactory, CPUserCPService,
-	    		user) {
+	    		$scope, $uibModalInstance, $httpParamSerializer, $location, HBModalFactory, HBUserHBService, user) {
 	    	$scope.user = user;
 	    	
 	    	$scope.save = function() {
 	    		$scope.changeFailed = false;
-	    		CPUserCPService.changePassword(
+	    		HBUserHBService.changePassword(
                 	$httpParamSerializer(
                 			{
                 				token: window.sessionStorage.token,
@@ -30,14 +28,14 @@ angular.module('corePortalApp').controller(
                         	
                       	if (err.data.errorCode == 666){
                       		window.sessionStorage.clear();
-                       		CPModalFactory.errorModal("Your session has expired. Please login again.");
+                       		HBModalFactory.errorModal("Your session has expired. Please login again.");
                        		$location.path("/login");
                        	} else if (err.data.errorCode == 600) {
                        		$scope.changeFailed = true;
                        		$scope.error = err.data.error;
                        		
                        	} else {                            	
-                       		CPModalFactory.errorModal("Backend error");
+                       		HBModalFactory.errorModal("Backend error");
                        	}
                     }
                 );
@@ -46,9 +44,5 @@ angular.module('corePortalApp').controller(
 			$scope.cancel = function() {
 				$uibModalInstance.dismiss();
 			};
-			
-			$scope.changePassword = function() {
-				CPModalFactory.changePassword(user);
-			}
 	    }
 );

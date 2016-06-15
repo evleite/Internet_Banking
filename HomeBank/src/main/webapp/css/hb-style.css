@@ -111,6 +111,9 @@ hr{
     font-weight: bold;
 	padding: 10px;
 }
+.cursor-pointer {
+	cursor: pointer;
+}
 .footer{
 	margin-top: 124px;
 	border-top: 20px solid white;

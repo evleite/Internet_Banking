@@ -57,6 +57,10 @@ public class LoginFlowResource {
 			@FormParam("username") String user,
             @FormParam("password") String pass) throws Exception {
 		
+		if (httpSession.getAttribute("token") != null){
+			httpSession.invalidate();
+		}
+		
 		Map<String, Object> response = loginFlowService.logIn(user, pass);
 		
 		if ((boolean) response.get("success") == true){
