@@ -1,16 +1,44 @@
 'use strict';
 
 angular.module('homeBankApp').controller(
-    'HBMainCtrl',
-    function ($rootScope, $scope, $location, $httpParamSerializer, $q, HBModalFactory, HBProductService, HBUserHBService) {
-    	if (window.sessionStorage.login == "true"){
-    		$(".loged-in-user > .username").html(window.sessionStorage.username);
-    	} else {
-    		window.sessionStorage.clear();
-    		$location.path("/login");
-    	}
-    	$scope.username = window.sessionStorage.username;
+    'HBBorrowingCtrl',
+    function ($rootScope, $scope, $location, $httpParamSerializer, $q, $route, 
+    		HBModalFactory, HBProductService, HBUserHBService, HBTransactionService) {
     	
+    	/* Get transaction for selected product */
+    	$scope.getTransactions = function(IBAN){
+    		HBTransactionService.getProductTransactions(
+    				$httpParamSerializer({token: window.sessionStorage.token, 
+    									   IBAN: IBAN}),
+                    function success(data) {
+                        console.log('Transaction list:', data);
+
+                        $scope.transactionList = data.transactionList;
+
+    				},
+                    function err(err) {
+                    	console.log('Get transactionlist failed:', err);
+                    	
+                    	if (err.data.errorCode == 666){
+                    		window.sessionStorage.clear();
+                    		HBModalFactory.errorModal("Your session has expired. Please login again.");
+                    		$location.path("/login");
+                    	} else {                            	
+                    		HBModalFactory.errorModal("Backend error");
+                    	}
+                    });
+    	}    	
+
+    	$scope.getAccountCardNo = function(iban){
+    		var i;
+    		for (i=0;i<$scope.creditCards.length; i++){
+    			var product = $scope.creditCards[i];
+    			if (product.account.IBAN == iban){
+    				return product.card.card_no;
+    			}
+    		}
+    		return $scope.creditCards[i].card.card_no;
+    	}
     	/* Get user products */
     	$scope.getProducts = function(){
     		$scope.creditCards = [];
@@ -34,6 +62,15 @@ angular.module('homeBankApp').controller(
                         		$scope.savingsAccounts.push(product);
                         	}
                         }
+                        
+                        if ($rootScope.selectedProduct){
+                    		$scope.selectedProduct = $rootScope.selectedProduct;
+                    	} else {
+                    		$scope.selectedProduct = $scope.creditCards[0].account.IBAN;
+                    	}
+                        $scope.selectedCard = $scope.getAccountCardNo($scope.selectedProduct);
+                        
+                        $scope.getTransactions($scope.selectedProduct);
                     },
                     function err(err) {
                     	console.log('Get productlist failed:', err);
@@ -51,16 +88,21 @@ angular.module('homeBankApp').controller(
     	
     	$scope.getProducts();
     	
+    	/* Open transaction details */
+    	$scope.transactionDetails = function(transaction){
+    		HBModalFactory.transactionDetails(transaction);
+    	}
+    	
     	/* Nav bar */    	
     	$scope.internalPayment = function() {
     		HBModalFactory.internalPayment($scope.allProducts);
     	}
     	$scope.homePage = function (){
-    		window.location.reload();
+    		$location.path("/main");
     	}
     	$scope.borrowingPage = function (selectedProduct){
     		$rootScope.selectedProduct = selectedProduct;
-    		$location.path("/borrowing");
+    		$route.reload();
     	}
     	$scope.bankingPage = function (selectedProduct){
     		$rootScope.selectedProduct = selectedProduct;

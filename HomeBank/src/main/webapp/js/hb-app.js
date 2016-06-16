@@ -28,7 +28,7 @@ cpApp.config(function($routeProvider){
 			'/borrowing',
 			{
 				templateUrl: 'views/hb-borrowing.html',
-				//controller: 'HBBorrowingCtrl'
+				controller: 'HBBorrowingCtrl'
 			}
 		)
 		.when(
@@ -42,7 +42,7 @@ cpApp.config(function($routeProvider){
 			'/savings',
 			{
 				templateUrl: 'views/hb-savings.html',
-				//controller: 'HBSavingsCtrl'
+				controller: 'HBSavingsCtrl'
 			}
 		)
 		.when(

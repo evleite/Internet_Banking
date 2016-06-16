@@ -1,0 +1,54 @@
+<div class="transaction-details-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Transaction details</h3>
+	</div>
+	<div class="modal-body">
+		<div class="transaction-details">
+			<!-- Transaction id -->
+			<div class="form-group">
+				<label>ID: </label> 
+				<span>{{ transaction.id }} </span>
+			</div>
+			
+			<!-- Transaction date -->
+			<div class="form-group">
+				<label>Transaction date: </label> 
+				<span>{{ transaction.date }}</span>
+			</div>
+			
+			<!-- Transaction type -->
+			<div class="form-group">
+				<label>Transaction type: </label> 
+				<span>{{ transaction.type }}</span>
+			</div>
+		
+			<!-- From account -->
+			<div class="form-group">
+				<label>From account: </label> 
+				<span>{{ transaction.payer_IBAN }}</span>
+			</div>
+			
+			<!-- Beneficiary -->
+			<div class="form-group">
+				<label>Beneficiary: </label>
+				<span>{{ transaction.beneficiary_IBAN }}</span>
+			</div>
+		
+			<!-- Amount -->
+			<div class="form-group">
+				<label>Amount: </label> 
+				<span>{{ transaction.amount }}</span>
+			</div>
+			
+			<!-- Details -->
+			<div class="form-group">
+				<label>Details: </label> 
+				<span>{{ transaction.details }}</span>
+			</div>
+			
+		</div>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-click="ok()">OK</button>
+	</div>
+</div>

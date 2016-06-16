@@ -35,6 +35,7 @@ public class TransactionService {
 					transaction.getId_trans_comm(), 
 					transaction.getDetails(), 
 					transaction.getStatus());
+			cloneTrans.setId(transaction.getId());
 			transactionList.add(cloneTrans);
 		}
 		

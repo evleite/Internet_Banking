@@ -4,9 +4,13 @@
 			<span class="dropdown-toggle navbar-nav-item" data-toggle="dropdown">PAY <span class="caret"></span></span>
 			<ul class="dropdown-menu">
 				<li class="navbar-nav-item" ng-click=internalPayment()><a>INTERNAL TRANSFER</a></li>
+				<hr>
 				<li class="navbar-nav-item" ng-click=currentToSavingPayment()><a>CURRENT TO SAVINGS</a></li>
+				<hr>
 				<li class="navbar-nav-item" ng-click=savingToCurrentPayment()><a>SAVINGS TO CURRENT</a></li>
+				<hr>
 				<li class="navbar-nav-item" ng-click=currentToCreditPayment()><a>CURRENT TO CREDIT</a></li>
+				<hr>
 				<li class="navbar-nav-item" ng-click=creditToCurrentPayment()><a>CREDIT TO CURRENT</a></li>
 			</ul>
 		</div>
@@ -29,7 +33,7 @@
 <hr>
 <div class="row main-page-products">
 	<div class="col-md-4">
-		<div class="product borrowing cursor-pointer" ng-repeat="item in credidCards track by $index" ng-click=borrowingPage(item.account.IBAN)>
+		<div class="product borrowing cursor-pointer" ng-repeat="item in creditCards track by $index" ng-click=borrowingPage(item.account.IBAN)>
 			<div>CREDIT CARD</div>
 			<div>{{ item.card.card_no }}</div>
 			<div>Balance: {{ item.account.balance }} {{ item.account.currency }}</div>

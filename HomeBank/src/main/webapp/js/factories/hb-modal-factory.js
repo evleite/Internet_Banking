@@ -117,6 +117,28 @@ angular.module('homeBankApp').factory(
 					});			               
 				},
 				
+				transactionDetails: function (transaction) {
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/hb-transaction-details-modal.html',
+					    controller: 'HBTransactionDetailsCtrl',
+					    /*size: size,*/
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { 
+					    	transaction: function () {
+					    		return transaction;
+					    	} 
+					    }
+					});
+
+					modalInstance.result.then(function () {
+
+					}, function () {
+
+					});	
+				},
+				
 			};
 		}		
 );

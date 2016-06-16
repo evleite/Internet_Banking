@@ -249,7 +249,7 @@ public class JsonUtils {
 		
 		json.put("amount", trans.getAmount());
 		json.put("beneficiary_IBAN", trans.getBeneficiary_IBAN());
-		json.put("datails", trans.getDetails());
+		json.put("details", trans.getDetails());
 		json.put("id", trans.getId());
 		json.put("commision", commisionToJson(trans.getId_trans_comm()));
 		json.put("payer_IBAN", trans.getPayer_IBAN());

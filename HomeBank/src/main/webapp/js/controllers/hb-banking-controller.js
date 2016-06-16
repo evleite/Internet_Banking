@@ -31,7 +31,7 @@ angular.module('homeBankApp').controller(
     	
     	/* Get user products */
     	$scope.getProducts = function(){
-    		$scope.credidCards = [];
+    		$scope.creditCards = [];
     		$scope.currentAccounts = []; 
     		$scope.savingsAccounts = [];
     		
@@ -45,7 +45,7 @@ angular.module('homeBankApp').controller(
                         for (i=0; i<data.productList.length; i++){
                         	var product = data.productList[i];
                         	if (product.account.acc_type == "CREDIT_ACCOUNT"){
-                        		$scope.credidCards.push(product);
+                        		$scope.creditCards.push(product);
                         	} else if (product.account.acc_type == "CURRENT_ACOUNT"){
                         		$scope.currentAccounts.push(product);
                         	} else if (product.account.acc_type == "SAVING_ACCOUNT"){
@@ -76,6 +76,11 @@ angular.module('homeBankApp').controller(
     	}
     	
     	$scope.getProducts();
+    	
+    	/* Open transaction details */
+    	$scope.transactionDetails = function(transaction){
+    		HBModalFactory.transactionDetails(transaction);
+    	}
     	
     	/* Nav bar */    	
     	$scope.internalPayment = function() {
