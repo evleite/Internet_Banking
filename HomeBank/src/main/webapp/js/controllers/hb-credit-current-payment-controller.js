@@ -1,17 +1,26 @@
 'use strict';
 
 angular.module('homeBankApp').controller(
-	    'HBSavingCurrentPaymentCtrl',
+	    'HBCreditCurrentPaymentCtrl',
 	    function ($scope, $location, $uibModalInstance, $httpParamSerializer, HBPaymentService, HBModalFactory,
-	    		savingAccounts, currentAccounts) {
+	    		creditCards, currentAccounts) {
 	    	$scope.currentAccounts = currentAccounts;
-	    	$scope.savingAccounts = savingAccounts;
+	    	$scope.creditCards = creditCards;
 	    	
 	    	$scope.save = function() {
-	    		HBPaymentService.savingToCurrentPayment(
+	    		var i;
+	    		for (i=0;i<$scope.creditCards.length;i++){
+	    			var product = $scope.creditCards[i];
+	    			if (product.account.IBAN == $scope.payer_IBAN){
+	    				$scope.card_no = product.card.card_no;
+	    			}
+	    		}
+	    		
+	    		HBPaymentService.creditToCurrentPayment(
                 	$httpParamSerializer(
                 			{
                 				token: window.sessionStorage.token,
+                				card_no: $scope.card_no,
                 				payer_IBAN: $scope.payer_IBAN,
                 				beneficiary_IBAN: $scope.beneficiary_IBAN,
                 				amount: $scope.amount,

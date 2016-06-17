@@ -142,6 +142,23 @@ public class DataBase {
 		}
 	}
 	
+	public static Card getCardByCardNo(String card_no) {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from cards where card_no= :card_no", Card.class)
+				.setParameter("card_no", card_no);
+		@SuppressWarnings("unchecked")
+		List<Card> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList.get(0);
+		} else {
+			return null;
+		}
+	}
+	
 	public static Commision getFalseCommision(){
 		int comm_type = CommisionType.N_A.ordinal();
 		

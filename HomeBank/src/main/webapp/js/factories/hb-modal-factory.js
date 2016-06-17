@@ -187,6 +187,54 @@ angular.module('homeBankApp').factory(
 					});			               
 				},
 				
+				currentToCreditPayment: function (currentAccounts, creditCards) {
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/hb-current-credit-payment.html',
+					    controller: 'HBCurrentCreditPaymentCtrl',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { 
+					    	currentAccounts: function () {
+					    		return currentAccounts;
+					    	},
+					    	creditCards: function () {
+					    		return creditCards;
+					    	}
+					    }
+					});
+
+					modalInstance.result.then(function (user) {
+						
+					}, function () {
+
+					});			               
+				},
+				
+				creditToCurrentPayment: function (creditCards, currentAccounts) {
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/hb-credit-current-payment.html',
+					    controller: 'HBCreditCurrentPaymentCtrl',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { 
+					    	creditCards: function () {
+					    		return creditCards;
+					    	},
+					    	currentAccounts: function () {
+					    		return currentAccounts;
+					    	}
+					    }
+					});
+
+					modalInstance.result.then(function (user) {
+						
+					}, function () {
+
+					});			               
+				},
+				
 			};
 		}		
 );

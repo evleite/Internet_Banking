@@ -1,14 +1,14 @@
 'use strict';
 
 angular.module('homeBankApp').controller(
-	    'HBSavingCurrentPaymentCtrl',
+	    'HBCurrentCreditPaymentCtrl',
 	    function ($scope, $location, $uibModalInstance, $httpParamSerializer, HBPaymentService, HBModalFactory,
-	    		savingAccounts, currentAccounts) {
+	    		currentAccounts, creditCards) {
 	    	$scope.currentAccounts = currentAccounts;
-	    	$scope.savingAccounts = savingAccounts;
+	    	$scope.creditCards = creditCards;
 	    	
 	    	$scope.save = function() {
-	    		HBPaymentService.savingToCurrentPayment(
+	    		HBPaymentService.currentToCreditPayment(
                 	$httpParamSerializer(
                 			{
                 				token: window.sessionStorage.token,

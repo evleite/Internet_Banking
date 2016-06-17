@@ -109,5 +109,10 @@ angular.module('homeBankApp').controller(
     	$scope.savingToCurrentPayment = function() {
     		HBModalFactory.savingToCurrentPayment($scope.savingsAccounts, $scope.currentAccounts);
     	}
-    	
+    	$scope.currentToCreditPayment = function() {
+    		HBModalFactory.currentToCreditPayment($scope.currentAccounts, $scope.creditCards );
+    	}
+    	$scope.creditToCurrentPayment = function() {
+    		HBModalFactory.creditToCurrentPayment($scope.creditCards, $scope.currentAccounts);
+    	}
 });

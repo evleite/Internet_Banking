@@ -19,7 +19,7 @@ angular.module('homeBankApp').controller(
                 			}
                 	),
                     function success(data) {
-                		console.log('Payment is pedding:', data);
+                		console.log('Payment is proccessed:', data);
                 		
                 		$uibModalInstance.close();
                     },

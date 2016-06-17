@@ -15,6 +15,7 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
+import hb.models.ExchangeRates;
 import hb.models.HBUser;
 import hb.models.Product;
 import hb.models.Transaction;
@@ -49,7 +50,9 @@ public class TransactionResource {
 		
 		Map<String, Object> response = null;
 		
-		response = transactionService.getProductTransactions(iban);
+		List<ExchangeRates> exchangeRates = (List<ExchangeRates>) httpSession.getAttribute("exchangeRateList");
+		
+		response = transactionService.getProductTransactions(iban, exchangeRates);
 		if ((boolean) response.get("success") == true) {
 			List<Transaction> transactionList = (List<Transaction>) response.get("transactionList");
 

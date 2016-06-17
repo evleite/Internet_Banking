@@ -248,7 +248,7 @@ public class JsonUtils {
 	public static JSONObject transactionToJson(Transaction trans){
 		JSONObject json = new JSONObject();
 		
-		json.put("amount", trans.getAmount());
+		json.put("amount", new DecimalFormat("##.##").format(trans.getAmount()));
 		json.put("beneficiary_IBAN", trans.getBeneficiary_IBAN());
 		json.put("details", trans.getDetails());
 		json.put("id", trans.getId());

@@ -94,9 +94,6 @@ angular.module('homeBankApp').controller(
     	}
     	
     	/* Nav bar */    	
-    	$scope.internalPayment = function() {
-    		HBModalFactory.internalPayment($scope.allProducts);
-    	}
     	$scope.homePage = function (){
     		$location.path("/main");
     	}
@@ -144,4 +141,20 @@ angular.module('homeBankApp').controller(
     		$location.path("/login");
     	}
     	
+    	/* Payments */
+    	$scope.internalPayment = function() {
+    		HBModalFactory.internalPayment($scope.allProducts);
+    	}
+    	$scope.currentToSavingPayment = function() {
+    		HBModalFactory.currentToSavingPayment($scope.currentAccounts, $scope.savingsAccounts);
+    	}
+    	$scope.savingToCurrentPayment = function() {
+    		HBModalFactory.savingToCurrentPayment($scope.savingsAccounts, $scope.currentAccounts);
+    	}
+    	$scope.currentToCreditPayment = function() {
+    		HBModalFactory.currentToCreditPayment($scope.currentAccounts, $scope.creditCards );
+    	}
+    	$scope.creditToCurrentPayment = function() {
+    		HBModalFactory.creditToCurrentPayment($scope.creditCards, $scope.currentAccounts);
+    	}
 });

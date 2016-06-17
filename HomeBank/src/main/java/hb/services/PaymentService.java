@@ -8,6 +8,7 @@ import javax.jws.WebService;
 import com.mysql.fabric.xmlrpc.base.Data;
 
 import hb.models.Account;
+import hb.models.Card;
 import hb.models.Commision;
 import hb.models.ExchangeRates;
 import hb.models.Transaction;
@@ -110,6 +111,79 @@ public class PaymentService {
 		} else {
 			status = TransactionStatus.REJECTED;
 			trans = new Transaction(payer_IBAN, beneficiary_IBAN, type, amount, comm, details + rejectionReason("insufficient resources"), status, currentAcc.getCurrency());
+		}
+				
+		try {
+			DataBase.persistTransaction(trans);
+			return ResponseUtils.respondWithSucces();
+		} catch (Exception e) {
+			return ResponseUtils.respondWithError("Failed to store transaction in database.");
+		}
+	}
+	
+	public Map<String, Object> currentToCreditPayment(String payer_IBAN, String beneficiary_IBAN, Double amount, String details, List<ExchangeRates> exchangeRates) throws Exception{
+		TransactionStatus status = null;
+		TransactionType type = null;
+		Commision comm = DataBase.getFalseCommision();
+				
+		Account currentAcc = DataBase.getAccountByIBAN(payer_IBAN);
+		Account creditAcc = DataBase.getAccountByIBAN(beneficiary_IBAN);
+		
+		if (currentAcc.getCurrency().toString().equals(creditAcc.getCurrency().toString())){
+			type = TransactionType.CURR_CREDIT_SAME_CURRENCY;
+		} else {
+			type = TransactionType.CURR_CREDIT_DIFF_CURRENCY;
+		}
+		
+		Transaction trans = null;
+		if (amount <= currentAcc.getBalance()){
+			status = TransactionStatus.PROCESSED;
+			if (type == TransactionType.CURR_CREDIT_SAME_CURRENCY){
+				transferWithSameCurrency(currentAcc, creditAcc, amount);
+			} else {
+				transferWithDiffCurrency(currentAcc, creditAcc, amount, exchangeRates);
+			}
+			trans = new Transaction(payer_IBAN, beneficiary_IBAN, type, amount, comm, details, status, currentAcc.getCurrency());
+		} else {
+			status = TransactionStatus.REJECTED;
+			trans = new Transaction(payer_IBAN, beneficiary_IBAN, type, amount, comm, details + rejectionReason("insufficient resources"), status, currentAcc.getCurrency());
+		}
+				
+		try {
+			DataBase.persistTransaction(trans);
+			return ResponseUtils.respondWithSucces();
+		} catch (Exception e) {
+			return ResponseUtils.respondWithError("Failed to store transaction in database.");
+		}
+	}
+	
+	public Map<String, Object> creditToCurrentPayment(String card_no, String payer_IBAN, String beneficiary_IBAN, Double amount, String details, List<ExchangeRates> exchangeRates) throws Exception{
+		TransactionStatus status = null;
+		TransactionType type = null;
+		Commision comm = DataBase.getFalseCommision();
+				
+		Account creditAcc = DataBase.getAccountByIBAN(payer_IBAN);
+		Account currentAcc = DataBase.getAccountByIBAN(beneficiary_IBAN);
+		Card creditCard = DataBase.getCardByCardNo(card_no.replaceAll("\\s",""));
+		
+		if (creditAcc.getCurrency().toString().equals(currentAcc.getCurrency().toString())){
+			type = TransactionType.CREDIT_CURR_SAME_CURRENCY;
+		} else {
+			type = TransactionType.CREDIT_CURR_DIFF_CURRENCY;
+		}
+		
+		Transaction trans = null;
+		if (amount <= creditCard.getDaily_limit()){
+			status = TransactionStatus.PROCESSED;
+			if (type == TransactionType.CREDIT_CURR_SAME_CURRENCY){
+				transferWithSameCurrency(creditAcc, currentAcc, amount);
+			} else {
+				transferWithDiffCurrency(creditAcc, currentAcc, amount, exchangeRates);
+			}
+			trans = new Transaction(payer_IBAN, beneficiary_IBAN, type, amount, comm, details, status, currentAcc.getCurrency());
+		} else {
+			status = TransactionStatus.REJECTED;
+			trans = new Transaction(payer_IBAN, beneficiary_IBAN, type, amount, comm, details + rejectionReason("transfer exceed card daily limit"), status, currentAcc.getCurrency());
 		}
 				
 		try {
