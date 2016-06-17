@@ -25,62 +25,6 @@ public class DataBase {
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistenceUnit");
 	private static EntityManager entity = factory.createEntityManager();
 	
-	/* Account model */
-	/*public static void persistAccount(Account acc){
-		EntityTransaction transaction = entity.getTransaction();
-		transaction.begin();
-
-		entity.persist(acc);
-
-		transaction.commit();
-	}
-	public static List<Account> getAccountList() {
-		EntityTransaction transaction = entity.getTransaction();
-		transaction.begin();
-		
-		Query queryResult = entity.createNativeQuery("select * from accounts", Account.class);
-		@SuppressWarnings("unchecked")
-		List<Account> qList = queryResult.getResultList();
-		transaction.commit();
-		
-		if (qList.size() > 0){
-			return qList;
-		} else {
-			return null;
-		}
-	}
-	public static Account updateAccount(Long id, Commision comm, Rate rate) {
-		Account oldObj = entity.find(Account.class, id);
-		EntityTransaction transaction = entity.getTransaction();
-		
-		transaction.begin();
-		
-		oldObj.setId_comm_admin(comm);
-		oldObj.setId_rate(rate);
-		
-		transaction.commit();
-		
-		return oldObj;
-	}
-	public static Account deleteAccount(Long id){
-		Account obj = entity.find(Account.class, id);
-		
-		if (obj != null) {
-			EntityTransaction transaction = entity.getTransaction();
-
-			transaction.begin();
-			entity.remove(obj);
-			transaction.commit();
-		}
-		
-		return obj;
-	}
-	public static Account getAccountById(Long id) {
-		Account obj = entity.find(Account.class, id);
-		return obj;
-	}*/
-	
-	
 	public static HBUser getHBUserByUserName(String username) {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();
@@ -258,6 +202,22 @@ public class DataBase {
 			return qList;
 		} else {
 			return new ArrayList<Transaction>();
+		}
+	}
+	
+	public static List<ExchangeRates> getExchangeRateList() {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from exchange_rates", ExchangeRates.class);
+		@SuppressWarnings("unchecked")
+		List<ExchangeRates> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return new ArrayList<ExchangeRates>();
 		}
 	}
 }

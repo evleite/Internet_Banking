@@ -9,7 +9,7 @@
 				<label>From account</label> 
 				<select name="payer_IBAN" class="form-control" ng-model="payer_IBAN" required >
 					<option disabled selected value> -- select an account -- </option>
-					<option ng-repeat="item in products" value="{{ item.account.IBAN }}">{{ item.account.IBAN }} {{ item.account.acc_type }} {{ item.account.currency }}</option>
+					<option ng-repeat="item in products" value="{{ item.account.IBAN }}">{{ item.account.IBAN }} | {{ item.account.acc_type }} | {{ item.account.currency }}</option>
 				</select>
 				<p ng-show="internalPayment.payer_IBAN.$error.required" class="help-block">Your account is required!</p>
 			</div>

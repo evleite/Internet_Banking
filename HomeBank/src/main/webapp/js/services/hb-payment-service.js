@@ -12,5 +12,17 @@ angular.module('homeBankApp').service('HBPaymentService',
                     headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
                 },
                 
+                currentToSavingPayment: {
+                    method: 'POST',
+                    url: 'rest/payments/currentToSavingPayment',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                },
+                
+                savingToCurrentPayment: {
+                    method: 'POST',
+                    url: 'rest/payments/savingToCurrentPayment',
+                    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+                },
+                
             });
     });

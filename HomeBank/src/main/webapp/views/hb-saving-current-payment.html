@@ -1,0 +1,49 @@
+<div class="current-saving-payment-form">
+	<div class="modal-header">
+		<h3 class="modal-title">Saving to current transfer</h3>
+	</div>
+	<div class="modal-body">
+		<form name="savingCurrentPayment" novalidate>
+			<!-- From saving account -->
+			<div class="form-group" ng-class="{ 'has-error' : savingCurrentPayment.payer_IBAN.$invalid && !savingCurrentPayment.payer_IBAN.$pristine }">
+				<label>From saving account</label>
+				<select name="payer_IBAN" class="form-control" ng-model="payer_IBAN" required >
+					<option disabled selected value> -- select an account -- </option>
+					<option ng-repeat="item in savingAccounts" value="{{ item.account.IBAN }}">{{ item.account.IBAN }} | {{ item.account.currency }}</option>
+				</select>
+				<p ng-show="savingCurrentPayment.payer_IBAN.$error.required" class="help-block">Saving account account is required!</p>
+			</div>
+			
+			<!-- To current account -->
+			<div class="form-group" ng-class="{ 'has-error' : savingCurrentPayment.beneficiary_IBAN.$invalid && !savingCurrentPayment.beneficiary_IBAN.$pristine }">
+				<label>To current account</label> 
+				<select name="beneficiary_IBAN" class="form-control" ng-model="beneficiary_IBAN" required >
+					<option disabled selected value> -- select an account -- </option>
+					<option ng-repeat="item in currentAccounts" value="{{ item.account.IBAN }}">{{ item.account.IBAN }} | {{ item.account.currency }}</option>
+				</select>
+				<p ng-show="savingCurrentPayment.beneficiary_IBAN.$error.required" class="help-block">Current account is required!</p>
+			</div>
+		
+			<!-- Amount -->
+			<div class="form-group" ng-class="{ 'has-error' : savingCurrentPayment.amount.$invalid && !savingCurrentPayment.amount.$pristine }">
+				<label>Amount</label> 
+				<input type="number" name="amount" value="" class="form-control" ng-model="amount" min="0" required >
+				<p ng-show="savingCurrentPayment.balance.$error.min" class="help-block">Amount has to be positive!</p>
+				<p ng-show="savingCurrentPayment.balance.$error.required" class="help-block">Amount is required!</p>
+			</div>
+			
+			<!-- Payment details -->
+			<div class="form-group" ng-class="{ 'has-error' : savingCurrentPayment.details.$invalid && !savingCurrentPayment.details.$pristine }">
+				<label>Payment details</label> 
+				<textarea name="details" class="form-control" ng-model="details" ng-maxlength="100" required></textarea>
+	    		<p ng-show="savingCurrentPayment.details.$error.maxlength" class="help-block">Details are too long!</p>
+	    		<p ng-show="savingCurrentPayment.details.$error.required" class="help-block">Details are required!</p>
+			</div>
+			
+		</form>
+	</div>
+	<div class="modal-footer">
+		<button class="btn btn-primary" type="button" ng-disabled="savingCurrentPayment.$invalid" ng-click="save()">Pay now</button>
+		<button class="btn btn-warning" type="button" ng-click="cancel()">Cancel</button>
+	</div>
+</div>

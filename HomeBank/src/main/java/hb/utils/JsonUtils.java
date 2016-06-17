@@ -1,5 +1,6 @@
 package hb.utils;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -46,7 +47,7 @@ public class JsonUtils {
 		JSONObject json = new JSONObject();
 		
 		json.put("acc_type", acc.getAcc_type());
-		json.put("balance", acc.getBalance());
+		json.put("balance", new DecimalFormat("##.##").format(acc.getBalance()));
 		json.put("currency", acc.getCurrency());
 		json.put("IBAN", acc.getIBAN());
 		json.put("id", acc.getId());
@@ -256,6 +257,7 @@ public class JsonUtils {
 		json.put("payer_IBAN", trans.getPayer_IBAN());
 		json.put("status", trans.getStatus());
 		json.put("type", trans.getTrans_type());
+		json.put("currency", trans.getCurrency());
 		
 		return json;
 	}

@@ -34,8 +34,10 @@ public class TransactionService {
 					transaction.getAmount() * (-1), 
 					transaction.getId_trans_comm(), 
 					transaction.getDetails(), 
-					transaction.getStatus());
+					transaction.getStatus(),
+					transaction.getCurrency());
 			cloneTrans.setId(transaction.getId());
+			cloneTrans.setDate(transaction.getDate());
 			transactionList.add(cloneTrans);
 		}
 		
@@ -54,7 +56,6 @@ public class TransactionService {
 		        return b.getDate().compareTo(a.getDate());
 		    }
 		});
-		
 		
 		response.put("transactionList", transactionList);
 		return ResponseUtils.respondWithSucces(response);

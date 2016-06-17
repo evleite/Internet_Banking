@@ -96,6 +96,28 @@ angular.module('homeBankApp').factory(
 					});	
 				},
 				
+				transactionDetails: function (transaction) {
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/hb-transaction-details-modal.html',
+					    controller: 'HBTransactionDetailsCtrl',
+					    /*size: size,*/
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { 
+					    	transaction: function () {
+					    		return transaction;
+					    	} 
+					    }
+					});
+
+					modalInstance.result.then(function () {
+
+					}, function () {
+
+					});	
+				},
+				
 				internalPayment: function (products) {
 					var modalInstance = $uibModal.open({
 						animation: false,
@@ -117,26 +139,52 @@ angular.module('homeBankApp').factory(
 					});			               
 				},
 				
-				transactionDetails: function (transaction) {
+				currentToSavingPayment: function (currentAccounts, savingAccounts) {
 					var modalInstance = $uibModal.open({
 						animation: false,
-					    templateUrl: 'views/hb-transaction-details-modal.html',
-					    controller: 'HBTransactionDetailsCtrl',
-					    /*size: size,*/
+					    templateUrl: 'views/hb-current-saving-payment.html',
+					    controller: 'HBCurrentSavingPaymentCtrl',
 					    backdrop  : 'static',
 					    keyboard  : false,
 					    resolve: { 
-					    	transaction: function () {
-					    		return transaction;
-					    	} 
+					    	currentAccounts: function () {
+					    		return currentAccounts;
+					    	},
+					    	savingAccounts: function () {
+					    		return savingAccounts;
+					    	}
 					    }
 					});
 
-					modalInstance.result.then(function () {
-
+					modalInstance.result.then(function (user) {
+						
 					}, function () {
 
-					});	
+					});			               
+				},
+				
+				savingToCurrentPayment: function (savingAccounts, currentAccounts) {
+					var modalInstance = $uibModal.open({
+						animation: false,
+					    templateUrl: 'views/hb-saving-current-payment.html',
+					    controller: 'HBSavingCurrentPaymentCtrl',
+					    backdrop  : 'static',
+					    keyboard  : false,
+					    resolve: { 
+					    	savingAccounts: function () {
+					    		return savingAccounts;
+					    	},
+					    	currentAccounts: function () {
+					    		return currentAccounts;
+					    	}
+					    }
+					});
+
+					modalInstance.result.then(function (user) {
+						
+					}, function () {
+
+					});			               
 				},
 				
 			};

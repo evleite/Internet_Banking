@@ -11,10 +11,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+import hb.utils.enums.Currencies;
 import hb.utils.enums.TransactionStatus;
 import hb.utils.enums.TransactionType;
 
@@ -46,6 +46,8 @@ public class Transaction extends AbstractModel implements Serializable {
 	private TransactionStatus status;
 	@NotNull
 	private Date date;
+	@NotNull
+	private Currencies currency;
 	
 	public Transaction() {
 		super();
@@ -56,9 +58,10 @@ public class Transaction extends AbstractModel implements Serializable {
 		this.trans_comm = null;
 		this.details = null;
 		this.date = null;
+		this.currency = null;
 	}
 	public Transaction(String payer_IBAN, String beneficiary_IBAN, TransactionType trans_type, Double amount,
-			Commision trans_comm, String details, TransactionStatus status) {
+			Commision trans_comm, String details, TransactionStatus status, Currencies currency) {
 		super();
 		this.payer_IBAN = payer_IBAN;
 		this.beneficiary_IBAN = beneficiary_IBAN;
@@ -68,6 +71,7 @@ public class Transaction extends AbstractModel implements Serializable {
 		this.details = details;
 		this.status = status;
 		this.date = new Date();
+		this.currency = currency;
 	}
 	
 	public Long getId() {
@@ -123,6 +127,12 @@ public class Transaction extends AbstractModel implements Serializable {
 	}
 	public void setDate(Date date) {
 		this.date = date;
+	}
+	public Currencies getCurrency() {
+		return currency;
+	}
+	public void setCurrency(Currencies currency) {
+		this.currency = currency;
 	}
 	@Override
 	public int hashCode() {

@@ -15,10 +15,8 @@ import javax.ws.rs.core.Response;
 
 import org.json.simple.JSONObject;
 
-import hb.models.HBUser;
-import hb.models.Product;
+import hb.models.ExchangeRates;
 import hb.services.PaymentService;
-import hb.services.ProductService;
 import hb.utils.JsonUtils;
 import hb.utils.ResponseUtils;
 
@@ -53,6 +51,76 @@ public class PaymentResource {
 		Map<String, Object> response = null;
 		
 		response = paymentService.internalPayment(payer_IBAN, beneficiary_IBAN, amount, details);
+		if ((boolean) response.get("success") == true) {
+			JSONObject responseJson = new JSONObject();
+
+			responseJson.put("success", true);
+
+			return Response.status(200).entity(responseJson).build();
+		} else {
+			return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
+		}
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/currentToSavingPayment")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response currentToSavingPayment(@FormParam("token") String token,
+									@FormParam("payer_IBAN") String payer_IBAN,
+									@FormParam("beneficiary_IBAN") String beneficiary_IBAN,
+									@FormParam("amount") Double amount,
+									@FormParam("details") String details) throws Exception {
+		
+		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
+			httpSession.invalidate();
+			return Response.serverError()
+					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Integrity violation!", 666)))
+					.build();
+		}
+		
+		Map<String, Object> response = null;
+		
+		List<ExchangeRates> exchangeRates = (List<ExchangeRates>) httpSession.getAttribute("exchangeRateList");
+		
+		response = paymentService.currentToSavingPayment(payer_IBAN, beneficiary_IBAN, amount, details, exchangeRates);
+		if ((boolean) response.get("success") == true) {
+			JSONObject responseJson = new JSONObject();
+
+			responseJson.put("success", true);
+
+			return Response.status(200).entity(responseJson).build();
+		} else {
+			return Response.serverError().entity(JsonUtils.mapToJson(response)).build();
+		}
+		
+	}
+	
+	@SuppressWarnings("unchecked")
+	@POST
+	@Path("/savingToCurrentPayment")
+	@Produces(MediaType.APPLICATION_JSON)
+	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
+	public Response savingToCurrentPayment(@FormParam("token") String token,
+									@FormParam("payer_IBAN") String payer_IBAN,
+									@FormParam("beneficiary_IBAN") String beneficiary_IBAN,
+									@FormParam("amount") Double amount,
+									@FormParam("details") String details) throws Exception {
+		
+		if (token == null || httpSession.getAttribute("token") == null || !token.equals(httpSession.getAttribute("token"))){
+			httpSession.invalidate();
+			return Response.serverError()
+					.entity(JsonUtils.mapToJson(ResponseUtils.respondWithError("Integrity violation!", 666)))
+					.build();
+		}
+		
+		Map<String, Object> response = null;
+		
+		List<ExchangeRates> exchangeRates = (List<ExchangeRates>) httpSession.getAttribute("exchangeRateList");
+		
+		response = paymentService.savingToCurrentPayment(payer_IBAN, beneficiary_IBAN, amount, details, exchangeRates);
 		if ((boolean) response.get("success") == true) {
 			JSONObject responseJson = new JSONObject();
 

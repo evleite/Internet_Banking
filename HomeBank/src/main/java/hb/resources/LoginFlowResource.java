@@ -1,5 +1,6 @@
 package hb.resources;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -14,7 +15,9 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
+import hb.models.ExchangeRates;
 import hb.models.HBUser;
+import hb.services.ExchangeRateService;
 import hb.services.LoginFlowService;
 import hb.utils.JsonUtils;
 import hb.utils.ResponseUtils;
@@ -27,8 +30,11 @@ public class LoginFlowResource {
 	@Inject
 	private LoginFlowService loginFlowService;
 	@Inject
+	private ExchangeRateService exchangeRateService;
+	@Inject
 	private HttpSession httpSession;
 	
+	@SuppressWarnings("unchecked")
 	@POST
 	@Produces(MediaType.APPLICATION_JSON)
 	@Consumes(MediaType.APPLICATION_FORM_URLENCODED)
@@ -43,6 +49,15 @@ public class LoginFlowResource {
 		Map<String, Object> response = loginFlowService.logIn(user, pass);
 		
 		if ((boolean) response.get("success") == true){
+			/* Cache ExchangeRates on session*/
+			Map<String, Object> exchangeRates = exchangeRateService.getExchangeRateList();
+			if ((boolean) exchangeRates.get("success") == true) {
+				List<ExchangeRates> exchangeRateList = (List<ExchangeRates>) exchangeRates.get("exchangeRateList");
+				httpSession.setAttribute("exchangeRateList", exchangeRateList);
+			} else {
+				return Response.serverError().entity(JsonUtils.mapToJson(exchangeRates)).build();
+			}
+			
 			HBUser logedInUser = (HBUser) response.get("user");
 			
 			Random rand = new Random();

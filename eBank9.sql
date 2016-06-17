@@ -176,7 +176,7 @@ CREATE TABLE `exchange_rates` (
   `currency` int(11) NOT NULL,
   `sell` double NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -185,6 +185,7 @@ CREATE TABLE `exchange_rates` (
 
 LOCK TABLES `exchange_rates` WRITE;
 /*!40000 ALTER TABLE `exchange_rates` DISABLE KEYS */;
+INSERT INTO `exchange_rates` VALUES (1,4.4,1,4.6),(2,3.9,2,4.1);
 /*!40000 ALTER TABLE `exchange_rates` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -362,7 +363,7 @@ CREATE TABLE `users_hb` (
 
 LOCK TABLES `users_hb` WRITE;
 /*!40000 ALTER TABLE `users_hb` DISABLE KEYS */;
-INSERT INTO `users_hb` VALUES (1,'1921029111111','Romania, Bucuresti, Sector 6, Aleea Bradisului, nr 1, sc 2',0,'domentiimaxim@yahoo.com','Maxim','Domentii','zlvuQR/E/jE=','+711111111','client1'),(2,'1111111111111','test test test',0,'test@test.com','Client2','Client2','LThs/uK1SaY=','+400000000000','client2');
+INSERT INTO `users_hb` VALUES (1,'1921029000000','Romania, Bucuresti, Sector 6, Aleea Bradisului, nr 1, sc 2',0,'domentiimaxim@yahoo.com','Maxim','Domentii','zlvuQR/E/jE=','+711111111','client1'),(2,'1111111111111','test test test',0,'test@test.com','Client2','Client2','LThs/uK1SaY=','+400000000000','client2');
 /*!40000 ALTER TABLE `users_hb` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -375,4 +376,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2016-06-16  1:55:20
+-- Dump completed on 2016-06-17  0:36:37
