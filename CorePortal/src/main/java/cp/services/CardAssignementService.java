@@ -12,6 +12,7 @@ import cp.models.CardAssignement;
 import cp.models.HBUser;
 import cp.utils.DataBase;
 import cp.utils.ResponseUtils;
+import cp.utils.enums.AccountType;
 
 @WebService
 public class CardAssignementService {
@@ -36,6 +37,13 @@ public class CardAssignementService {
 		CardAssignement cardAsing = new CardAssignement(user, card, account);
 		
 		Map<String, Object> response = new HashMap<>();
+		
+		if (account.getAcc_type().toString().equals(AccountType.CREDIT_ACCOUNT.toString())){
+			Card creditCard = DataBase.getCreditCardForAccount(account.getId());
+			if (creditCard != null){
+				return ResponseUtils.respondWithError("Credit account can have only one card assigned.");
+			}
+		}
 		
 		try {
 			DataBase.persistCardAssignement(cardAsing);

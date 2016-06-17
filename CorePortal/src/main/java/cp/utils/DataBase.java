@@ -17,12 +17,25 @@ import cp.models.Commision;
 import cp.models.ExchangeRates;
 import cp.models.HBUser;
 import cp.models.Rate;
+import cp.models.Transaction;
 import cp.models.CPUser;
 import cp.utils.enums.AuthenticationType;
+import cp.utils.enums.TransactionStatus;
 
 public class DataBase {
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistenceUnit");
 	private static EntityManager entity = factory.createEntityManager();
+
+	public static void setUP(){
+		factory = Persistence.createEntityManagerFactory("persistenceUnit");
+		entity = factory.createEntityManager();
+	}
+	
+	public static void commit(){
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		transaction.commit();
+	}
 	
 	/* Account model */
 	public static void persistAccount(Account acc){
@@ -78,6 +91,22 @@ public class DataBase {
 	public static Account getAccountById(Long id) {
 		Account obj = entity.find(Account.class, id);
 		return obj;
+	}
+	public static Account getAccountByIBAN(String IBAN) {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from accounts where IBAN= :IBAN", Account.class)
+				.setParameter("IBAN", IBAN);
+		@SuppressWarnings("unchecked")
+		List<Account> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList.get(0);
+		} else {
+			return null;
+		}
 	}
 	
 	/* AccountAssignement model */
@@ -209,6 +238,22 @@ public class DataBase {
 		}
 		
 		return obj;
+	}
+	public static Card getCreditCardForAccount(Long id) {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from card_assignements where id_account= :id_account", CardAssignement.class)
+				.setParameter("id_account", id);
+		@SuppressWarnings("unchecked")
+		List<CardAssignement> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList.get(0).getCard();
+		} else {
+			return null;
+		}
 	}
 	
 	/* Commision model*/
@@ -374,6 +419,26 @@ public class DataBase {
 		}
 		
 		return obj;
+	}
+	
+	/* Transaction model */
+	public static List<Transaction> getTransactionToBeProcceseed() {
+		int status = TransactionStatus.WAITING.ordinal();
+		
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from transactions where status= :status", Transaction.class)
+				.setParameter("status", status);
+		@SuppressWarnings("unchecked")
+		List<Transaction> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList;
+		} else {
+			return new ArrayList<Transaction>();
+		}
 	}
 	
 	/* CPUser model */

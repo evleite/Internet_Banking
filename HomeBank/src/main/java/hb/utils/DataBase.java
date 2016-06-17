@@ -25,6 +25,11 @@ public class DataBase {
 	private static EntityManagerFactory factory = Persistence.createEntityManagerFactory("persistenceUnit");
 	private static EntityManager entity = factory.createEntityManager();
 	
+	public static void setUP(){
+		factory = Persistence.createEntityManagerFactory("persistenceUnit");
+		entity = factory.createEntityManager();
+	}
+	
 	public static HBUser getHBUserByUserName(String username) {
 		EntityTransaction transaction = entity.getTransaction();
 		transaction.begin();

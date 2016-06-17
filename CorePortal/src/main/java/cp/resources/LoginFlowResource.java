@@ -23,11 +23,14 @@ import cp.models.Rate;
 import cp.services.AccountService;
 import cp.services.CardService;
 import cp.services.CommisionService;
+import cp.services.ExchangeRateService;
 import cp.services.LoginFlowService;
 import cp.services.RateService;
 import cp.services.UserHBService;
+import cp.utils.DataBase;
 import cp.utils.JsonUtils;
 import cp.utils.ResponseUtils;
+import cp.models.ExchangeRates;
 
 
 @Path("/login")
@@ -47,6 +50,8 @@ public class LoginFlowResource {
 	@Inject
 	private RateService rateService;
 	@Inject
+	private ExchangeRateService exchangeRateService;
+	@Inject
 	private HttpSession httpSession;
 	
 	@SuppressWarnings("unchecked")
@@ -60,6 +65,8 @@ public class LoginFlowResource {
 		if (httpSession.getAttribute("token") != null){
 			httpSession.invalidate();
 		}
+		
+		DataBase.setUP();
 		
 		Map<String, Object> response = loginFlowService.logIn(user, pass);
 		
@@ -120,6 +127,16 @@ public class LoginFlowResource {
 			} else {
 				return Response.serverError().entity(JsonUtils.mapToJson(hbUsers)).build();
 			}
+			
+			/* Process transactions */
+			Map<String, Object> exchangeRates = exchangeRateService.getExchangeRateList();
+			if ((boolean) exchangeRates.get("success") == true) {
+				List<ExchangeRates> exchangeRateList = (List<ExchangeRates>) exchangeRates.get("exchangeRateList");
+				loginFlowService.proccessPaiddingTransactions(exchangeRateList);
+			} else {
+				return Response.serverError().entity(JsonUtils.mapToJson(hbUsers)).build();
+			}
+						
 			
 			return Response.status(200).entity(JsonUtils.mapToJson(response)).build();
 		}

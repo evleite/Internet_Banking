@@ -19,6 +19,7 @@ import hb.models.ExchangeRates;
 import hb.models.HBUser;
 import hb.services.ExchangeRateService;
 import hb.services.LoginFlowService;
+import hb.utils.DataBase;
 import hb.utils.JsonUtils;
 import hb.utils.ResponseUtils;
 
@@ -45,6 +46,8 @@ public class LoginFlowResource {
 		if (httpSession.getAttribute("token") != null){
 			httpSession.invalidate();
 		}
+		
+		DataBase.setUP();
 		
 		Map<String, Object> response = loginFlowService.logIn(user, pass);
 		
