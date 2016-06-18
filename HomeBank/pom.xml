@@ -94,6 +94,27 @@
 			<version>2.7.4</version>
 		</dependency>
 		
+		<!-- IBM PDF generator library: iText -->
+		<dependency>
+			<groupId>com.itextpdf</groupId>
+			<artifactId>itextpdf</artifactId>
+			<version>5.0.6</version>
+		</dependency>
+		
+		<dependency>
+    		<groupId>org.jboss.resteasy</groupId>
+    		<artifactId>resteasy-jaxrs</artifactId>
+    		<version>2.2.1.GA</version>
+    		<scope>provided</scope>
+		</dependency>
+
+		<dependency>
+    		<groupId>org.jboss.resteasy</groupId>
+    		<artifactId>resteasy-multipart-provider</artifactId>
+	    	<version>2.2.0.GA</version>
+    		<scope>provided</scope>
+		</dependency>
+		
 	</dependencies>
 
 </project>

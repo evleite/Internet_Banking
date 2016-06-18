@@ -157,4 +157,38 @@ angular.module('homeBankApp').controller(
     	$scope.creditToCurrentPayment = function() {
     		HBModalFactory.creditToCurrentPayment($scope.creditCards, $scope.currentAccounts);
     	}
+    	
+    	/* Print statement */
+    	$scope.printStatement = function() {
+    		HBStatementService.printStatement(
+                   	$httpParamSerializer(
+                   			{
+                   				token: window.sessionStorage.token,
+                   				iban: $scope.selectedProduct
+                   			}
+                   	),
+                    function success(data) {
+                   		console.log('Statement succesfully generated:', data);
+                   		
+                   		var file = new Blob([data], {type: 'application/pdf'});
+                   	    var fileURL = URL.createObjectURL(file);
+                   	    window.open(fileURL);
+                   		
+                    },
+                    function err(err) {
+                       	console.log('Failed to generate statement:', err);
+                       	                            	
+                       	if (err.data.errorCode == 666){
+                       		window.sessionStorage.clear();
+                       		HBModalFactory.errorModal("Your session has expired. Please login again.");
+                       		$location.path("/login");
+                       	} else if (err.data.errorCode == 600) {
+                       		HBModalFactory.errorModal(err.data.error);
+                       		
+                       	} else {                            	
+                       		HBModalFactory.errorModal("Backend error");
+                       	}
+                    }
+                );
+    	}
 });

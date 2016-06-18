@@ -7,7 +7,7 @@
 	background-color: #ffffff;
 	padding: 10px;
 }
-.logo, .title {
+.display-inline {
 	display: inline-block;
 }
 .title {
@@ -110,6 +110,13 @@ hr{
 	font-size: 15px;
     font-weight: bold;
 	padding: 10px;
+}
+.transaction-grid-item-details{
+	min-width: 300px;
+    max-width: 300px;
+}
+.rejected-transaction{
+	color: red;
 }
 .cursor-pointer {
 	cursor: pointer;

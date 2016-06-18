@@ -11,6 +11,12 @@ cpApp.config(function($routeProvider){
 			}
 		)
 		.when(
+			'/contact',
+			{
+				templateUrl: 'views/hb-contact.html'
+			}
+		)
+		.when(
 			'/login',
 			{
 				templateUrl: 'views/hb-login-form.html',

@@ -242,4 +242,21 @@ public class DataBase {
 			return new ArrayList<ExchangeRates>();
 		}
 	}
+	
+	public static Card getCardForAccount(Long id) {
+		EntityTransaction transaction = entity.getTransaction();
+		transaction.begin();
+		
+		Query queryResult = entity.createNativeQuery("select * from card_assignements where id_account= :id_account", CardAssignement.class)
+				.setParameter("id_account", id);
+		@SuppressWarnings("unchecked")
+		List<CardAssignement> qList = queryResult.getResultList();
+		transaction.commit();
+		
+		if (qList.size() > 0){
+			return qList.get(0).getCard();
+		} else {
+			return null;
+		}
+	}
 }
