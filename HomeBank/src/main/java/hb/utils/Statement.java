@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Random;
 
@@ -63,14 +64,16 @@ public class Statement {
 		PdfPTable table = null;
 		if (card != null) {
 			table = new PdfPTable(2);
+			
+			// Set Column widths
+			float[] columnWidths = { 1f, 1f };
+			table.setWidths(columnWidths);
 		} else {
 			table = new PdfPTable(1);
 		}
 		table.setWidthPercentage(100);
 
-		// Set Column widths
-		float[] columnWidths = { 1f, 1f };
-		table.setWidths(columnWidths);
+		
 
 		PdfPCell header = new PdfPCell(new Paragraph("Account details"));
 		header.setColspan(2);
@@ -102,7 +105,7 @@ public class Statement {
 		cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
 		cell3.setVerticalAlignment(Element.ALIGN_MIDDLE);
 
-		PdfPCell cell4 = new PdfPCell(new Paragraph("Balance: " + account.getBalance()));
+		PdfPCell cell4 = new PdfPCell(new Paragraph("Balance: " + (new DecimalFormat("##.##").format(account.getBalance()))));
 		cell4.setBorderColor(BaseColor.LIGHT_GRAY);
 		cell4.setBorder(Rectangle.LEFT | Rectangle.BOTTOM);
 		cell4.setPadding(10);
@@ -114,7 +117,11 @@ public class Statement {
 		PdfPCell cell7 = null;
 		PdfPCell cell8 = null;
 		if (card != null) {
-			cell5 = new PdfPCell(new Paragraph("Card number: " + card.getCard_no()));
+			cell5 = new PdfPCell(new Paragraph("Card number: " + 
+					card.getCard_no().substring(0, 4) + " " +
+					card.getCard_no().substring(4, 8) + " " +
+					card.getCard_no().substring(8, 12) + " " +
+					card.getCard_no().substring(12)));
 			cell5.setBorderColor(BaseColor.LIGHT_GRAY);
 			cell5.setBorder(Rectangle.RIGHT | Rectangle.TOP);
 			cell5.setPadding(10);
@@ -234,7 +241,7 @@ public class Statement {
 				cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
 				cell3.setVerticalAlignment(Element.ALIGN_MIDDLE);
 
-				cell4 = new PdfPCell(new Paragraph(Double.toString(transaction.getAmount())));
+				cell4 = new PdfPCell(new Paragraph("" + new DecimalFormat("##.##").format(transaction.getAmount())));
 				cell4.setBorderColor(BaseColor.LIGHT_GRAY);
 				cell4.setPadding(10);
 				cell4.setHorizontalAlignment(Element.ALIGN_LEFT);

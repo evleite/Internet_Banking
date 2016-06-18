@@ -3,7 +3,7 @@
 angular.module('homeBankApp').controller(
     'HBBorrowingCtrl',
     function ($rootScope, $scope, $location, $httpParamSerializer, $q, $route, 
-    		HBModalFactory, HBProductService, HBUserHBService, HBTransactionService) {
+    		HBModalFactory, HBProductService, HBUserHBService, HBTransactionService, HBStatementService) {
     	
     	/* Get transaction for selected product */
     	$scope.getTransactions = function(IBAN){
