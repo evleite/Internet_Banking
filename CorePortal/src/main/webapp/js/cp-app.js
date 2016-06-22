@@ -5,12 +5,6 @@ var cpApp = angular.module('corePortalApp', ['ngRoute','ngResource', 'ui.bootstr
 cpApp.config(function($routeProvider){
 	$routeProvider
 		.when(
-			'/about',
-			{
-				templateUrl: 'views/cp-about.html'
-			}
-		)
-		.when(
 			'/login',
 			{
 				templateUrl: 'views/cp-login-form.html',
