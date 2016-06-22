@@ -31,8 +31,7 @@
 			<!-- Balance -->
 			<div class="form-group" ng-class="{ 'has-error' : editAccountForm.balance.$invalid && !editAccountForm.balance.$pristine }">
 				<label>Balance</label> 
-				<input type="number" name="balance" ng-init="balance=account.balance" class="form-control" ng-model="balance" min="0" required >
-				<p ng-show="editAccountForm.balance.$error.min" class="help-block">Balance has to be positive!</p>
+				<input type="text" name="balance" ng-init="balance=account.balance" class="form-control" ng-model="balance" required >
 				<p ng-show="editAccountForm.balance.$error.required" class="help-block">Balance is required!</p>
 			</div>
 
