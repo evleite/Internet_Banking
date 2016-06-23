@@ -118,6 +118,9 @@ hr{
 .rejected-transaction{
 	color: red;
 }
+.transaction-amount {
+	text-align: right;
+}
 .cursor-pointer {
 	cursor: pointer;
 }

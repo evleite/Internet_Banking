@@ -13,21 +13,21 @@
 			<!-- Firstname -->
 			<div class="form-group" ng-class="{ 'has-error' : editUserForm.firstname.$invalid && !editUserForm.firstname.$pristine }">
 	    		<label>Firstname</label>
-	    		<input type="text" name="firstname" ng-init="firstname=user.firstname" placeholder="Firstname" class="form-control" ng-model="firstname"required>
+	    		<input type="text" name="firstname" ng-init="firstname=user.firstname" placeholder="Firstname" class="form-control" ng-model="firstname"required disabled>
 	    		<p ng-show="editUserForm.firstname.$error.required" class="help-block">Firstname is required!</p>
 			</div>
 			
 			<!-- Lastname -->
 			<div class="form-group" ng-class="{ 'has-error' : editUserForm.lastname.$invalid && !editUserForm.lastname.$pristine }">
 	    		<label>Lastname</label>
-	    		<input type="text" name="lastname" ng-init="lastname=user.lastname" placeholder="Lastname" class="form-control" ng-model="lastname"required>
+	    		<input type="text" name="lastname" ng-init="lastname=user.lastname" placeholder="Lastname" class="form-control" ng-model="lastname"required disabled>
 	    		<p ng-show="editUserForm.lastname.$error.required" class="help-block">Firstname is required!</p>
 			</div>
 			
 			<!-- CNP -->
 			<div class="form-group" ng-class="{ 'has-error' : editUserForm.CNP.$invalid && !editUserForm.CNP.$pristine }">
 	    		<label>CNP</label>
-	    		<input type="text" name="CNP" ng-init="CNP=user.CNP" placeholder="CNP" class="form-control" ng-model="CNP" ng-pattern="/^[0-9]{13}$/" required>
+	    		<input type="text" name="CNP" ng-init="CNP=user.CNP" placeholder="CNP" class="form-control" ng-model="CNP" ng-pattern="/^[0-9]{13}$/" required disabled>
 	    		<p ng-show="editUserForm.CNP.$error.pattern" class="help-block">CNP contains 13 digits!</p>
 	    		<p ng-show="editUserForm.CNP.$error.required" class="help-block">CNP is required!</p>
 			</div>

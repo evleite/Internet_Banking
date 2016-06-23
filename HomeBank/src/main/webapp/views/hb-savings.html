@@ -51,7 +51,7 @@
 				<th>DATE</th>
 				<th>TRANSACTION DETAILS</th>
 				<th>STATUS</th>
-				<th>AMOUNT</th>
+				<th class="transaction-amount">AMOUNT</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -59,7 +59,7 @@
 				<td>{{ item.date }}</td>
 				<td class="transaction-grid-item-details">{{ item.details }}</td>
 				<td ng-class="{ 'rejected-transaction' : item.status == 'REJECTED' }">{{ item.status }}</td>
-				<td>{{ item.amount }}</td>
+				<td class="transaction-amount">{{ item.amount }} {{item.currency}}</td>
 			</tr>
 		</tbody>
 	</table>
