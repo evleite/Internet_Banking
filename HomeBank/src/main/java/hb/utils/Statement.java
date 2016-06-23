@@ -178,7 +178,7 @@ public class Statement {
 			table.setWidthPercentage(100);
 
 			// Set Column widths
-			float[] columnWidths2 = { 3f, 5f, 3f, 2f };
+			float[] columnWidths2 = { 3f, 5f, 3f, 3f };
 			table.setWidths(columnWidths2);
 
 			header = new PdfPCell(new Paragraph("Transaction grid"));
@@ -241,7 +241,7 @@ public class Statement {
 				cell3.setHorizontalAlignment(Element.ALIGN_LEFT);
 				cell3.setVerticalAlignment(Element.ALIGN_MIDDLE);
 
-				cell4 = new PdfPCell(new Paragraph("" + new DecimalFormat("##.##").format(transaction.getAmount())));
+				cell4 = new PdfPCell(new Paragraph("" + new DecimalFormat("##.##").format(transaction.getAmount()) + " " + transaction.getCurrency().toString()));
 				cell4.setBorderColor(BaseColor.LIGHT_GRAY);
 				cell4.setPadding(10);
 				cell4.setHorizontalAlignment(Element.ALIGN_LEFT);
