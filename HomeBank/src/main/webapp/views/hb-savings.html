@@ -49,7 +49,10 @@
 		<div class="display-inline right-nav cursor-pointer" ng-click=printStatement()>Print statement</div>
 	</div>
 	<table class="table table-hover table-striped">
-		<thead>
+		<div ng-if="transactionList.length == 0">
+			<h3>You have no transactions for this product!</h3>
+		</div>
+		<thead ng-if="transactionList.length > 0">
 			<tr>
 				<th>DATE</th>
 				<th>TRANSACTION DETAILS</th>
@@ -57,7 +60,7 @@
 				<th class="transaction-amount">AMOUNT</th>
 			</tr>
 		</thead>
-		<tbody>
+		<tbody ng-if="transactionList.length > 0">
 			<tr class="item transaction cursor-pointer" ng-repeat="item in transactionList track by $index" ng-click=transactionDetails(item)>
 				<td>{{ item.date }}</td>
 				<td class="transaction-grid-item-details">{{ item.details }}</td>
