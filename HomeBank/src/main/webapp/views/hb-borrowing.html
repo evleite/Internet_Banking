@@ -28,6 +28,9 @@
 </nav>
 
 <div class="products">
+	<div ng-if="creditCards.length == 0">
+		<h3>You have no credit cards assigned!</h3>
+	</div>
 	<div class="product-details cursor-pointer" ng-repeat="item in creditCards track by $index" ng-click=borrowingPage(item.account.IBAN)>
 		<div class="product-details-header borrowing">
 			<div>CREDIT CARD</div>
@@ -41,7 +44,7 @@
 	</div>
 </div>
 
-<div class="transaction-grid">
+<div class="transaction-grid" ng-if="creditCards.length > 0">
 	<div class="transaction-grid-header borrowing">
 		<div class="display-inline">Transaction list for account: {{ selectedCard }}</div>
 		<div class="display-inline right-nav cursor-pointer" ng-click=printStatement()>Print statement</div>

@@ -28,6 +28,9 @@
 </nav>
 
 <div class="products">
+	<div ng-if="savingsAccounts.length == 0">
+		<h3>You have no saving accounts assigned!</h3>
+	</div>
 	<div class="product-details cursor-pointer" ng-repeat="item in savingsAccounts track by $index" ng-click=savingsPage(item.account.IBAN)>
 		<div class="product-details-header savings">
 			<div>SAVING ACOUNT</div>
@@ -40,7 +43,7 @@
 	</div>
 </div>
 
-<div class="transaction-grid">
+<div class="transaction-grid" ng-if="savingsAccounts.length > 0">
 	<div class="transaction-grid-header savings">
 		<div class="display-inline">Transaction list for account: {{ selectedProduct }}</div>
 		<div class="display-inline right-nav cursor-pointer" ng-click=printStatement()>Print statement</div>
